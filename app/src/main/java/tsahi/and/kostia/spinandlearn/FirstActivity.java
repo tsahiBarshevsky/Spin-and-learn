@@ -25,7 +25,7 @@ public class FirstActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1, PICK_IMAGE = 2, PERMISSION_REQUEST = 3;
     protected CircleImageView userImage;
     EditText name;
-    Button enterBtn;
+    Button enterBtn, exitBtn;
     Bitmap bitmap;
     Uri imageUri;
 
@@ -35,7 +35,6 @@ public class FirstActivity extends AppCompatActivity {
         setContentView(R.layout.activity_first);
 
         enterBtn = findViewById(R.id.enter);
-        name = findViewById(R.id.name);
         enterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +42,14 @@ public class FirstActivity extends AppCompatActivity {
                 Intent intent = new Intent(FirstActivity.this, MainActivity.class);
                 intent.putExtra("Name", string);
                 startActivity(intent);
+            }
+        });
+        name = findViewById(R.id.name);
+        exitBtn = findViewById(R.id.exit);
+        exitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
         userImage = findViewById(R.id.userImage);

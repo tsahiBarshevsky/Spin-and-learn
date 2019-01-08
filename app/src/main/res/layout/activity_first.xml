@@ -7,11 +7,12 @@
     android:background="#b2f6df"
     tools:context=".FirstActivity">
 
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/layout_design"
-        android:layout_margin="10dp"
+        android:layout_marginTop="-40dp"
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
@@ -36,15 +37,33 @@
             android:textColor="#000"
             android:background="@drawable/edit_texts_design"/>
 
-        <Button android:id="@+id/enter"
-            android:layout_width="110dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:text="@string/enter"
-            android:textAllCaps="false"
-            android:layout_margin="15dp"
-            android:background="@drawable/button_design"/>
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <Button android:id="@+id/enter"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/enter"
+                android:textAllCaps="false"
+                android:layout_margin="15dp"
+                android:background="@drawable/button_design"/>
+
+            <Button android:id="@+id/exit"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/exit"
+                android:textAllCaps="false"
+                android:layout_margin="15dp"
+                android:background="@drawable/button_design"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

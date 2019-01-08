@@ -15,4 +15,13 @@
         android:text="Play"
         android:textAllCaps="false"/>
 
+    <Button android:id="@+id/howToPlayBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:text="How to play"
+        android:textAllCaps="false"
+        android:layout_below="@id/playBtn"/>
+
 </RelativeLayout>
