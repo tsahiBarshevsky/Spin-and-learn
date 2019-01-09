@@ -8,4 +8,5 @@
     <string name="exit">יציאה</string>
     <string name="your_answer_here">התשובה שלך...</string>
     <string name="answer">ענה</string>
+    <string name="round">"סיבוב: "</string>
 </resources>
