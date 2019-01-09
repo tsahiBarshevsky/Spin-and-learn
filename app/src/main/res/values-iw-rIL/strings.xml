@@ -6,4 +6,6 @@
     <string name="enter_your_name">הכנס את שמך...</string>
     <string name="enter">היכנס!</string>
     <string name="exit">יציאה</string>
+    <string name="your_answer_here">התשובה שלך...</string>
+    <string name="answer">ענה</string>
 </resources>

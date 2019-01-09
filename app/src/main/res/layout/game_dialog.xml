@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical">
+
+        <TextView android:id="@+id/exercise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="25sp"
+            android:gravity="center"/>
+
+        <EditText android:id="@+id/answer"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_texts_design"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:hint="@string/your_answer_here"
+            android:textColorHint="@color/hintColor"
+            android:inputType="text"/>
+
+        <Button android:id="@+id/answerBtn"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/answer"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:layout_margin="15dp"
+            android:background="@drawable/button_design"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

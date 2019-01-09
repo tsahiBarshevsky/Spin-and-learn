@@ -5,4 +5,6 @@
     <string name="enter_your_name">Enter your name...</string>
     <string name="enter">Enter!</string>
     <string name="exit">Exit</string>
+    <string name="your_answer_here">Your answer...</string>
+    <string name="answer">Answer</string>
 </resources>
