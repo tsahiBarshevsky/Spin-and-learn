@@ -34,12 +34,15 @@
         android:layout_height="wrap_content"
         android:src="@drawable/tringle"/>
 
-    <Button android:id="@+id/spinBtn"
+    <Button
+        android:id="@+id/spinBtn"
         android:layout_width="100dp"
         android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/button_design"
-        android:layout_margin="10dp"
         android:text="Spin"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false" />
 
 </RelativeLayout>

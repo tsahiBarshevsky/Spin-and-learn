@@ -2,6 +2,7 @@ package tsahi.and.kostia.spinandlearn;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
@@ -13,8 +14,10 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +35,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     long lngDegrees = 0;
     ImageView imageRoulette;
     TextView round;
+    CountDownTimer countDownTimer;
+    long timeLeftInMillis = 10000;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -94,59 +99,66 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         int pos = Integer.parseInt(string);
         pos--;
         blnButtonRotation = true;
-        //if (pos == 0 || pos == 6)
-        //{
-        AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
-        View dialogView = getLayoutInflater().inflate(R.layout.game_dialog, null);
-        builder.setView(dialogView).setCancelable(false);
-        final AlertDialog dialog = builder.show();
-        Random random = new Random();
-        int size = exercises.size();
-        final int index = random.nextInt(size);
-        TextView textView = dialogView.findViewById(R.id.exercise);
-        textView.setText(exercises.get(index).getQuestion());
-        if (exercises.get(index).getType().equals("Math"))
-        {
-            EditText answer = dialogView.findViewById(R.id.answer);
-            answer.setInputType(InputType.TYPE_CLASS_NUMBER);
-        }
-        final EditText answer = dialogView.findViewById(R.id.answer);
-        Button answerBtn = dialogView.findViewById(R.id.answerBtn);
-        answerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //if (pos == 0 || pos == 6) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
+            View dialogView = getLayoutInflater().inflate(R.layout.math_dialog, null);
+            builder.setView(dialogView).setCancelable(false);
+            final AlertDialog dialog = builder.show();
+            Random random = new Random();
+            int size = exercises.size();
+            final int index = random.nextInt(size);
+            startTimer(dialogView);
 
-                String answerString = answer.getText().toString();
-                if (answerString.equals(exercises.get(index).getAnswer())) {
-                    dialog.dismiss();
-                    Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    dialog.dismiss();
-                    Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
-                }
+
+            TextView exercise = dialogView.findViewById(R.id.exerciseMath);
+            exercise.setText(exercises.get(index).getQuestion());
+            final RadioButton rb1 = dialogView.findViewById(R.id.rb1);
+            final RadioButton rb2 = dialogView.findViewById(R.id.rb2);
+            final RadioButton rb3 = dialogView.findViewById(R.id.rb3);
+            final RadioButton rb4 = dialogView.findViewById(R.id.rb4);
+            if (exercises.get(index).getType().equals("Math")) {
+                rb1.setText("50");
+                rb2.setText(exercises.get(index).getAnswer());
+                rb3.setText("24");
+                rb4.setText("0");
             }
-        });
-        final Timer timer = new Timer(); //timer round
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-                timer.cancel();
-                new Thread()
-                {
-                    @Override
-                    public void run() {
-                        PlayActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+            Button answerBtn = dialogView.findViewById(R.id.mathAnswerBtn);
+            answerBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (rb2.isChecked()) {
+                        dialog.dismiss();
+                        Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
                     }
-                }.start();
-            }
-        }, 10000);
+                    else {
+                        dialog.dismiss();
+                        Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            final Timer timer = new Timer(); //timer round
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    dialog.dismiss();
+                    timer.cancel();
+                    new Thread()
+                    {
+                        @Override
+                        public void run() {
+                            PlayActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }.start();
+                }
+            }, 10000);
+        //}
+        //final EditText answer = dialogView.findViewById(R.id.answer);
+
 
         /*final AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
             View dialogView = getLayoutInflater().inflate(R.layout.game_dialog, null);
@@ -179,5 +191,34 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     @Override
     public void onAnimationRepeat(Animation animation) {
 
+    }
+
+    private void startTimer(final View v) {
+        countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
+                updateTimer(v);
+            }
+
+            @Override
+            public void onFinish() {
+                timeLeftInMillis = 10000;
+            }
+        }.start();
+    }
+
+    public void updateTimer(View v)
+    {
+        TextView timerText = v.findViewById(R.id.timeMath);
+        int minutes = (int)timeLeftInMillis / 60000;
+        int seconds = (int)timeLeftInMillis % 60000 / 1000;
+        String timeLeft;
+        timeLeft = "" + minutes;
+        timeLeft += ":";
+        if (seconds < 10)
+            timeLeft += "0";
+        timeLeft += seconds;
+        timerText.setText(timeLeft);
     }
 }
