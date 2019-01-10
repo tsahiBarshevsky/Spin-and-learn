@@ -42,6 +42,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         exercises = new ArrayList<>();
         exercises.add(new Exercise("1+1", "2", "Math"));
         exercises.add(new Exercise("2+2", "4", "Math"));
+        exercises.add(new Exercise("10+5", "15", "Math"));
 
         imageRoulette = findViewById(R.id.roulette);
         round = findViewById(R.id.round);
@@ -99,13 +100,33 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         View dialogView = getLayoutInflater().inflate(R.layout.game_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         final AlertDialog dialog = builder.show();
+        Random random = new Random();
+        int size = exercises.size();
+        final int index = random.nextInt(size);
         TextView textView = dialogView.findViewById(R.id.exercise);
-        textView.setText(exercises.get(1).getQuestion());
-        if (exercises.get(1).getType().equals("Math"))
+        textView.setText(exercises.get(index).getQuestion());
+        if (exercises.get(index).getType().equals("Math"))
         {
             EditText answer = dialogView.findViewById(R.id.answer);
             answer.setInputType(InputType.TYPE_CLASS_NUMBER);
         }
+        final EditText answer = dialogView.findViewById(R.id.answer);
+        Button answerBtn = dialogView.findViewById(R.id.answerBtn);
+        answerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String answerString = answer.getText().toString();
+                if (answerString.equals(exercises.get(index).getAnswer())) {
+                    dialog.dismiss();
+                    Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    dialog.dismiss();
+                    Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         final Timer timer = new Timer(); //timer round
         timer.schedule(new TimerTask() {
             @Override
@@ -125,7 +146,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     }
                 }.start();
             }
-        }, 5000);
+        }, 10000);
 
         /*final AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
             View dialogView = getLayoutInflater().inflate(R.layout.game_dialog, null);
@@ -150,7 +171,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     finish();
                 }
 
-            }, 5000); // 5000ms delay
+            }, 10000); // 10 seconds delay
         }
         round.setText(getString(R.string.round) + " " + roundsCounter);
     }
