@@ -56,21 +56,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
-        /*playBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.CustomAlertDialog);
-                View dialogView = getLayoutInflater().inflate(R.layout.game_dialog, null);
-                builder.setView(dialogView).show();
-                TextView textView = dialogView.findViewById(R.id.exercise);
-                textView.setText(exercises.get(1).getQuestion().toString());
-                if (exercises.get(1).getType().toString().equals("Math"))
-                {
-                    EditText answer = dialogView.findViewById(R.id.answer);
-                    answer.setInputType(InputType.TYPE_CLASS_NUMBER);
-                }
-            }
-        });*/
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }
