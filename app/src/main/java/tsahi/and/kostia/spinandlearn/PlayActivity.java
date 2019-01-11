@@ -84,7 +84,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    @SuppressLint("SetTextI18n")
     @Override
     public void onAnimationEnd(Animation animation) {
         //String types[] = {"Math", "Orange", "Gold", "Orange", "Green", "Red", "Math", "Orange", "Green", "Red"};
@@ -93,7 +92,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         int pos = Integer.parseInt(string);
         pos--;
         blnButtonRotation = true;
-        /*switch (pos)
+        switch (pos)
         {
             case 0:
                 mathQuestion();
@@ -101,8 +100,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             case 6:
                 mathQuestion();
                 break;
-        }*/
-        mathQuestion();
+        }
         if (roundsCounter > 2)
         {
             Handler handler = new Handler();
@@ -115,8 +113,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
             }, 10000); // 10 seconds delay
         }
-        /*round.setText(getString(R.string.round) + " " + roundsCounter);
-        score.setText(getString(R.string.score) + " " + scoreCounter);*/
     }
 
     @Override
@@ -217,7 +213,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 {
                     case 1:
                         if (rb1.isChecked()) {
-                            scoreCounter++;
+                            scoreCounter += 50;
                             dialog.dismiss();
                             Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
                         }
@@ -228,7 +224,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         break;
                     case 2:
                         if (rb2.isChecked()) {
-                            scoreCounter++;
+                            scoreCounter += 50;
                             dialog.dismiss();
                             Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
                         }
@@ -239,7 +235,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         break;
                     case 3:
                         if (rb3.isChecked()) {
-                            scoreCounter++;
+                            scoreCounter += 50;
                             dialog.dismiss();
                             Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
                         }
@@ -250,7 +246,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         break;
                     case 4:
                         if (rb4.isChecked()) {
-                            scoreCounter++;
+                            scoreCounter += 50;
                             dialog.dismiss();
                             Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
                         }
