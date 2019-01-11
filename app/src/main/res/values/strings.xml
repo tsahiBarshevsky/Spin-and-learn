@@ -8,4 +8,5 @@
     <string name="your_answer_here">Your answer...</string>
     <string name="answer">Answer</string>
     <string name="round">Round:</string>
+    <string name="score">Score:</string>
 </resources>

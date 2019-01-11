@@ -9,4 +9,5 @@
     <string name="your_answer_here">התשובה שלך...</string>
     <string name="answer">ענה</string>
     <string name="round">"סיבוב: "</string>
+    <string name="score">"ניקוד: "</string>
 </resources>

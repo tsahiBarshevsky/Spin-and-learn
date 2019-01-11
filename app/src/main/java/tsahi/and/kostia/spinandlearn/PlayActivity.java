@@ -34,13 +34,13 @@ import java.util.stream.IntStream;
 
 public class PlayActivity extends AppCompatActivity implements Animation.AnimationListener{
 
-    int roundsCounter = 1;
+    int roundsCounter = 1, scoreCounter = 0;
     ArrayList<Exercise> exercises;
     boolean blnButtonRotation = true;
     int intNumber = 10;
     long lngDegrees = 0;
     ImageView imageRoulette;
-    TextView round;
+    TextView round, score;
     CountDownTimer countDownTimer;
     long timeLeftInMillis = 10000;
 
@@ -53,7 +53,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         initArray();
         imageRoulette = findViewById(R.id.roulette);
         round = findViewById(R.id.round);
-        round.setText(getString(R.string.round) + " " + roundsCounter);
+        round.setText(getString(R.string.round) + " " + "0");
+        score = findViewById(R.id.score);
+        score.setText(getString(R.string.score) + " " + "0");
         Button spinBtn = findViewById(R.id.spinBtn);
         spinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +66,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     int ran = new Random().nextInt(360) + 3600;
                     RotateAnimation rotateAnimation = new RotateAnimation((float)lngDegrees, (float)
                             (lngDegrees + ((long)ran)),1,0.5f,1,0.5f);
-
                     lngDegrees = (lngDegrees + ((long)ran)) % 360;
                     rotateAnimation.setDuration((long)ran);
                     rotateAnimation.setFillAfter(true);
@@ -114,7 +115,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
             }, 10000); // 10 seconds delay
         }
-        round.setText(getString(R.string.round) + " " + roundsCounter);
+        /*round.setText(getString(R.string.round) + " " + roundsCounter);
+        score.setText(getString(R.string.score) + " " + scoreCounter);*/
     }
 
     @Override
@@ -151,6 +153,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         timerText.setText(timeLeft);
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void mathQuestion()
     {
@@ -160,7 +163,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         final AlertDialog dialog = builder.show();
         Random random = new Random();
         int size = exercises.size();
-        final int index = random.nextInt(size);
+        final int index = random.nextInt(size); //draw lots question's number
         startTimer(dialogView);
         TextView exercise = dialogView.findViewById(R.id.exerciseMath);
         exercise.setText(exercises.get(index).getQuestion());
@@ -173,7 +176,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         List<Integer> digits = IntStream.range(0,3).boxed().collect(Collectors.toList());
         Collections.shuffle(digits);
         int wrongAnswers[] = new int[3];
-        for(int i=0;i<3;i++)
+        for (int i=0;i<3;i++)
             wrongAnswers[i] = digits.get(i);
         /*int[] wrongAnswers = new int[3];
         for (int i=0;i<3;i++)
@@ -214,6 +217,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 {
                     case 1:
                         if (rb1.isChecked()) {
+                            scoreCounter++;
                             dialog.dismiss();
                             Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
                         }
@@ -224,6 +228,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         break;
                     case 2:
                         if (rb2.isChecked()) {
+                            scoreCounter++;
                             dialog.dismiss();
                             Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
                         }
@@ -234,6 +239,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         break;
                     case 3:
                         if (rb3.isChecked()) {
+                            scoreCounter++;
                             dialog.dismiss();
                             Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
                         }
@@ -244,6 +250,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         break;
                     case 4:
                         if (rb4.isChecked()) {
+                            scoreCounter++;
                             dialog.dismiss();
                             Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
                         }
@@ -253,6 +260,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         }
                         break;
                 }
+                round.setText(getString(R.string.round) + " " + roundsCounter);
+                score.setText(getString(R.string.score) + " " + scoreCounter);
             }
         });
         final Timer timer = new Timer(); //timer round
@@ -275,6 +284,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 }.start();
             }
         }, 10000);
+        /*round.setText(getString(R.string.round) + " " + roundsCounter);
+        score.setText(getString(R.string.score) + " " + scoreCounter);*/
     }
 
     public void initArray()
@@ -284,5 +295,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         exercises.add(new Exercise("1+1", "2", "Math", wrong));
         exercises.add(new Exercise("2+2", "4", "Math", wrong));
         exercises.add(new Exercise("10+5", "15", "Math", wrong));
+        exercises.add(new Exercise("7*8", "56", "Math", wrong));
     }
 }
