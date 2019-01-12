@@ -1,13 +1,12 @@
 package tsahi.and.kostia.spinandlearn;
 
-public class Exercise
+public class MathExercise
 {
-    private String question, answer, type, wrongAnswers[];
+    private String question, answer, wrongAnswers[];
 
-    public Exercise(String question, String answer, String type, String[] wrongAnswers) {
+    public MathExercise(String question, String answer, String[] wrongAnswers) {
         this.question = question;
         this.answer = answer;
-        this.type = type;
         this.wrongAnswers = wrongAnswers;
     }
 
@@ -27,15 +26,6 @@ public class Exercise
         this.answer = answer;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type)
-    {
-        this.type = type;
-    }
-
     public String[] getWrongAnswers() {
         return wrongAnswers;
     }
@@ -46,10 +36,9 @@ public class Exercise
 
     @Override
     public String toString() {
-        return "Exercise{" +
+        return "MathExercise{" +
                 "question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
-                ", type='" + type + '\'' +
                 '}';
     }
 }

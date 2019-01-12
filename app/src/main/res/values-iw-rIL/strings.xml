@@ -16,4 +16,7 @@
     <string name="medium">בינוני</string>
     <string name="hard">קשה</string>
     <string name="level">"רמה: "</string>
+    <string name="spin">סובב/י!</string>
+    <string name="how_to_play">איך משחקים</string>
+    <string name="leaderbaord">טבלת שיאים</string>
 </resources>

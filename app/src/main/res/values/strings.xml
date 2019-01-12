@@ -15,4 +15,7 @@
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
     <string name="level">Level:</string>
+    <string name="spin">Spin!</string>
+    <string name="how_to_play">How to play</string>
+    <string name="leaderbaord">Leaderboard</string>
 </resources>

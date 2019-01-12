@@ -7,7 +7,78 @@
     tools:context=".MainActivity"
     android:background="#b2f6df">
 
-    <Button android:id="@+id/playBtn"
+    <TextView
+        android:id="@+id/massage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="165dp"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textSize="20sp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/massage"
+        android:layout_centerHorizontal="true">
+
+        <Button android:id="@+id/easyBtn"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:background="@drawable/button_design"
+            android:text="@string/easy"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"/>
+
+        <Button android:id="@+id/mediumBtn"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:background="@drawable/button_design"
+            android:text="@string/medium"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"/>
+
+        <Button android:id="@+id/hardBtn"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:background="@drawable/button_design"
+            android:text="@string/hard"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button android:id="@+id/howToPlayBtn"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:text="@string/how_to_play"
+                android:textAllCaps="false"
+                android:background="@drawable/button_design"
+                android:layout_margin="5dp"/>
+
+            <Button android:id="@+id/leaderboardBtn"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:text="@string/leaderbaord"
+                android:textAllCaps="false"
+                android:background="@drawable/button_design"
+                android:layout_margin="5dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!--<Button android:id="@+id/playBtn"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -15,20 +86,9 @@
         android:text="Play"
         android:textAllCaps="false"
         android:background="@drawable/button_design"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"/>-->
 
-    <Button android:id="@+id/howToPlayBtn"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_centerInParent="true"
-        android:text="How to play"
-        android:textAllCaps="false"
-        android:layout_below="@id/playBtn"
-        android:background="@drawable/button_design"
-        android:layout_margin="5dp"/>
-
-    <Button android:id="@+id/settingsBtn"
+    <!--<Button android:id="@+id/settingsBtn"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -37,6 +97,6 @@
         android:textAllCaps="false"
         android:layout_below="@id/howToPlayBtn"
         android:background="@drawable/button_design"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"/>-->
 
 </RelativeLayout>

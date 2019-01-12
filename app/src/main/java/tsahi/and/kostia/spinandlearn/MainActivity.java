@@ -1,26 +1,14 @@
 package tsahi.and.kostia.spinandlearn;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.zip.Inflater;
-
 public class MainActivity extends AppCompatActivity {
-
-//    private ArrayList<Exercise> exercises;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final String userName = getIntent().getStringExtra("Name");
+        TextView massage = findViewById(R.id.massage);
+        massage.setText(getString(R.string.hey) + " " + userName + ", " + getString(R.string.choose_level));
         Button howToPlay = findViewById(R.id.howToPlayBtn);
         howToPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +35,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button playBtn = findViewById(R.id.playBtn);
+        Button easyBtn = findViewById(R.id.easyBtn);
+        easyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PlayActivity.class);
+                intent.putExtra("Level", "Easy");
+                startActivity(intent);
+            }
+        });
+        Button mediumBtn = findViewById(R.id.mediumBtn);
+        mediumBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PlayActivity.class);
+                intent.putExtra("Level", "Medium");
+                startActivity(intent);
+            }
+        });
+        Button hardBtn = findViewById(R.id.hardBtn);
+        hardBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PlayActivity.class);
+                intent.putExtra("Level", "Hard");
+                startActivity(intent);
+            }
+        });
+        /*Button playBtn = findViewById(R.id.playBtn);
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("Name", userName);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     @Override

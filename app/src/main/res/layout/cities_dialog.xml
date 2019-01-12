@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="375dp"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <TextView android:id="@+id/timeCities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="25sp"
+            android:textColor="#000"
+            android:gravity="center"/>
+
+        <TextView android:id="@+id/exerciseCities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="25sp"
+            android:textColor="#000"
+            android:gravity="center"
+            android:background="@drawable/question_design"/>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <RadioButton android:id="@+id/rb1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:buttonTint="#000"
+                android:layout_margin="5dp"/>
+
+            <RadioButton android:id="@+id/rb2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:buttonTint="#000"
+                android:layout_margin="5dp"/>
+
+            <RadioButton android:id="@+id/rb3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:buttonTint="#000"
+                android:layout_margin="5dp"/>
+
+            <RadioButton android:id="@+id/rb4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:buttonTint="#000"
+                android:layout_margin="5dp"/>
+
+        </RadioGroup>
+
+        <Button android:id="@+id/citiesAnswerBtn"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/answer"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:layout_margin="15dp"
+            android:background="@drawable/button_design"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
