@@ -9,4 +9,10 @@
     <string name="answer">Answer</string>
     <string name="round">Round:</string>
     <string name="score">Score:</string>
+    <string name="choose_level">please choose level:</string>
+    <string name="hey">Hey</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="level">Level:</string>
 </resources>

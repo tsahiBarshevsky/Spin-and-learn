@@ -27,10 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*exercises = new ArrayList<>();
-        exercises.add(new Exercise("1+1", "2", "Math"));
-        exercises.add(new Exercise("2+2", "4", "Math"));*/
-
+        final String userName = getIntent().getStringExtra("Name");
         Button howToPlay = findViewById(R.id.howToPlayBtn);
         howToPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PlayActivity.class);
+                Intent intent = new Intent(MainActivity.this, LevelActivity.class);
+                intent.putExtra("Name", userName);
                 startActivity(intent);
             }
         });

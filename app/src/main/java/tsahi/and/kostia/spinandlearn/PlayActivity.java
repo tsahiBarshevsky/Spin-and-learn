@@ -35,14 +35,16 @@ import java.util.stream.IntStream;
 public class PlayActivity extends AppCompatActivity implements Animation.AnimationListener{
 
     int roundsCounter = 1, scoreCounter = 0;
+    int scoreToAdd;
     ArrayList<Exercise> exercises;
     boolean blnButtonRotation = true;
     int intNumber = 10;
     long lngDegrees = 0;
     ImageView imageRoulette;
-    TextView round, score;
+    TextView round, score, levelTV;
     CountDownTimer countDownTimer;
-    long timeLeftInMillis = 10000;
+    long timeLeftInMillis, temp;
+    String level;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -50,10 +52,33 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        levelTV = findViewById(R.id.level_TV);
+        level = getIntent().getStringExtra("Level");
+        switch (level)
+        {
+            case "Easy":
+                scoreToAdd = 10;          //add 10 points for right answer
+                timeLeftInMillis = 60000; //1 minute
+                temp = timeLeftInMillis;
+                levelTV.setText(getString(R.string.level) + getString(R.string.easy));
+                break;
+            case "Medium":
+                scoreToAdd = 20;          //add 10 points for right answer
+                timeLeftInMillis = 30000; //30 seconds
+                temp = timeLeftInMillis;
+                levelTV.setText(getString(R.string.level) + getString(R.string.medium));
+                break;
+            case "Hard":
+                scoreToAdd = 50;          //add 50 points for right answer
+                timeLeftInMillis = 10000; //10 seconds
+                temp = timeLeftInMillis;
+                levelTV.setText(getString(R.string.level) + getString(R.string.hard));
+                break;
+        }
         initArray();
         imageRoulette = findViewById(R.id.roulette);
         round = findViewById(R.id.round);
-        round.setText(getString(R.string.round) + " " + "0");
+        round.setText(getString(R.string.round) + " " + "1");
         score = findViewById(R.id.score);
         score.setText(getString(R.string.score) + " " + "0");
         Button spinBtn = findViewById(R.id.spinBtn);
@@ -92,7 +117,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         int pos = Integer.parseInt(string);
         pos--;
         blnButtonRotation = true;
-        switch (pos)
+        /*switch (pos)
         {
             case 0:
                 mathQuestion();
@@ -100,7 +125,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             case 6:
                 mathQuestion();
                 break;
-        }
+        }*/
+        mathQuestion();
         if (roundsCounter > 2)
         {
             Handler handler = new Handler();
@@ -111,7 +137,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     finish();
                 }
 
-            }, 10000); // 10 seconds delay
+            }, timeLeftInMillis);
         }
     }
 
@@ -130,7 +156,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
             @Override
             public void onFinish() {
-                timeLeftInMillis = 10000;
+                timeLeftInMillis = temp;
+                countDownTimer.cancel();
             }
         }.start();
     }
@@ -213,7 +240,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 {
                     case 1:
                         if (rb1.isChecked()) {
-                            scoreCounter += 50;
+                            scoreCounter += scoreToAdd;
                             dialog.dismiss();
                             Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
                         }
@@ -224,7 +251,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         break;
                     case 2:
                         if (rb2.isChecked()) {
-                            scoreCounter += 50;
+                            scoreCounter += scoreToAdd;
                             dialog.dismiss();
                             Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
                         }
@@ -235,7 +262,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         break;
                     case 3:
                         if (rb3.isChecked()) {
-                            scoreCounter += 50;
+                            scoreCounter += scoreToAdd;
                             dialog.dismiss();
                             Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
                         }
@@ -246,7 +273,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         break;
                     case 4:
                         if (rb4.isChecked()) {
-                            scoreCounter += 50;
+                            scoreCounter += scoreToAdd;
                             dialog.dismiss();
                             Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
                         }
@@ -258,6 +285,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 }
                 round.setText(getString(R.string.round) + " " + roundsCounter);
                 score.setText(getString(R.string.score) + " " + scoreCounter);
+                countDownTimer.cancel();
+                timeLeftInMillis = temp;
             }
         });
         final Timer timer = new Timer(); //timer round
@@ -279,7 +308,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     }
                 }.start();
             }
-        }, 10000);
+        }, timeLeftInMillis);
         /*round.setText(getString(R.string.round) + " " + roundsCounter);
         score.setText(getString(R.string.score) + " " + scoreCounter);*/
     }

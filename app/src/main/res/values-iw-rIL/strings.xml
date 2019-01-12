@@ -10,4 +10,10 @@
     <string name="answer">ענה</string>
     <string name="round">"סיבוב: "</string>
     <string name="score">"ניקוד: "</string>
+    <string name="choose_level">אנא בחר/י רמה:</string>
+    <string name="hey">היי</string>
+    <string name="easy">קל</string>
+    <string name="medium">בינוני</string>
+    <string name="hard">קשה</string>
+    <string name="level">"רמה: "</string>
 </resources>
