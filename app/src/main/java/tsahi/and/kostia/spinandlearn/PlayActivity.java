@@ -194,7 +194,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         if (seconds < 10)
             timeLeft += "0";
         timeLeft += seconds;
-        timerText.setText(timeLeft);
+        if (timerText != null)
+            timerText.setText(timeLeft);
     }
 
     @SuppressLint("SetTextI18n")
