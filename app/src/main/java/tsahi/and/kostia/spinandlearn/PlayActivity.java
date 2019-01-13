@@ -1,6 +1,7 @@
 package tsahi.and.kostia.spinandlearn;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -39,6 +40,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     CountDownTimer countDownTimer;
     String level, type;
     Button spinBtn;
+    SharedPreferences sp;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -46,6 +48,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        sp = getSharedPreferences("High scores", MODE_PRIVATE);
         exercises = new Exercises();
         levelTV = findViewById(R.id.level_TV);
         level = getIntent().getStringExtra("Level");
@@ -508,5 +511,14 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 score.setText(getString(R.string.score) + " " + scoreCounter);
             }
         }, 3000);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("Name", getIntent().getStringExtra("Name"));
+        editor.putInt("Score", scoreCounter);
+        editor.commit();
     }
 }

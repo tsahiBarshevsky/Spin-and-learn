@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, PlayActivity.class);
                 intent.putExtra("Level", "Easy");
+                intent.putExtra("Name", userName);
                 startActivity(intent);
             }
         });
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, PlayActivity.class);
                 intent.putExtra("Level", "Medium");
+                intent.putExtra("Name", userName);
                 startActivity(intent);
             }
         });
@@ -59,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, PlayActivity.class);
                 intent.putExtra("Level", "Hard");
+                intent.putExtra("Name", userName);
+                startActivity(intent);
+            }
+        });
+        Button leaderboardBtn = findViewById(R.id.leaderboardBtn);
+        leaderboardBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LeaderboardActivity.class);
                 startActivity(intent);
             }
         });
