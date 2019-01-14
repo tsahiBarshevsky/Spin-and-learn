@@ -1,7 +1,11 @@
 package tsahi.and.kostia.spinandlearn;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -10,11 +14,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +37,7 @@ import java.util.stream.IntStream;
 public class PlayActivity extends AppCompatActivity implements Animation.AnimationListener{
 
     int roundsCounter = 1, scoreCounter = 0, scoreToAdd;
-    boolean blnButtonRotation = true, answer;
+    boolean blnButtonRotation = true, answer, bonus;
     int intNumber = 10;
     long lngDegrees = 0, timeLeftInMillis, temp;
     Exercises exercises;
@@ -109,38 +115,63 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onAnimationEnd(Animation animation) {
-        //String types[] = {"Math", "Orange", "Gold", "Orange", "Green", "Red", "Math", "Orange", "Green", "Red"};
-        answer = false;
-        String string = String.valueOf((int)(((double)this.intNumber)
-                - Math.floor(((double)this.lngDegrees) / (360.0d / ((double)this.intNumber)))));
-        int pos = Integer.parseInt(string);
-        pos--;
-        blnButtonRotation = true;
-        switch (pos)
+        if (!bonus) {
+            answer = false;
+            String string = String.valueOf((int) (((double) this.intNumber)
+                    - Math.floor(((double) this.lngDegrees) / (360.0d / ((double) this.intNumber)))));
+            int pos = Integer.parseInt(string);
+            pos--;
+            blnButtonRotation = true;
+            switch (pos)
+            {
+                case 0:
+                    type = "math";
+                    mathQuestion();
+                    break;
+                case 1:
+                    type = "cities";
+                    citiesQuestion();
+                    break;
+                case 2:
+                    showBonus();
+                    break;
+                case 3:
+                    type = "cities";
+                    citiesQuestion();
+                    break;
+                case 6:
+                    type = "math";
+                    mathQuestion();
+                    break;
+                case 7:
+                    type = "cities";
+                    citiesQuestion();
+                    break;
+            }
+        }
+        else //bonus wheel spin - need to check this
         {
-            case 0:
-                type = "math";
-                mathQuestion();
-                break;
-            case 1:
-                type = "cities";
-                citiesQuestion();
-                break;
-            case 2:
-                showBonus();
-                break;
-            case 3:
-                type = "cities";
-                citiesQuestion();
-                break;
-            case 6:
-                type = "math";
-                mathQuestion();
-                break;
-            case 7:
-                type = "cities";
-                citiesQuestion();
-                break;
+            String string = String.valueOf((int)(((double)4)
+                    - Math.floor(((double)4) / (360.0d / ((double)4)))));
+            int pos = Integer.parseInt(string);
+            pos--;
+            switch (pos)
+            {
+                case 0:
+                    Toast.makeText(PlayActivity.this, "Blue", Toast.LENGTH_SHORT).show();
+                    break;
+                case 1:
+                    Toast.makeText(PlayActivity.this, "Green", Toast.LENGTH_SHORT).show();
+                    break;
+                case 2:
+                    Toast.makeText(PlayActivity.this, "Orange", Toast.LENGTH_SHORT).show();
+                    break;
+                case 3:
+                    Toast.makeText(PlayActivity.this, "Red", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+            bonus = false;
+            changeBack();
         }
         if (roundsCounter > 2)
         {
@@ -498,19 +529,85 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     public void showBonus()
     {
+        bonus = true;
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer = MediaPlayer.create(this, R.raw.ta_da);
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
         View dialogView = getLayoutInflater().inflate(R.layout.bonus_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         final AlertDialog dialog = builder.show();
+        mediaPlayer.start();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 dialog.dismiss();
-                scoreCounter += 100;
+                //scoreCounter += 100;
                 score.setText(getString(R.string.score) + " " + scoreCounter);
             }
         }, 3000);
+        LinearLayout bonusLayout = findViewById(R.id.bonusLayout);
+        bonusLayout.setVisibility(View.VISIBLE);
+        spinBtn.setVisibility(View.INVISIBLE);
+        final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageRoulette, "scaleX", 1f, 0f);
+        final ObjectAnimator oa2 = ObjectAnimator.ofFloat(imageRoulette, "scaleX", 0f, 1f);
+        oa1.setInterpolator(new DecelerateInterpolator());
+        oa2.setInterpolator(new AccelerateDecelerateInterpolator());
+        oa1.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                imageRoulette.setImageResource(R.drawable.bonus_wheel);
+                oa2.start();
+            }
+        });
+        oa1.start();
+
+        Button spinBonusBtn = findViewById(R.id.spinBonusBtn);
+        spinBonusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int ran = new Random().nextInt(360) + 3600;
+                RotateAnimation rotateAnimation = new RotateAnimation((float)lngDegrees, (float)
+                        (lngDegrees + ((long)ran)),1,0.5f,1,0.5f);
+                lngDegrees = (lngDegrees + ((long)ran)) % 360;
+                rotateAnimation.setDuration((long)ran);
+                rotateAnimation.setFillAfter(true);
+                rotateAnimation.setInterpolator(new DecelerateInterpolator());
+                rotateAnimation.setAnimationListener(PlayActivity.this);
+                imageRoulette.setAnimation(rotateAnimation);
+                imageRoulette.startAnimation(rotateAnimation);
+                bonusLayout.setVisibility(View.INVISIBLE);
+                spinBtn.setVisibility(View.VISIBLE);
+            }
+        });
+        Button leaveBtn = findViewById(R.id.leaveBtn);
+        leaveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bonusLayout.setVisibility(View.INVISIBLE);
+                spinBtn.setVisibility(View.VISIBLE);
+                bonus = false;
+                changeBack();
+            }
+        });
+    }
+
+    public void changeBack()
+    {
+        final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageRoulette, "scaleX", 1f, 0f);
+        final ObjectAnimator oa2 = ObjectAnimator.ofFloat(imageRoulette, "scaleX", 0f, 1f);
+        oa1.setInterpolator(new DecelerateInterpolator());
+        oa2.setInterpolator(new AccelerateDecelerateInterpolator());
+        oa1.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                imageRoulette.setImageResource(R.drawable.rolutte_10);
+                oa2.start();
+            }
+        });
+        oa1.start();
     }
 
     @Override

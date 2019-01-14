@@ -64,4 +64,32 @@
         android:text="@string/spin"
         android:textAllCaps="false"/>
 
+    <LinearLayout android:id="@+id/bonusLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/spinBtn"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <Button
+            android:id="@+id/spinBonusBtn"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_design"
+            android:text="@string/spin"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/leaveBtn"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_design"
+            android:text="Leave"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+
 </RelativeLayout>
