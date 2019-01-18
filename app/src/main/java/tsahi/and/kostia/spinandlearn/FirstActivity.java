@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -14,8 +15,12 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -24,6 +29,7 @@ public class FirstActivity extends AppCompatActivity {
 
     private static final int CAMERA_REQUEST = 1, PICK_IMAGE = 2, PERMISSION_REQUEST = 3;
     protected CircleImageView userImage;
+    LinearLayout mainLayout;
     EditText name;
     Button enterBtn, exitBtn;
     Bitmap bitmap;
@@ -34,25 +40,53 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
+        /*mainLayout = findViewById(R.id.mainLayout);
+        mainLayout.animate().translationX(100).translationY(100).setDuration(1500).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+                mainLayout.animate().translationX(0).translationY(0).setDuration(1500);
+            }
+        }).start();*/
         enterBtn = findViewById(R.id.enter);
+        name = findViewById(R.id.name);
+        exitBtn = findViewById(R.id.exit);
+        userImage = findViewById(R.id.userImage);
+        Animation slideRight = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_right);
+        ImageView logo = findViewById(R.id.logo);
+        logo.startAnimation(slideRight);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Animation fade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+                Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up_in);
+                mainLayout = findViewById(R.id.mainLayout);
+                mainLayout.setVisibility(View.VISIBLE);
+                mainLayout.startAnimation(fade);
+                enterBtn.startAnimation(slideUp);
+                exitBtn.startAnimation(slideUp);
+                name.startAnimation(slideUp);
+                userImage.startAnimation(slideUp);
+            }
+        }, 1500);
         enterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String string = name.getText().toString();
                 Intent intent = new Intent(FirstActivity.this, MainActivity.class);
                 intent.putExtra("Name", string);
+                Bundle extras = new Bundle();
+                extras.putParcelable("user_pic", bitmap);
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });
-        name = findViewById(R.id.name);
-        exitBtn = findViewById(R.id.exit);
         exitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        userImage = findViewById(R.id.userImage);
         registerForContextMenu(userImage);
     }
 
