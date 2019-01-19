@@ -40,13 +40,6 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
-        /*mainLayout = findViewById(R.id.mainLayout);
-        mainLayout.animate().translationX(100).translationY(100).setDuration(1500).withEndAction(new Runnable() {
-            @Override
-            public void run() {
-                mainLayout.animate().translationX(0).translationY(0).setDuration(1500);
-            }
-        }).start();*/
         enterBtn = findViewById(R.id.enter);
         name = findViewById(R.id.name);
         exitBtn = findViewById(R.id.exit);
@@ -54,6 +47,7 @@ public class FirstActivity extends AppCompatActivity {
         Animation slideRight = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_right);
         ImageView logo = findViewById(R.id.logo);
         logo.startAnimation(slideRight);
+        logo.animate().rotationY(360).setDuration(2500);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -68,7 +62,7 @@ public class FirstActivity extends AppCompatActivity {
                 name.startAnimation(slideUp);
                 userImage.startAnimation(slideUp);
             }
-        }, 1500);
+        }, 1700);
         enterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

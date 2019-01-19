@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -13,6 +14,9 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
@@ -25,6 +29,11 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +42,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PlayActivity extends AppCompatActivity implements Animation.AnimationListener{
 
@@ -47,6 +58,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     String level, type;
     Button spinBtn;
     SharedPreferences sp;
+    Bitmap bitmap;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -54,7 +66,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-        sp = getSharedPreferences("High scores", MODE_PRIVATE);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null)
+            bitmap = extras.getParcelable("user_pic");
+        sp = getSharedPreferences("score detail", MODE_PRIVATE);
         exercises = new Exercises();
         levelTV = findViewById(R.id.level_TV);
         level = getIntent().getStringExtra("Level");
@@ -610,12 +625,22 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         oa1.start();
     }
 
+    public static String encodeToBase64(Bitmap image) {
+        Bitmap immage = image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        immage.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+        return imageEncoded;
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("Name", getIntent().getStringExtra("Name"));
         editor.putInt("Score", scoreCounter);
+        editor.putString("Pic", encodeToBase64(bitmap));
         editor.commit();
     }
 }
