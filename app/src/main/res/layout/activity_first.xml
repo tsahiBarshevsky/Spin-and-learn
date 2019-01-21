@@ -81,6 +81,20 @@
 
     </LinearLayout>
 
+    <ImageView android:id="@+id/man_heb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:contentDescription="@null"
+        android:src="@drawable/man" />
 
+    <ImageView android:id="@+id/man_eng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:contentDescription="@null"
+        android:src="@drawable/man_side" />
 
 </RelativeLayout>

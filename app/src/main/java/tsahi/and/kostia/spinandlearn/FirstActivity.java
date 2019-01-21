@@ -23,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FirstActivity extends AppCompatActivity {
@@ -44,16 +46,34 @@ public class FirstActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         exitBtn = findViewById(R.id.exit);
         userImage = findViewById(R.id.userImage);
-        Animation slideRight = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_right);
+        final Animation slideRight = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_right);
+        final Animation slideRightOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_right);
+        final Animation slideLeft = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left);
+        final Animation slideLeftOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_left);
         ImageView logo = findViewById(R.id.logo);
         logo.startAnimation(slideRight);
         logo.animate().rotationY(360).setDuration(2500);
+        final ImageView man_heb = findViewById(R.id.man_heb);
+        final ImageView man_eng = findViewById(R.id.man_eng);
+        if (Locale.getDefault().toString().equals("iw_IL")) {
+            man_heb.startAnimation(slideRight);
+            man_eng.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            man_eng.startAnimation(slideLeft);
+            man_heb.setVisibility(View.INVISIBLE);
+        }
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 Animation fade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
                 Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up_in);
+                if (Locale.getDefault().toString().equals("iw_IL"))
+                    man_heb.startAnimation(slideRightOut);
+                else
+                    man_eng.startAnimation(slideLeftOut);
                 mainLayout = findViewById(R.id.mainLayout);
                 mainLayout.setVisibility(View.VISIBLE);
                 mainLayout.startAnimation(fade);
@@ -61,8 +81,12 @@ public class FirstActivity extends AppCompatActivity {
                 exitBtn.startAnimation(slideUp);
                 name.startAnimation(slideUp);
                 userImage.startAnimation(slideUp);
+                if (Locale.getDefault().toString().equals("iw_IL"))
+                    man_heb.setVisibility(View.INVISIBLE);
+                else
+                    man_eng.setVisibility(View.INVISIBLE);
             }
-        }, 1700);
+        }, 2500);
         enterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

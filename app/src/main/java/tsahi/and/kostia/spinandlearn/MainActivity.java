@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -24,8 +25,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final String userName = getIntent().getStringExtra("Name");
+        Animation fade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+        ImageView logo = findViewById(R.id.logo);
+        logo.startAnimation(fade);
+        logo.animate().rotationY(360).setDuration(2500);
         TextView massage = findViewById(R.id.massage);
+        massage.startAnimation(fade);
+        final String userName = getIntent().getStringExtra("Name");
         massage.setText(getString(R.string.hey) + " " + userName + ", " + getString(R.string.choose_level));
         Bundle extras = getIntent().getExtras();
         if (extras != null)
@@ -46,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
                     }});
             }
         });
-
         Button easyBtn = findViewById(R.id.easyBtn);
         easyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,10 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down_in);
-        easyBtn.startAnimation(slideDown);
-        mediumBtn.startAnimation(slideDown);
-        hardBtn.startAnimation(slideDown);
         Button leaderboardBtn = findViewById(R.id.leaderboardBtn);
         leaderboardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,16 +101,11 @@ public class MainActivity extends AppCompatActivity {
         });
         Animation slideRight = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_right);
         Animation slideLeft  = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left);
-        if (Locale.getDefault().toString().equals("iw_IL"))
-        {
-            howToPlay.startAnimation(slideRight);
-            leaderboardBtn.startAnimation(slideLeft);
-        }
-        else
-        {
-            leaderboardBtn.startAnimation(slideRight);
-            howToPlay.startAnimation(slideLeft);
-        }
+        easyBtn.startAnimation(slideRight);
+        mediumBtn.startAnimation(slideLeft);
+        hardBtn.startAnimation(slideRight);
+        leaderboardBtn.startAnimation(slideLeft);
+        howToPlay.startAnimation(slideRight);
         /*Button playBtn = findViewById(R.id.playBtn);
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
