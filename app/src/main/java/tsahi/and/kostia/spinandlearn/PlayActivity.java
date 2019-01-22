@@ -147,9 +147,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     type = "cities";
                     citiesQuestion();
                     break;
-                case 2:
+                /*case 2:
                     showBonus();
-                    break;
+                    break;*/
                 case 3:
                     type = "cities";
                     citiesQuestion();
@@ -542,7 +542,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         exercises.getMathExercises().add(new MathExercise("7*8", "56", wrongMath));
     }
 
-    public void showBonus()
+    /*public void showBonus()
     {
         bonus = true;
         MediaPlayer mediaPlayer = new MediaPlayer();
@@ -606,7 +606,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 changeBack();
             }
         });
-    }
+    }*/
 
     public void changeBack()
     {
