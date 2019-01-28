@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:layout_width="310dp"
-        android:layout_height="375dp"
+        android:layout_height="390dp"
         android:orientation="vertical"
         android:layout_centerInParent="true">
 
@@ -26,91 +26,139 @@
             android:gravity="center"
             android:background="@drawable/question_design"/>
 
+        <TextView android:id="@+id/answerMath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="25sp"
+            android:textColor="#000"
+            android:gravity="center"
+            android:background="@drawable/question_design"/>
+
         <TableLayout
             android:layout_width="155dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:layout_gravity="center">
 
             <TableRow>
-                <TextView android:id="@+id/tv_m00"
+                <TextView android:id="@+id/tv_m7"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
+                    android:text="7"
                     android:background="@drawable/complete_the_latters_design"/>
-                <TextView android:id="@+id/tv_m01"
+                <TextView android:id="@+id/tv_m8"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
+                    android:text="8"
                     android:background="@drawable/complete_the_latters_design"/>
-                <TextView android:id="@+id/tv_m02"
+                <TextView android:id="@+id/tv_m9"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
+                    android:text="9"
                     android:background="@drawable/complete_the_latters_design"/>
             </TableRow>
 
             <TableRow>
-            <TextView android:id="@+id/tv_m10"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:textSize="25sp"
-                android:textColor="#000"
-                android:gravity="center"
-                android:layout_margin="1dp"
-                android:background="@drawable/complete_the_latters_design"/>
-            <TextView android:id="@+id/tv_m11"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:textSize="25sp"
-                android:textColor="#000"
-                android:gravity="center"
-                android:layout_margin="1dp"
-                android:background="@drawable/complete_the_latters_design"/>
-            <TextView android:id="@+id/tv_m12"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:textSize="25sp"
-                android:textColor="#000"
-                android:gravity="center"
-                android:layout_margin="1dp"
-                android:background="@drawable/complete_the_latters_design"/>
-        </TableRow>
+                <TextView android:id="@+id/tv_m4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="25sp"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:text="4"
+                    android:background="@drawable/complete_the_latters_design"/>
+                <TextView android:id="@+id/tv_m5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="25sp"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:text="5"
+                    android:background="@drawable/complete_the_latters_design"/>
+                <TextView android:id="@+id/tv_m6"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="25sp"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:text="6"
+                    android:background="@drawable/complete_the_latters_design"/>
+            </TableRow>
 
             <TableRow>
-                <TextView android:id="@+id/tv_m20"
+                <TextView android:id="@+id/tv_m1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
+                    android:text="1"
                     android:background="@drawable/complete_the_latters_design"/>
-                <TextView android:id="@+id/tv_m21"
+                <TextView android:id="@+id/tv_m2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
+                    android:text="2"
                     android:background="@drawable/complete_the_latters_design"/>
-                <TextView android:id="@+id/tv_m22"
+                <TextView android:id="@+id/tv_m3"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
+                    android:text="3"
+                    android:background="@drawable/complete_the_latters_design"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView android:id="@+id/tv_mClear"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="25sp"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:text="C"
+                    android:background="@drawable/complete_the_latters_design"/>
+                <TextView android:id="@+id/tv_m0"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="25sp"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:text="0"
+                    android:background="@drawable/complete_the_latters_design"/>
+                <TextView android:id="@+id/tv_mBack"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="25sp"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:text="<"
                     android:background="@drawable/complete_the_latters_design"/>
             </TableRow>
 
