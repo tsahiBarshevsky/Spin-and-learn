@@ -158,7 +158,7 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:text="<"
+                    android:text="b"
                     android:background="@drawable/complete_the_latters_design"/>
             </TableRow>
 

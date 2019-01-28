@@ -48,6 +48,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     SharedPreferences sp;
     Bitmap bitmap;
 
+    TextView question;
+    TextView mathAnswer;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +145,14 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     type = "cities";
                     citiesQuestion();
                     break;
+                case 4:
+                    type = "sentence";
+                    sentenceQuestion();
+                    break;
+                case 5:
+                    type = "words";
+                    wordsQuestion();
+                    break;
                 case 6:
                     type = "math";
                     mathQuestion();
@@ -149,6 +160,14 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 case 7:
                     type = "cities";
                     citiesQuestion();
+                    break;
+                case 8:
+                    type = "sentence";
+                    sentenceQuestion();
+                    break;
+                case 9:
+                    type = "words";
+                    wordsQuestion();
                     break;
             }
         }
@@ -222,6 +241,12 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             case "cities":
                 timerText = v.findViewById(R.id.timeCities);
                 break;
+            case "word":
+                timerText = v.findViewById(R.id.timeComplete);
+                break;
+            case "sentence":
+                timerText = v.findViewById(R.id.timeCities);
+                break;
         }
         int minutes = (int)timeLeftInMillis / 60000;
         int seconds = (int)timeLeftInMillis % 60000 / 1000;
@@ -243,148 +268,264 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         View dialogView = getLayoutInflater().inflate(R.layout.math_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         final AlertDialog dialog = builder.show();
-        Random random = new Random();
-        int size = exercises.getMathExercises().size();
-        final int index = random.nextInt(size); //draw lots question's number
-        startTimer(dialogView);
-        TextView exercise = dialogView.findViewById(R.id.exerciseMath);
-        exercise.setText(exercises.getMathExercises().get(index).getQuestion());
-        final RadioButton rb1 = dialogView.findViewById(R.id.rb1);
-        final RadioButton rb2 = dialogView.findViewById(R.id.rb2);
-        final RadioButton rb3 = dialogView.findViewById(R.id.rb3);
-        final RadioButton rb4 = dialogView.findViewById(R.id.rb4);
 
-        final int rightAnswer = random.nextInt(4) + 1;
-        List<Integer> digits = new ArrayList<>();// = IntStream.range(0,3).boxed().collect(Collectors.toList());
-        digits.add((int)(Math.random()*3));
-        for (int i =1;i<3;i++){
-            int tmp = (int)(Math.random()*3);
-            while (digits.contains(tmp)){
-                tmp = (int)(Math.random()*3);
-            }
-            digits.add(tmp);
-        }
-        System.out.println(digits.toString());
-        Collections.shuffle(digits);
-        int wrongAnswers[] = new int[3];
-        for (int i=0;i<3;i++)
-            wrongAnswers[i] = digits.get(i);
-        /*int[] wrongAnswers = new int[3];
-        for (int i=0;i<3;i++)
-            wrongAnswers[i] = random.nextInt(3);*/
-        //final int wrongAnswer = random.nextInt(3);
-        switch (rightAnswer)
-        {
-            case 1:
-                rb1.setText(exercises.getMathExercises().get(index).getAnswer());
-                rb2.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[0]));
-                rb3.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[1]));
-                rb4.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[2]));
-                break;
-            case 2:
-                rb1.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[0]));
-                rb2.setText(exercises.getMathExercises().get(index).getAnswer());
-                rb3.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[1]));
-                rb4.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[2]));
-                break;
-            case 3:
-                rb1.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[0]));
-                rb2.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[1]));
-                rb3.setText(exercises.getMathExercises().get(index).getAnswer());
-                rb4.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[2]));
-                break;
-            case 4:
-                rb1.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[0]));
-                rb2.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[1]));
-                rb3.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[2]));
-                rb4.setText(exercises.getMathExercises().get(index).getAnswer());
-                break;
-        }
-        Button answerBtn = dialogView.findViewById(R.id.mathAnswerBtn);
-        answerBtn.setOnClickListener(new View.OnClickListener() {
+        final MathExercise currentExercise = exercises.getMathExercises().get(0);
+        exercises.getMathExercises().remove(0);
+
+        question = dialogView.findViewById(R.id.exerciseMath);
+        mathAnswer = dialogView.findViewById(R.id.answerMath);
+
+        Button answer_btn = dialogView.findViewById(R.id.mathAnswerBtn);
+        TextView pad1 = dialogView.findViewById(R.id.tv_m1);
+        TextView pad2 = dialogView.findViewById(R.id.tv_m2);
+        TextView pad3 = dialogView.findViewById(R.id.tv_m3);
+        TextView pad4 = dialogView.findViewById(R.id.tv_m4);
+        TextView pad5 = dialogView.findViewById(R.id.tv_m5);
+        TextView pad6 = dialogView.findViewById(R.id.tv_m6);
+        TextView pad7 = dialogView.findViewById(R.id.tv_m7);
+        TextView pad8 = dialogView.findViewById(R.id.tv_m8);
+        TextView pad9 = dialogView.findViewById(R.id.tv_m9);
+        TextView pad0 = dialogView.findViewById(R.id.tv_m0);
+        TextView padBS = dialogView.findViewById(R.id.tv_mBack);
+        TextView padC = dialogView.findViewById(R.id.tv_mClear);
+
+        answer_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (rightAnswer)
-                {
-                    case 1:
-                        if (rb1.isChecked()) {
-                            scoreCounter += scoreToAdd;
-                            answer = true;
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                    case 2:
-                        if (rb2.isChecked()) {
-                            scoreCounter += scoreToAdd;
-                            answer = true;
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                    case 3:
-                        if (rb3.isChecked()) {
-                            scoreCounter += scoreToAdd;
-                            answer = true;
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                    case 4:
-                        if (rb4.isChecked()) {
-                            scoreCounter += scoreToAdd;
-                            answer = true;
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
+                if(mathAnswer.getText().toString().equals(currentExercise.getAnswer())){
+                    Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
                 }
-                if (roundsCounter != 2)
-                    round.setText(getString(R.string.round) + " " + roundsCounter);
-                score.setText(getString(R.string.score) + " " + scoreCounter);
-                countDownTimer.cancel();
-                timeLeftInMillis = temp;
+                else{
+                    Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-        final Timer timer = new Timer(); //timer round
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-                timer.cancel();
-                new Thread()
-                {
-                    @Override
-                    public void run() {
-                        PlayActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!answer)
-                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }.start();
+
+        MathButtonClickListener mathButtonClickListener = new MathButtonClickListener();
+        pad0.setOnClickListener(mathButtonClickListener);
+        pad1.setOnClickListener(mathButtonClickListener);
+        pad2.setOnClickListener(mathButtonClickListener);
+        pad3.setOnClickListener(mathButtonClickListener);
+        pad4.setOnClickListener(mathButtonClickListener);
+        pad5.setOnClickListener(mathButtonClickListener);
+        pad6.setOnClickListener(mathButtonClickListener);
+        pad7.setOnClickListener(mathButtonClickListener);
+        pad8.setOnClickListener(mathButtonClickListener);
+        pad9.setOnClickListener(mathButtonClickListener);
+        padBS.setOnClickListener(mathButtonClickListener);
+        padC.setOnClickListener(mathButtonClickListener);
+
+//
+//        Random random = new Random();
+//        int size = exercises.getMathExercises().size();
+//        final int index = random.nextInt(size); //draw lots question's number
+//        startTimer(dialogView);
+//        TextView exercise = dialogView.findViewById(R.id.exerciseMath);
+//        exercise.setText(exercises.getMathExercises().get(index).getQuestion());
+//        /*final RadioButton rb1 = dialogView.findViewById(R.id.rb1);
+//        final RadioButton rb2 = dialogView.findViewById(R.id.rb2);
+//        final RadioButton rb3 = dialogView.findViewById(R.id.rb3);
+//        final RadioButton rb4 = dialogView.findViewById(R.id.rb4);*/
+//
+//        /*final int rightAnswer = random.nextInt(4) + 1;
+//        List<Integer> digits = new ArrayList<>();// = IntStream.range(0,3).boxed().collect(Collectors.toList());
+//        digits.add((int)(Math.random()*3));
+//        for (int i =1;i<3;i++){
+//            int tmp = (int)(Math.random()*3);
+//            while (digits.contains(tmp)){
+//                tmp = (int)(Math.random()*3);
+//            }
+//            digits.add(tmp);
+//        }
+//        System.out.println(digits.toString());
+//        Collections.shuffle(digits);
+//        int wrongAnswers[] = new int[3];
+//        for (int i=0;i<3;i++)
+//            wrongAnswers[i] = digits.get(i);
+//        /*int[] wrongAnswers = new int[3];
+//        for (int i=0;i<3;i++)
+//            wrongAnswers[i] = random.nextInt(3);*/
+//        //final int wrongAnswer = random.nextInt(3);
+//        /*switch (rightAnswer)
+//        {
+//            case 1:
+//                rb1.setText(exercises.getMathExercises().get(index).getAnswer());
+//                rb2.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[0]));
+//                rb3.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[1]));
+//                rb4.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[2]));
+//                break;
+//            case 2:
+//                rb1.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[0]));
+//                rb2.setText(exercises.getMathExercises().get(index).getAnswer());
+//                rb3.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[1]));
+//                rb4.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[2]));
+//                break;
+//            case 3:
+//                rb1.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[0]));
+//                rb2.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[1]));
+//                rb3.setText(exercises.getMathExercises().get(index).getAnswer());
+//                rb4.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[2]));
+//                break;
+//            case 4:
+//                rb1.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[0]));
+//                rb2.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[1]));
+//                rb3.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[2]));
+//                rb4.setText(exercises.getMathExercises().get(index).getAnswer());
+//                break;
+//        }*/
+//        Button answerBtn = dialogView.findViewById(R.id.mathAnswerBtn);
+//        answerBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                switch (rightAnswer)
+//                {
+//                    case 1:
+//                        if (rb1.isChecked()) {
+//                            scoreCounter += scoreToAdd;
+//                            answer = true;
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else {
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+//                        }
+//                        break;
+//                    case 2:
+//                        if (rb2.isChecked()) {
+//                            scoreCounter += scoreToAdd;
+//                            answer = true;
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else {
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+//                        }
+//                        break;
+//                    case 3:
+//                        if (rb3.isChecked()) {
+//                            scoreCounter += scoreToAdd;
+//                            answer = true;
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else {
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+//                        }
+//                        break;
+//                    case 4:
+//                        if (rb4.isChecked()) {
+//                            scoreCounter += scoreToAdd;
+//                            answer = true;
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else {
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+//                        }
+//                        break;
+//                }
+//                if (roundsCounter != 2)
+//                    round.setText(getString(R.string.round) + " " + roundsCounter);
+//                score.setText(getString(R.string.score) + " " + scoreCounter);
+//                countDownTimer.cancel();
+//                timeLeftInMillis = temp;
+//            }
+//        });
+//        final Timer timer = new Timer(); //timer round
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                dialog.dismiss();
+//                timer.cancel();
+//                new Thread()
+//                {
+//                    @Override
+//                    public void run() {
+//                        PlayActivity.this.runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                if (!answer)
+//                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//                    }
+//                }.start();
+//            }
+//        }, timeLeftInMillis);
+//        /*round.setText(getString(R.string.round) + " " + roundsCounter);
+//        score.setText(getString(R.string.score) + " " + scoreCounter);*/
+    }
+
+    private class MathButtonClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            String btnString = ((TextView) v).getText().toString();
+            String tmp;
+            switch (btnString){
+                case "0":
+                    tmp = mathAnswer.getText().toString();
+                    tmp+="0";
+                    mathAnswer.setText(tmp);
+                    break;
+                case "1":
+                    tmp = mathAnswer.getText().toString();
+                    tmp+="1";
+                    mathAnswer.setText(tmp);
+                    break;
+                case "2":
+                    tmp = mathAnswer.getText().toString();
+                    tmp+="2";
+                    mathAnswer.setText(tmp);
+                    break;
+                case "3":
+                    tmp = mathAnswer.getText().toString();
+                    tmp+="3";
+                    mathAnswer.setText(tmp);
+                    break;
+                case "4":
+                    tmp = mathAnswer.getText().toString();
+                    tmp+="4";
+                    mathAnswer.setText(tmp);
+                    break;
+                case "5":
+                    tmp = mathAnswer.getText().toString();
+                    tmp+="5";
+                    mathAnswer.setText(tmp);
+                    break;
+                case "6":
+                    tmp = mathAnswer.getText().toString();
+                    tmp+="6";
+                    mathAnswer.setText(tmp);
+                    break;
+                case "7":
+                    tmp = mathAnswer.getText().toString();
+                    tmp+="7";
+                    mathAnswer.setText(tmp);
+                    break;
+                case "8":
+                    tmp = mathAnswer.getText().toString();
+                    tmp+="8";
+                    mathAnswer.setText(tmp);
+                    break;
+                case "9":
+                    tmp = mathAnswer.getText().toString();
+                    tmp+="9";
+                    mathAnswer.setText(tmp);
+                    break;
+                case "C":
+                    mathAnswer.setText("");
+                    break;
+                case "<":
+                    tmp = mathAnswer.getText().toString();
+                    tmp = tmp.substring(0, tmp.length()-1);
+                    mathAnswer.setText(tmp);
+                    break;
             }
-        }, timeLeftInMillis);
-        /*round.setText(getString(R.string.round) + " " + roundsCounter);
-        score.setText(getString(R.string.score) + " " + scoreCounter);*/
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -534,6 +675,18 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 }.start();
             }
         }, timeLeftInMillis);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void sentenceQuestion()
+    {
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void wordsQuestion()
+    {
+
     }
 
     public void initArray()
