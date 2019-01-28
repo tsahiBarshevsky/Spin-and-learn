@@ -540,12 +540,19 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     {
         String[] wrongMath = {"78", "30", "70"};
         String[] wrongCities = {"New York", "Rome", "Lisbon"};
-        exercises.getMathExercises().add(new MathExercise("1+1", "2", wrongMath));
-        exercises.getMathExercises().add(new MathExercise("2+2", "4", wrongMath));
-        exercises.getMathExercises().add(new MathExercise("10+5", "15", wrongMath));
+        exercises.getMathExercises().add(new MathExercise("32 + 17", "49", wrongMath));
+        exercises.getMathExercises().add(new MathExercise("67 - 52", "15", wrongMath));
+        exercises.getMathExercises().add(new MathExercise("12 x 5", "60", wrongMath));
+        exercises.getMathExercises().add(new MathExercise("72 / 9", "8", wrongMath));
+        exercises.getMathExercises().add(new MathExercise("23 x 3", "69", wrongMath));
+        exercises.getMathExercises().add(new MathExercise("128 / 32", "4", wrongMath));
+        exercises.getMathExercises().add(new MathExercise("59 + 62", "121", wrongMath));
+        exercises.getMathExercises().add(new MathExercise("236 - 140", "96", wrongMath));
+        exercises.getMathExercises().add(new MathExercise("2 ^ 5", "32", wrongMath));
+        exercises.getMathExercises().add(new MathExercise("5 ^ 3", "125", wrongMath));
+
         exercises.getCitiesExercises().add(new CitiesExercise("Capital of Israel?", "Jerusalem", wrongCities));
         exercises.getCitiesExercises().add(new CitiesExercise("Capital of Spain?", "Madrid", wrongCities));
-        exercises.getMathExercises().add(new MathExercise("7*8", "56", wrongMath));
     }
 
     /*public void showBonus()
