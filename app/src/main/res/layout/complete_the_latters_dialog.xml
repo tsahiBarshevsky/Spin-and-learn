@@ -26,18 +26,10 @@
             android:gravity="center"
             android:background="@drawable/question_design"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Answer will appear here"
-            android:layout_gravity="center"
-            android:layout_marginTop="25dp"/>
-
         <TableLayout
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="170dp"
             android:gravity="center"
             android:layout_gravity="center">
 
