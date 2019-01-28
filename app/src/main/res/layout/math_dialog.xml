@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="250dp"
+        android:layout_width="310dp"
         android:layout_height="375dp"
         android:orientation="vertical"
         android:layout_centerInParent="true">
@@ -25,53 +25,144 @@
             android:textColor="#000"
             android:gravity="center"
             android:background="@drawable/question_design"/>
-        
-        <RadioGroup
-            android:layout_width="wrap_content"
+
+        <TableLayout
+            android:layout_width="155dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
-
-            <RadioButton android:id="@+id/rb1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:buttonTint="#000"
-                android:layout_margin="5dp"/>
-
-            <RadioButton android:id="@+id/rb2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:buttonTint="#000"
-                android:layout_margin="5dp"/>
-
-            <RadioButton android:id="@+id/rb3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:buttonTint="#000"
-                android:layout_margin="5dp"/>
-
-            <RadioButton android:id="@+id/rb4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:buttonTint="#000"
-                android:layout_margin="5dp"/>
-
-        </RadioGroup>
-
-        <Button android:id="@+id/mathAnswerBtn"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="110dp"
             android:gravity="center"
-            android:layout_gravity="center"
-            android:text="@string/answer"
-            android:textAllCaps="false"
-            android:textSize="17sp"
-            android:layout_margin="15dp"
-            android:background="@drawable/button_design"/>
+            android:layout_gravity="center">
+
+            <TableRow>
+                <TextView android:id="@+id/tv_m00"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="25sp"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/complete_the_latters_design"/>
+                <TextView android:id="@+id/tv_m01"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="25sp"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/complete_the_latters_design"/>
+                <TextView android:id="@+id/tv_m02"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="25sp"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/complete_the_latters_design"/>
+            </TableRow>
+
+            <TableRow>
+            <TextView android:id="@+id/tv_m10"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="25sp"
+                android:textColor="#000"
+                android:gravity="center"
+                android:layout_margin="1dp"
+                android:background="@drawable/complete_the_latters_design"/>
+            <TextView android:id="@+id/tv_m11"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="25sp"
+                android:textColor="#000"
+                android:gravity="center"
+                android:layout_margin="1dp"
+                android:background="@drawable/complete_the_latters_design"/>
+            <TextView android:id="@+id/tv_m12"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="25sp"
+                android:textColor="#000"
+                android:gravity="center"
+                android:layout_margin="1dp"
+                android:background="@drawable/complete_the_latters_design"/>
+        </TableRow>
+
+            <TableRow>
+                <TextView android:id="@+id/tv_m20"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="25sp"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/complete_the_latters_design"/>
+                <TextView android:id="@+id/tv_m21"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="25sp"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/complete_the_latters_design"/>
+                <TextView android:id="@+id/tv_m22"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="25sp"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/complete_the_latters_design"/>
+            </TableRow>
+
+        </TableLayout>
 
     </LinearLayout>
 
 </RelativeLayout>
+
+
+    <!--<RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <RadioButton android:id="@+id/rb1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:buttonTint="#000"
+                    android:layout_margin="5dp"/>
+
+                <RadioButton android:id="@+id/rb2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:buttonTint="#000"
+                    android:layout_margin="5dp"/>
+
+                <RadioButton android:id="@+id/rb3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:buttonTint="#000"
+                    android:layout_margin="5dp"/>
+
+                <RadioButton android:id="@+id/rb4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:buttonTint="#000"
+                    android:layout_margin="5dp"/>
+
+            </RadioGroup>
+
+            <Button android:id="@+id/mathAnswerBtn"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/answer"
+                android:textAllCaps="false"
+                android:textSize="17sp"
+                android:layout_margin="15dp"
+                android:background="@drawable/button_design"/>-->

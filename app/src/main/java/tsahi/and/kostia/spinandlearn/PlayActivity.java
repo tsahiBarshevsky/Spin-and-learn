@@ -155,7 +155,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         else //bonus wheel spin - need to check this
         {
             String string = String.valueOf((int)(((double)4)
-                    - Math.floor(((double)4) / (360.0d / ((double)4)))));
+                    - Math.floor(((double)lngDegrees) / (360.0d / ((double)4)))));
             int pos = Integer.parseInt(string);
             pos--;
             switch (pos)
