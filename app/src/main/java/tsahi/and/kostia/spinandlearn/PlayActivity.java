@@ -6,16 +6,13 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.media.MediaPlayer;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -24,26 +21,17 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.ByteArrayOutputStream;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PlayActivity extends AppCompatActivity implements Animation.AnimationListener{
 
@@ -267,7 +255,16 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         final RadioButton rb4 = dialogView.findViewById(R.id.rb4);
 
         final int rightAnswer = random.nextInt(4) + 1;
-        List<Integer> digits = IntStream.range(0,3).boxed().collect(Collectors.toList());
+        List<Integer> digits = new ArrayList<>();// = IntStream.range(0,3).boxed().collect(Collectors.toList());
+        digits.add((int)(Math.random()*3));
+        for (int i =1;i<3;i++){
+            int tmp = (int)(Math.random()*3);
+            while (digits.contains(tmp)){
+                tmp = (int)(Math.random()*3);
+            }
+            digits.add(tmp);
+        }
+        System.out.println(digits.toString());
         Collections.shuffle(digits);
         int wrongAnswers[] = new int[3];
         for (int i=0;i<3;i++)
@@ -409,7 +406,16 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         final RadioButton rb4 = dialogView.findViewById(R.id.rb4);
 
         final int rightAnswer = random.nextInt(4) + 1;
-        List<Integer> digits = IntStream.range(0,3).boxed().collect(Collectors.toList());
+        List<Integer> digits = new ArrayList<>();// = IntStream.range(0,3).boxed().collect(Collectors.toList());
+        digits.add((int)(Math.random()*3));
+        for (int i =1;i<3;i++){
+            int tmp = (int)(Math.random()*3);
+            while (digits.contains(tmp)){
+                tmp = (int)(Math.random()*3);
+            }
+            digits.add(tmp);
+        }
+        System.out.println(digits.toString());
         Collections.shuffle(digits);
         int wrongAnswers[] = new int[3];
         for (int i=0;i<3;i++)
