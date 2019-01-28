@@ -100,4 +100,6 @@
     <string name="loves_missing">"____ באות בצרורות "</string>
     <string name="sight_missing">"רחוק _____ - רחוק מהלב "</string>
     <string name="grasp_missing">"____ מרובה - לא תפסת "</string>
+    <string name="capital_of">עיר הבירה של</string>
+    <string name="rnd_letter_index">א</string>
 </resources>

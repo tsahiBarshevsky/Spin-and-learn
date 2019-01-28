@@ -99,4 +99,6 @@
     <string name="sight_missing">"out of _____ - out of mind "</string>
     <string name="grasp">Grasp</string>
     <string name="grasp_missing">"_____ all, lose all. "</string>
+    <string name="capital_of">Capital of</string>
+    <string name="rnd_letter_index">a</string>
 </resources>

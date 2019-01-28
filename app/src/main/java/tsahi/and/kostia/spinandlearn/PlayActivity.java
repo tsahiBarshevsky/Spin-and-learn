@@ -551,8 +551,23 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         exercises.getMathExercises().add(new MathExercise("2 ^ 5", "32", wrongMath));
         exercises.getMathExercises().add(new MathExercise("5 ^ 3", "125", wrongMath));
 
-        exercises.getCitiesExercises().add(new CitiesExercise("Capital of Israel?", "Jerusalem", wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise("Capital of Spain?", "Madrid", wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.israel) + "?", getResources().getString(R.string.jerusalem), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.spain) + "?", getResources().getString(R.string.madrid), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.england) + "?", getResources().getString(R.string.london), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.usa) + "?", getResources().getString(R.string.washington), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.france) + "?", getResources().getString(R.string.paris), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.russsia) + "?", getResources().getString(R.string.moscow), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.ukraine) + "?", getResources().getString(R.string.kiev), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.japan) + "?", getResources().getString(R.string.tokyo), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.south_africa) + "?", getResources().getString(R.string.capetown), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.germany) + "?", getResources().getString(R.string.berlin), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.argentina) + "?", getResources().getString(R.string.buenos_aires), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.peru) + "?", getResources().getString(R.string.lima), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.egypt) + "?", getResources().getString(R.string.cairo), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.saudi_arabia) + "?", getResources().getString(R.string.riahd), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.lebanon) + "?", getResources().getString(R.string.beiruth), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.siriya) + "?", getResources().getString(R.string.damascus), wrongCities));
+
     }
 
     /*public void showBonus()
