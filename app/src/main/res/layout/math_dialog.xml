@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:layout_width="310dp"
-        android:layout_height="390dp"
+        android:layout_height="450dp"
         android:orientation="vertical"
         android:layout_centerInParent="true">
 
@@ -163,6 +163,17 @@
             </TableRow>
 
         </TableLayout>
+
+        <Button android:id="@+id/mathAnswerBtn"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/answer"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:layout_margin="15dp"
+            android:background="@drawable/button_design"/>
 
     </LinearLayout>
 
