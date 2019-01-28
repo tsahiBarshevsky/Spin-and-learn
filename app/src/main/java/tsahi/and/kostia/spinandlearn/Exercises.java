@@ -7,17 +7,20 @@ public class Exercises
     ArrayList<MathExercise> mathExercises;
     ArrayList<CitiesExercise> citiesExercises;
     ArrayList<WordExercise> wordExercises;
+    ArrayList<SentenceExercise> sentenceExercises;
 
     public Exercises() {
         mathExercises = new ArrayList<>();
         citiesExercises = new ArrayList<>();
         wordExercises = new ArrayList<>();
+        sentenceExercises = new ArrayList<>();
     }
 
-    public Exercises(ArrayList<MathExercise> mathExercises, ArrayList<CitiesExercise> citiesExercises, ArrayList<WordExercise> wordExercises) {
+    public Exercises(ArrayList<MathExercise> mathExercises, ArrayList<CitiesExercise> citiesExercises, ArrayList<WordExercise> wordExercises, ArrayList<SentenceExercise> sentenceExercises) {
         this.mathExercises = mathExercises;
         this.citiesExercises = citiesExercises;
         this.wordExercises = wordExercises;
+        this.sentenceExercises = sentenceExercises;
     }
 
     public ArrayList<MathExercise> getMathExercises() {
@@ -44,12 +47,21 @@ public class Exercises
         this.wordExercises = wordExercises;
     }
 
+    public ArrayList<SentenceExercise> getSentenceExercises() {
+        return sentenceExercises;
+    }
+
+    public void setSentenceExercises(ArrayList<SentenceExercise> sentenceExercises) {
+        this.sentenceExercises = sentenceExercises;
+    }
+
     @Override
     public String toString() {
         return "Exercises{" +
                 "mathExercises=" + mathExercises +
                 ", citiesExercises=" + citiesExercises +
                 ", wordExercises=" + wordExercises +
+                ", sentenceExercises=" + sentenceExercises +
                 '}';
     }
 }

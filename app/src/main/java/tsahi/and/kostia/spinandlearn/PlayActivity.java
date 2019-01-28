@@ -277,26 +277,26 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         {
             case 1:
                 rb1.setText(exercises.getMathExercises().get(index).getAnswer());
-                rb2.setText(exercises.getMathExercises().get(index).getWrongAnswers()[wrongAnswers[0]]);
-                rb3.setText(exercises.getMathExercises().get(index).getWrongAnswers()[wrongAnswers[1]]);
-                rb4.setText(exercises.getMathExercises().get(index).getWrongAnswers()[wrongAnswers[2]]);
+                rb2.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[0]));
+                rb3.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[1]));
+                rb4.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[2]));
                 break;
             case 2:
-                rb1.setText(exercises.getMathExercises().get(index).getWrongAnswers()[wrongAnswers[0]]);
+                rb1.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[0]));
                 rb2.setText(exercises.getMathExercises().get(index).getAnswer());
-                rb3.setText(exercises.getMathExercises().get(index).getWrongAnswers()[wrongAnswers[1]]);
-                rb4.setText(exercises.getMathExercises().get(index).getWrongAnswers()[wrongAnswers[2]]);
+                rb3.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[1]));
+                rb4.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[2]));
                 break;
             case 3:
-                rb1.setText(exercises.getMathExercises().get(index).getWrongAnswers()[wrongAnswers[0]]);
-                rb2.setText(exercises.getMathExercises().get(index).getWrongAnswers()[wrongAnswers[1]]);
+                rb1.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[0]));
+                rb2.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[1]));
                 rb3.setText(exercises.getMathExercises().get(index).getAnswer());
-                rb4.setText(exercises.getMathExercises().get(index).getWrongAnswers()[wrongAnswers[2]]);
+                rb4.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[2]));
                 break;
             case 4:
-                rb1.setText(exercises.getMathExercises().get(index).getWrongAnswers()[wrongAnswers[0]]);
-                rb2.setText(exercises.getMathExercises().get(index).getWrongAnswers()[wrongAnswers[1]]);
-                rb3.setText(exercises.getMathExercises().get(index).getWrongAnswers()[wrongAnswers[2]]);
+                rb1.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[0]));
+                rb2.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[1]));
+                rb3.setText(exercises.getMathExercises().get(index).getWrongAnswers().get(wrongAnswers[2]));
                 rb4.setText(exercises.getMathExercises().get(index).getAnswer());
                 break;
         }
@@ -538,36 +538,55 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     public void initArray()
     {
-        String[] wrongMath = {"78", "30", "70"};
         String[] wrongCities = {"New York", "Rome", "Lisbon"};
-        exercises.getMathExercises().add(new MathExercise("32 + 17", "49", wrongMath));
-        exercises.getMathExercises().add(new MathExercise("67 - 52", "15", wrongMath));
-        exercises.getMathExercises().add(new MathExercise("12 x 5", "60", wrongMath));
-        exercises.getMathExercises().add(new MathExercise("72 / 9", "8", wrongMath));
-        exercises.getMathExercises().add(new MathExercise("23 x 3", "69", wrongMath));
-        exercises.getMathExercises().add(new MathExercise("128 / 32", "4", wrongMath));
-        exercises.getMathExercises().add(new MathExercise("59 + 62", "121", wrongMath));
-        exercises.getMathExercises().add(new MathExercise("236 - 140", "96", wrongMath));
-        exercises.getMathExercises().add(new MathExercise("2 ^ 5", "32", wrongMath));
-        exercises.getMathExercises().add(new MathExercise("5 ^ 3", "125", wrongMath));
+        exercises.getMathExercises().add(new MathExercise("32 + 17", "49"));
+        exercises.getMathExercises().add(new MathExercise("67 - 52", "15"));
+        exercises.getMathExercises().add(new MathExercise("12 x 5", "60"));
+        exercises.getMathExercises().add(new MathExercise("72 / 9", "8"));
+        exercises.getMathExercises().add(new MathExercise("23 x 3", "69"));
+        exercises.getMathExercises().add(new MathExercise("128 / 32", "4"));
+        exercises.getMathExercises().add(new MathExercise("59 + 62", "121"));
+        exercises.getMathExercises().add(new MathExercise("236 - 140", "96"));
+        exercises.getMathExercises().add(new MathExercise("2 ^ 5", "32"));
+        exercises.getMathExercises().add(new MathExercise("5 ^ 3", "125"));
 
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.israel) + "?", getResources().getString(R.string.jerusalem), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.spain) + "?", getResources().getString(R.string.madrid), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.england) + "?", getResources().getString(R.string.london), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.usa) + "?", getResources().getString(R.string.washington), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.france) + "?", getResources().getString(R.string.paris), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.russsia) + "?", getResources().getString(R.string.moscow), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.ukraine) + "?", getResources().getString(R.string.kiev), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.japan) + "?", getResources().getString(R.string.tokyo), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.south_africa) + "?", getResources().getString(R.string.capetown), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.germany) + "?", getResources().getString(R.string.berlin), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.argentina) + "?", getResources().getString(R.string.buenos_aires), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.peru) + "?", getResources().getString(R.string.lima), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.egypt) + "?", getResources().getString(R.string.cairo), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.saudi_arabia) + "?", getResources().getString(R.string.riahd), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.lebanon) + "?", getResources().getString(R.string.beiruth), wrongCities));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.siriya) + "?", getResources().getString(R.string.damascus), wrongCities));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.israel) + "?", getResources().getString(R.string.jerusalem)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.spain) + "?", getResources().getString(R.string.madrid)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.england) + "?", getResources().getString(R.string.london)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.usa) + "?", getResources().getString(R.string.washington)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.france) + "?", getResources().getString(R.string.paris)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.russsia) + "?", getResources().getString(R.string.moscow)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.ukraine) + "?", getResources().getString(R.string.kiev)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.japan) + "?", getResources().getString(R.string.tokyo)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.south_africa) + "?", getResources().getString(R.string.capetown)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.germany) + "?", getResources().getString(R.string.berlin)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.argentina) + "?", getResources().getString(R.string.buenos_aires)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.peru) + "?", getResources().getString(R.string.lima)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.egypt) + "?", getResources().getString(R.string.cairo)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.saudi_arabia) + "?", getResources().getString(R.string.riahd)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.lebanon) + "?", getResources().getString(R.string.beiruth)));
+        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.siriya) + "?", getResources().getString(R.string.damascus)));
 
+        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.encylopedia_definition), getResources().getString(R.string.encyclopedia)));
+        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.bacteria_definition), getResources().getString(R.string.bacteria)));
+        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.allergy_definition), getResources().getString(R.string.allergy)));
+        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.ballerina_definition), getResources().getString(R.string.ballerina)));
+        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.boomernag_definition), getResources().getString(R.string.boomernag)));
+        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.camouflage_definition), getResources().getString(R.string.camouflage)));
+        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.magazine_definition), getResources().getString(R.string.magazine)));
+        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.archive_definition), getResources().getString(R.string.archive)));
+        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.feather_definition), getResources().getString(R.string.feather)));
+        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.success_definition), getResources().getString(R.string.success)));
+
+        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.tooteth_missing), getResources().getString(R.string.tooteth)));
+        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.smoke_missing), getResources().getString(R.string.smoke)));
+        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.book_missing), getResources().getString(R.string.book)));
+        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.thousand_missing), getResources().getString(R.string.thousand)));
+        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.hand_missing), getResources().getString(R.string.hand)));
+        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.practice_missing), getResources().getString(R.string.practice)));
+        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.loves_missing), getResources().getString(R.string.loves)));
+        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.sight_missing), getResources().getString(R.string.sight)));
+        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.grasp_missing), getResources().getString(R.string.grasp)));
     }
 
     /*public void showBonus()
