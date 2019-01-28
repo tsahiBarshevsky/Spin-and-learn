@@ -1,13 +1,26 @@
 package tsahi.and.kostia.spinandlearn;
 
+import android.content.Intent;
+
+import java.util.ArrayList;
+
 public class MathExercise
 {
-    private String question, answer, wrongAnswers[];
+    private String question, answer;
+    ArrayList<String> wrongAnswers;
 
-    public MathExercise(String question, String answer, String[] wrongAnswers) {
+    public MathExercise(String question, String answer) {
         this.question = question;
         this.answer = answer;
-        this.wrongAnswers = wrongAnswers;
+        Integer range = Integer.parseInt(answer);
+        wrongAnswers = new ArrayList<>();
+        for (int i =1;i<3;i++){
+            Integer tmp = (int)(Math.random()*(range+20) + (range-20));
+            while (wrongAnswers.contains(tmp.toString())){
+                tmp = (int)(Math.random()*(range+20) + (range-20));
+            }
+            wrongAnswers.add(tmp.toString());
+        }
     }
 
     public String getQuestion() {
@@ -26,11 +39,11 @@ public class MathExercise
         this.answer = answer;
     }
 
-    public String[] getWrongAnswers() {
+    public ArrayList<String> getWrongAnswers() {
         return wrongAnswers;
     }
 
-    public void setWrongAnswers(String[] wrongAnswers) {
+    public void setWrongAnswers(ArrayList<String> wrongAnswers) {
         this.wrongAnswers = wrongAnswers;
     }
 
