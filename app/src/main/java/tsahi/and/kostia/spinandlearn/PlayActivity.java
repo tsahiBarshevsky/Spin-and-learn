@@ -400,7 +400,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         startTimer(dialogView);
         TextView exercise = dialogView.findViewById(R.id.exerciseCities);
         exercise.setText(exercises.getCitiesExercises().get(index).getQuestion());
-        final RadioButton rb1 = dialogView.findViewById(R.id.rb1);
+        /*final RadioButton rb1 = dialogView.findViewById(R.id.rb1);
         final RadioButton rb2 = dialogView.findViewById(R.id.rb2);
         final RadioButton rb3 = dialogView.findViewById(R.id.rb3);
         final RadioButton rb4 = dialogView.findViewById(R.id.rb4);
@@ -420,9 +420,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         int wrongAnswers[] = new int[3];
         for (int i=0;i<3;i++)
             wrongAnswers[i] = digits.get(i);
-        /*int[] wrongAnswers = new int[3];
+        *//*int[] wrongAnswers = new int[3];
         for (int i=0;i<3;i++)
-            wrongAnswers[i] = random.nextInt(3);*/
+            wrongAnswers[i] = random.nextInt(3);*//*
         //final int wrongAnswer = random.nextInt(3);
         switch (rightAnswer)
         {
@@ -450,8 +450,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 rb3.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[2]]);
                 rb4.setText(exercises.getCitiesExercises().get(index).getAnswer());
                 break;
-        }
-        Button answerBtn = dialogView.findViewById(R.id.citiesAnswerBtn);
+        }*/
+        /*Button answerBtn = dialogView.findViewById(R.id.citiesAnswerBtn);
         answerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -512,7 +512,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 countDownTimer.cancel();
                 timeLeftInMillis = temp;
             }
-        });
+        });*/
         final Timer timer = new Timer(); //timer round
         timer.schedule(new TimerTask() {
             @Override
