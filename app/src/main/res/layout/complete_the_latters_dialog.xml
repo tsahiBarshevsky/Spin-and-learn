@@ -26,17 +26,19 @@
             android:gravity="center"
             android:background="@drawable/question_design"/>
 
-        <TableLayout android:id="@+id/answerLayout"
+        <LinearLayout android:id="@+id/answerLayout"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:gravity="center">
 
-        </TableLayout>
+        </LinearLayout>
 
         <TableLayout
             android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:layout_gravity="center">
 
@@ -208,7 +210,7 @@
 
         </TableLayout>
 
-        <Button android:id="@+id/mathAnswerBtn"
+        <Button android:id="@+id/wordAnswerBtn"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:gravity="center"

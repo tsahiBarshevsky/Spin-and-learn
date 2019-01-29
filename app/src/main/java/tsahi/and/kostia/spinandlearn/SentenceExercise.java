@@ -31,9 +31,9 @@ public class SentenceExercise {
                 context.getResources().getString(R.string.grasp)};
 
         for(int i=0;i<3;i++){
-            int tmp = (int)(Math.random()*8);
+            int tmp = (int)(Math.random()*9);
             while(answer.equals(wordBank[tmp]) || wrongAnswers.contains(wordBank[tmp])){
-                tmp = (int)(Math.random()*8);
+                tmp = (int)(Math.random()*9);
             }
             wrongAnswers.add(wordBank[tmp]);
         }

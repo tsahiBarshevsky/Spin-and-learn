@@ -40,9 +40,9 @@ public class CitiesExercise
                 context.getResources().getString(R.string.damascus)};
 
         for(int i=0;i<3;i++){
-            int tmp = (int)(Math.random()*15);
+            int tmp = (int)(Math.random()*16);
             while(answer.equals(citiesBank[tmp]) || wrongAnswers.contains(citiesBank[tmp])){
-                tmp = (int)(Math.random()*15);
+                tmp = (int)(Math.random()*16);
             }
             wrongAnswers.add(citiesBank[tmp]);
         }

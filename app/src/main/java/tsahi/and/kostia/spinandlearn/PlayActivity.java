@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -21,7 +22,9 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +52,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     Bitmap bitmap;
 
     TextView mathAnswer;
+
+    int blankIndex;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -796,7 +801,152 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void wordsQuestion()
     {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
+        View dialogView = getLayoutInflater().inflate(R.layout.complete_the_latters_dialog, null);
+        builder.setView(dialogView).setCancelable(false);
+        final AlertDialog dialog = builder.show();
 
+        final WordExercise currentExercise = exercises.getWordExercises().get(0);
+        exercises.getWordExercises().remove(0);
+
+        TextView definition = dialogView.findViewById(R.id.exerciseComplete);
+        definition.setText(currentExercise.getDefinition());
+        final String question = currentExercise.getQuestion().toString();
+
+        final TextView[] letter = {dialogView.findViewById(R.id.tv00),
+          dialogView.findViewById(R.id.tv01),
+          dialogView.findViewById(R.id.tv02),
+          dialogView.findViewById(R.id.tv03),
+          dialogView.findViewById(R.id.tv04),
+          dialogView.findViewById(R.id.tv05),
+          dialogView.findViewById(R.id.tv06),
+          dialogView.findViewById(R.id.tv07),
+          dialogView.findViewById(R.id.tv08),
+          dialogView.findViewById(R.id.tv09),
+          dialogView.findViewById(R.id.tv10),
+          dialogView.findViewById(R.id.tv11),
+          dialogView.findViewById(R.id.tv12),
+          dialogView.findViewById(R.id.tv13),
+          dialogView.findViewById(R.id.tv14),
+          dialogView.findViewById(R.id.tv15),
+          dialogView.findViewById(R.id.tv16),
+          dialogView.findViewById(R.id.tv17),
+          dialogView.findViewById(R.id.tv18),
+          dialogView.findViewById(R.id.tv19)};
+
+        ArrayList<Character> letterBank = currentExercise.getLetterBank();
+
+        for(int i=0;i<20;i++){
+            int tmp = (int)(Math.random()*20);
+            while(letterBank.get(tmp).equals('0')){
+                tmp = (int)(Math.random()*20);
+            }
+            letter[i].setText(letterBank.get(tmp).toString());
+            letterBank.set(tmp, '0');
+        }
+
+        final ArrayList<TextView> answer_blank = new ArrayList<>();
+        final LinearLayout answer_container = dialogView.findViewById(R.id.answerLayout);
+        final int question_size = question.length();
+        for(int i=0;i<question_size;i++){
+            TextView tmp = new TextView(dialogView.getContext());
+            tmp.setTextSize(30);
+            tmp.setTextColor(Color.BLACK);
+            tmp.setPadding(5,0,5,0);
+            tmp.setText(((Character)question.charAt(i)).toString());
+            if(question.charAt(i) == '_'){
+                answer_blank.add(tmp);
+            }
+            answer_container.addView(tmp);
+        }
+
+        blankIndex = 0;
+        final int blankSize = answer_blank.size();
+
+        for(int i=0;i<20;i++){
+            letter[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(blankIndex < blankSize){
+                        String tmp = ((TextView) v).getText().toString();
+                        answer_blank.get(blankIndex++).setText(tmp);
+                        v.setVisibility(View.INVISIBLE);
+                    }
+                }
+            });
+        }
+
+        for(int i=0;i<blankSize;i++){
+            answer_blank.get(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String tmp = ((TextView) v).getText().toString();
+                    if(!tmp.equals("_")){
+                        ((TextView) v).setText("_");
+                        for(int j=0;j<20;j++){
+                            if(letter[j].getVisibility() == View.INVISIBLE && letter[j].getText().equals(tmp)){
+                                letter[j].setVisibility(View.VISIBLE);
+                                for(int k = 0;k<blankSize;k++){
+                                    if(answer_blank.get(k).getText().equals("_")){
+                                        blankIndex = k;
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        Button ans_btn = dialogView.findViewById(R.id.wordAnswerBtn);
+        ans_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tmp = "";
+                int j =0;
+                for(int i=0;i<question_size;i++) {
+                    if(question.charAt(i) == '_'){
+                        if(answer_blank.get(j).getText().equals("_")){
+                            return;
+                        }
+                        tmp+= answer_blank.get(j++).getText();
+                    }
+                    else{
+                        tmp+=question.charAt(i);
+                    }
+                }
+                if (tmp.equals(currentExercise.getAnswer())) {
+                    Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+            }
+        });
+
+
+        final Timer timer = new Timer(); //timer round
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                timer.cancel();
+                new Thread()
+                {
+                    @Override
+                    public void run() {
+                        PlayActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!answer)
+                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }.start();
+            }
+        }, timeLeftInMillis);
     }
 
     public void initArray()
