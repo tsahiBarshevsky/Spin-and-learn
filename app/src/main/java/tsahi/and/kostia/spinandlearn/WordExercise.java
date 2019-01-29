@@ -1,18 +1,24 @@
 package tsahi.and.kostia.spinandlearn;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class WordExercise extends AppCompatActivity {
+public class WordExercise {
+    private Context context;
+
     private String definition, answer;
     ArrayList<Character> letterBank;
     private int numOf_missing_letters, answer_size;
     private StringBuilder question;
 
-    public WordExercise(String definition, String answer) {
+    public WordExercise(Context context, String definition, String answer) {
+        this.context=context;
         this.definition = definition;
         this.answer = answer;
+
         letterBank = new ArrayList<>();
         answer_size = answer.length();
         numOf_missing_letters = answer_size/2;
@@ -27,7 +33,7 @@ public class WordExercise extends AppCompatActivity {
         }
 
         for(int i=0;i<20-numOf_missing_letters;i++){
-            letterBank.add((char)(Math.random()*26 + getResources().getString(R.string.rnd_letter_index).charAt(0)));
+            letterBank.add((char)(Math.random()*26 + context.getResources().getString(R.string.rnd_letter_index).charAt(0)));
         }
     }
 

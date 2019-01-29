@@ -1,36 +1,43 @@
 package tsahi.and.kostia.spinandlearn;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class CitiesExercise extends AppCompatActivity
+public class CitiesExercise
 {
+    private Context context;
+
     private String question, answer;
     ArrayList<String> wrongAnswers;
 
-    public CitiesExercise(String question, String answer) {
+
+    public CitiesExercise(Context context, String question, String answer) {
+        this.context=context;
         this.question = question;
         this.answer = answer;
         wrongAnswers = new ArrayList<>();
 
-        String citiesBank[] = {getResources().getString(R.string.jerusalem),
-                getResources().getString(R.string.madrid),
-                getResources().getString(R.string.london),
-                getResources().getString(R.string.washington),
-                getResources().getString(R.string.paris),
-                getResources().getString(R.string.moscow),
-                getResources().getString(R.string.kiev),
-                getResources().getString(R.string.tokyo),
-                getResources().getString(R.string.capetown),
-                getResources().getString(R.string.berlin),
-                getResources().getString(R.string.buenos_aires),
-                getResources().getString(R.string.lima),
-                getResources().getString(R.string.cairo),
-                getResources().getString(R.string.riahd),
-                getResources().getString(R.string.beiruth),
-                getResources().getString(R.string.damascus)};
+
+        String[] citiesBank = {context.getResources().getString(R.string.jerusalem),
+                context.getResources().getString(R.string.madrid),
+                context.getResources().getString(R.string.london),
+                context.getResources().getString(R.string.washington),
+                context.getResources().getString(R.string.paris),
+                context.getResources().getString(R.string.moscow),
+                context.getResources().getString(R.string.kiev),
+                context.getResources().getString(R.string.tokyo),
+                context.getResources().getString(R.string.capetown),
+                context.getResources().getString(R.string.berlin),
+                context.getResources().getString(R.string.buenos_aires),
+                context.getResources().getString(R.string.lima),
+                context.getResources().getString(R.string.cairo),
+                context.getResources().getString(R.string.riahd),
+                context.getResources().getString(R.string.beiruth),
+                context.getResources().getString(R.string.damascus)};
 
         for(int i=0;i<3;i++){
             int tmp = (int)(Math.random()*15);

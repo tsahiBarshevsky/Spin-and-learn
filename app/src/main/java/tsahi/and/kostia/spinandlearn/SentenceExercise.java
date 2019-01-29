@@ -1,26 +1,34 @@
 package tsahi.and.kostia.spinandlearn;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class SentenceExercise extends AppCompatActivity {
+public class SentenceExercise {
+    private Context context;
+
     private String question, answer;
     ArrayList<String> wrongAnswers;
 
-    public SentenceExercise(String question, String answer) {
+
+    public SentenceExercise(Context context, String question, String answer) {
+        this.context=context;
         this.question = question;
         this.answer = answer;
+        wrongAnswers = new ArrayList<>();
 
-        String wordBank[] = {getResources().getString(R.string.tooteth),
-                getResources().getString(R.string.smoke),
-                getResources().getString(R.string.book),
-                getResources().getString(R.string.thousand),
-                getResources().getString(R.string.hand),
-                getResources().getString(R.string.practice),
-                getResources().getString(R.string.loves),
-                getResources().getString(R.string.sight),
-                getResources().getString(R.string.grasp)};
+
+        String[] wordBank = {context.getResources().getString(R.string.tooteth),
+                context.getResources().getString(R.string.smoke),
+                context.getResources().getString(R.string.book),
+                context.getResources().getString(R.string.thousand),
+                context.getResources().getString(R.string.hand),
+                context.getResources().getString(R.string.practice),
+                context.getResources().getString(R.string.loves),
+                context.getResources().getString(R.string.sight),
+                context.getResources().getString(R.string.grasp)};
 
         for(int i=0;i<3;i++){
             int tmp = (int)(Math.random()*8);

@@ -1,13 +1,11 @@
 package tsahi.and.kostia.spinandlearn;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,10 +14,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.Locale;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Animation fade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
-        ImageView logo = findViewById(R.id.logo);
+        final ImageView logo = findViewById(R.id.logo);
         logo.startAnimation(fade);
         logo.animate().rotationY(360).setDuration(3000);
         Animation scaleUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale_up);

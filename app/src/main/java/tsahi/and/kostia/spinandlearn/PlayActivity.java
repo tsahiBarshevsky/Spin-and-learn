@@ -48,7 +48,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     SharedPreferences sp;
     Bitmap bitmap;
 
-    TextView question;
     TextView mathAnswer;
 
     @SuppressLint("SetTextI18n")
@@ -195,7 +194,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             bonus = false;
             changeBack();
         }
-        if (roundsCounter > 2)
+        if (roundsCounter > 50)
         {
             spinBtn.setVisibility(View.INVISIBLE);
             Handler handler = new Handler();
@@ -272,8 +271,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         final MathExercise currentExercise = exercises.getMathExercises().get(0);
         exercises.getMathExercises().remove(0);
 
-        question = dialogView.findViewById(R.id.exerciseMath);
+        TextView question = dialogView.findViewById(R.id.exerciseMath);
         mathAnswer = dialogView.findViewById(R.id.answerMath);
+
+        question.setText(currentExercise.getQuestion());
 
         Button answer_btn = dialogView.findViewById(R.id.mathAnswerBtn);
         TextView pad1 = dialogView.findViewById(R.id.tv_m1);
@@ -292,11 +293,14 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         answer_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mathAnswer.getText().toString().equals(currentExercise.getAnswer())){
-                    Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+                String tmp = mathAnswer.getText().toString();
+                if(tmp.length()!=0) {
+                    if (tmp.equals(currentExercise.getAnswer())) {
+                        Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+                    }
+                    dialog.dismiss();
                 }
             }
         });
@@ -435,29 +439,29 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 //                timeLeftInMillis = temp;
 //            }
 //        });
-//        final Timer timer = new Timer(); //timer round
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                dialog.dismiss();
-//                timer.cancel();
-//                new Thread()
-//                {
-//                    @Override
-//                    public void run() {
-//                        PlayActivity.this.runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                if (!answer)
-//                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
-//                }.start();
-//            }
-//        }, timeLeftInMillis);
-//        /*round.setText(getString(R.string.round) + " " + roundsCounter);
-//        score.setText(getString(R.string.score) + " " + scoreCounter);*/
+        final Timer timer = new Timer(); //timer round
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                timer.cancel();
+                new Thread()
+                {
+                    @Override
+                    public void run() {
+                        PlayActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!answer)
+                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }.start();
+            }
+        }, timeLeftInMillis);
+        /*round.setText(getString(R.string.round) + " " + roundsCounter);
+        score.setText(getString(R.string.score) + " " + scoreCounter);*/
     }
 
     private class MathButtonClickListener implements View.OnClickListener{
@@ -519,10 +523,12 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 case "C":
                     mathAnswer.setText("");
                     break;
-                case "<":
+                case "b":
                     tmp = mathAnswer.getText().toString();
-                    tmp = tmp.substring(0, tmp.length()-1);
-                    mathAnswer.setText(tmp);
+                    if(tmp.length() != 0) {
+                        tmp = tmp.substring(0, tmp.length() - 1);
+                        mathAnswer.setText(tmp);
+                    }
                     break;
             }
         }
@@ -535,125 +541,165 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         View dialogView = getLayoutInflater().inflate(R.layout.cities_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         final AlertDialog dialog = builder.show();
-        Random random = new Random();
-        int size = exercises.getCitiesExercises().size();
-        final int index = random.nextInt(size); //draw lots question's number
-        startTimer(dialogView);
-        TextView exercise = dialogView.findViewById(R.id.exerciseCities);
-        exercise.setText(exercises.getCitiesExercises().get(index).getQuestion());
-        /*final RadioButton rb1 = dialogView.findViewById(R.id.rb1);
-        final RadioButton rb2 = dialogView.findViewById(R.id.rb2);
-        final RadioButton rb3 = dialogView.findViewById(R.id.rb3);
-        final RadioButton rb4 = dialogView.findViewById(R.id.rb4);
 
-        final int rightAnswer = random.nextInt(4) + 1;
-        List<Integer> digits = new ArrayList<>();// = IntStream.range(0,3).boxed().collect(Collectors.toList());
-        digits.add((int)(Math.random()*3));
-        for (int i =1;i<3;i++){
-            int tmp = (int)(Math.random()*3);
-            while (digits.contains(tmp)){
-                tmp = (int)(Math.random()*3);
+        final CitiesExercise currentExercise = exercises.getCitiesExercises().get(0);
+        exercises.getCitiesExercises().remove(0);
+
+        TextView question = dialogView.findViewById(R.id.exerciseCities);
+
+        final TextView[] btn = {dialogView.findViewById(R.id.tv_c00),
+                dialogView.findViewById(R.id.tv_c01),
+                dialogView.findViewById(R.id.tv_c10),
+                dialogView.findViewById(R.id.tv_c11)};
+
+        question.setText(currentExercise.getQuestion());
+
+        ArrayList<String> answers = currentExercise.getWrongAnswers();
+        answers.add(currentExercise.getAnswer());
+
+        for(int i=0;i<4;i++){
+            int tmp = (int)(Math.random()*4);
+            while(answers.get(tmp).length() == 0){
+                tmp = (int)(Math.random()*4);
             }
-            digits.add(tmp);
+            btn[i].setText(answers.get(tmp));
+            answers.set(tmp, "");
         }
-        System.out.println(digits.toString());
-        Collections.shuffle(digits);
-        int wrongAnswers[] = new int[3];
-        for (int i=0;i<3;i++)
-            wrongAnswers[i] = digits.get(i);
-        *//*int[] wrongAnswers = new int[3];
-        for (int i=0;i<3;i++)
-            wrongAnswers[i] = random.nextInt(3);*//*
-        //final int wrongAnswer = random.nextInt(3);
-        switch (rightAnswer)
-        {
-            case 1:
-                rb1.setText(exercises.getCitiesExercises().get(index).getAnswer());
-                rb2.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[0]]);
-                rb3.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[1]]);
-                rb4.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[2]]);
-                break;
-            case 2:
-                rb1.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[0]]);
-                rb2.setText(exercises.getCitiesExercises().get(index).getAnswer());
-                rb3.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[1]]);
-                rb4.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[2]]);
-                break;
-            case 3:
-                rb1.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[0]]);
-                rb2.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[1]]);
-                rb3.setText(exercises.getCitiesExercises().get(index).getAnswer());
-                rb4.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[2]]);
-                break;
-            case 4:
-                rb1.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[0]]);
-                rb2.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[1]]);
-                rb3.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[2]]);
-                rb4.setText(exercises.getCitiesExercises().get(index).getAnswer());
-                break;
-        }*/
-        /*Button answerBtn = dialogView.findViewById(R.id.citiesAnswerBtn);
-        answerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (rightAnswer)
-                {
-                    case 1:
-                        if (rb1.isChecked()) {
-                            scoreCounter += scoreToAdd;
-                            answer = true;
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                    case 2:
-                        if (rb2.isChecked()) {
-                            scoreCounter += scoreToAdd;
-                            answer = true;
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                    case 3:
-                        if (rb3.isChecked()) {
-                            scoreCounter += scoreToAdd;
-                            answer = true;
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                    case 4:
-                        if (rb4.isChecked()) {
-                            scoreCounter += scoreToAdd;
-                            answer = true;
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            dialog.dismiss();
-                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
-                        }
-                        break;
+
+        for(int i=0;i<4;i++){
+            btn[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(((TextView)v).getText().equals(currentExercise.getAnswer())){
+                        Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+                    }
+                    dialog.dismiss();
                 }
-                if (roundsCounter != 2)
-                    round.setText(getString(R.string.round) + " " + roundsCounter);
-                score.setText(getString(R.string.score) + " " + scoreCounter);
-                countDownTimer.cancel();
-                timeLeftInMillis = temp;
-            }
-        });*/
+            });
+        }
+
+//        Random random = new Random();
+//        int size = exercises.getCitiesExercises().size();
+//        final int index = random.nextInt(size); //draw lots question's number
+//        startTimer(dialogView);
+//        TextView exercise = dialogView.findViewById(R.id.exerciseCities);
+//        exercise.setText(exercises.getCitiesExercises().get(index).getQuestion());
+//        /*final RadioButton rb1 = dialogView.findViewById(R.id.rb1);
+//        final RadioButton rb2 = dialogView.findViewById(R.id.rb2);
+//        final RadioButton rb3 = dialogView.findViewById(R.id.rb3);
+//        final RadioButton rb4 = dialogView.findViewById(R.id.rb4);
+//
+//        final int rightAnswer = random.nextInt(4) + 1;
+//        List<Integer> digits = new ArrayList<>();// = IntStream.range(0,3).boxed().collect(Collectors.toList());
+//        digits.add((int)(Math.random()*3));
+//        for (int i =1;i<3;i++){
+//            int tmp = (int)(Math.random()*3);
+//            while (digits.contains(tmp)){
+//                tmp = (int)(Math.random()*3);
+//            }
+//            digits.add(tmp);
+//        }
+//        System.out.println(digits.toString());
+//        Collections.shuffle(digits);
+//        int wrongAnswers[] = new int[3];
+//        for (int i=0;i<3;i++)
+//            wrongAnswers[i] = digits.get(i);
+//        *//*int[] wrongAnswers = new int[3];
+//        for (int i=0;i<3;i++)
+//            wrongAnswers[i] = random.nextInt(3);*//*
+//        //final int wrongAnswer = random.nextInt(3);
+//        switch (rightAnswer)
+//        {
+//            case 1:
+//                rb1.setText(exercises.getCitiesExercises().get(index).getAnswer());
+//                rb2.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[0]]);
+//                rb3.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[1]]);
+//                rb4.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[2]]);
+//                break;
+//            case 2:
+//                rb1.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[0]]);
+//                rb2.setText(exercises.getCitiesExercises().get(index).getAnswer());
+//                rb3.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[1]]);
+//                rb4.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[2]]);
+//                break;
+//            case 3:
+//                rb1.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[0]]);
+//                rb2.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[1]]);
+//                rb3.setText(exercises.getCitiesExercises().get(index).getAnswer());
+//                rb4.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[2]]);
+//                break;
+//            case 4:
+//                rb1.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[0]]);
+//                rb2.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[1]]);
+//                rb3.setText(exercises.getCitiesExercises().get(index).getWrongAnswers()[wrongAnswers[2]]);
+//                rb4.setText(exercises.getCitiesExercises().get(index).getAnswer());
+//                break;
+//        }*/
+//        /*Button answerBtn = dialogView.findViewById(R.id.citiesAnswerBtn);
+//        answerBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                switch (rightAnswer)
+//                {
+//                    case 1:
+//                        if (rb1.isChecked()) {
+//                            scoreCounter += scoreToAdd;
+//                            answer = true;
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else {
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+//                        }
+//                        break;
+//                    case 2:
+//                        if (rb2.isChecked()) {
+//                            scoreCounter += scoreToAdd;
+//                            answer = true;
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else {
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+//                        }
+//                        break;
+//                    case 3:
+//                        if (rb3.isChecked()) {
+//                            scoreCounter += scoreToAdd;
+//                            answer = true;
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else {
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+//                        }
+//                        break;
+//                    case 4:
+//                        if (rb4.isChecked()) {
+//                            scoreCounter += scoreToAdd;
+//                            answer = true;
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else {
+//                            dialog.dismiss();
+//                            Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+//                        }
+//                        break;
+//                }
+//                if (roundsCounter != 2)
+//                    round.setText(getString(R.string.round) + " " + roundsCounter);
+//                score.setText(getString(R.string.score) + " " + scoreCounter);
+//                countDownTimer.cancel();
+//                timeLeftInMillis = temp;
+//            }
+//        });*/
         final Timer timer = new Timer(); //timer round
         timer.schedule(new TimerTask() {
             @Override
@@ -703,43 +749,43 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         exercises.getMathExercises().add(new MathExercise("2 ^ 5", "32"));
         exercises.getMathExercises().add(new MathExercise("5 ^ 3", "125"));
 
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.israel) + "?", getResources().getString(R.string.jerusalem)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.spain) + "?", getResources().getString(R.string.madrid)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.england) + "?", getResources().getString(R.string.london)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.usa) + "?", getResources().getString(R.string.washington)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.france) + "?", getResources().getString(R.string.paris)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.russsia) + "?", getResources().getString(R.string.moscow)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.ukraine) + "?", getResources().getString(R.string.kiev)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.japan) + "?", getResources().getString(R.string.tokyo)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.south_africa) + "?", getResources().getString(R.string.capetown)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.germany) + "?", getResources().getString(R.string.berlin)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.argentina) + "?", getResources().getString(R.string.buenos_aires)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.peru) + "?", getResources().getString(R.string.lima)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.egypt) + "?", getResources().getString(R.string.cairo)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.saudi_arabia) + "?", getResources().getString(R.string.riahd)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.lebanon) + "?", getResources().getString(R.string.beiruth)));
-        exercises.getCitiesExercises().add(new CitiesExercise(getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.siriya) + "?", getResources().getString(R.string.damascus)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.israel) + "?", getResources().getString(R.string.jerusalem)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.spain) + "?", getResources().getString(R.string.madrid)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.england) + "?", getResources().getString(R.string.london)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.usa) + "?", getResources().getString(R.string.washington)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.france) + "?", getResources().getString(R.string.paris)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.russsia) + "?", getResources().getString(R.string.moscow)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.ukraine) + "?", getResources().getString(R.string.kiev)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.japan) + "?", getResources().getString(R.string.tokyo)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.south_africa) + "?", getResources().getString(R.string.capetown)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.germany) + "?", getResources().getString(R.string.berlin)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.argentina) + "?", getResources().getString(R.string.buenos_aires)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.peru) + "?", getResources().getString(R.string.lima)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.egypt) + "?", getResources().getString(R.string.cairo)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.saudi_arabia) + "?", getResources().getString(R.string.riahd)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.lebanon) + "?", getResources().getString(R.string.beiruth)));
+        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.siriya) + "?", getResources().getString(R.string.damascus)));
 
-        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.encylopedia_definition), getResources().getString(R.string.encyclopedia)));
-        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.bacteria_definition), getResources().getString(R.string.bacteria)));
-        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.allergy_definition), getResources().getString(R.string.allergy)));
-        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.ballerina_definition), getResources().getString(R.string.ballerina)));
-        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.boomernag_definition), getResources().getString(R.string.boomernag)));
-        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.camouflage_definition), getResources().getString(R.string.camouflage)));
-        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.magazine_definition), getResources().getString(R.string.magazine)));
-        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.archive_definition), getResources().getString(R.string.archive)));
-        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.feather_definition), getResources().getString(R.string.feather)));
-        exercises.getWordExercises().add(new WordExercise(getResources().getString(R.string.success_definition), getResources().getString(R.string.success)));
+        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.encylopedia_definition), getResources().getString(R.string.encyclopedia)));
+        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.bacteria_definition), getResources().getString(R.string.bacteria)));
+        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.allergy_definition), getResources().getString(R.string.allergy)));
+        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.ballerina_definition), getResources().getString(R.string.ballerina)));
+        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.boomernag_definition), getResources().getString(R.string.boomernag)));
+        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.camouflage_definition), getResources().getString(R.string.camouflage)));
+        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.magazine_definition), getResources().getString(R.string.magazine)));
+        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.archive_definition), getResources().getString(R.string.archive)));
+        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.feather_definition), getResources().getString(R.string.feather)));
+        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.success_definition), getResources().getString(R.string.success)));
 
-        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.tooteth_missing), getResources().getString(R.string.tooteth)));
-        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.smoke_missing), getResources().getString(R.string.smoke)));
-        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.book_missing), getResources().getString(R.string.book)));
-        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.thousand_missing), getResources().getString(R.string.thousand)));
-        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.hand_missing), getResources().getString(R.string.hand)));
-        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.practice_missing), getResources().getString(R.string.practice)));
-        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.loves_missing), getResources().getString(R.string.loves)));
-        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.sight_missing), getResources().getString(R.string.sight)));
-        exercises.getSentenceExercises().add(new SentenceExercise(getResources().getString(R.string.grasp_missing), getResources().getString(R.string.grasp)));
+        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.tooteth_missing), getResources().getString(R.string.tooteth)));
+        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.smoke_missing), getResources().getString(R.string.smoke)));
+        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.book_missing), getResources().getString(R.string.book)));
+        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.thousand_missing), getResources().getString(R.string.thousand)));
+        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.hand_missing), getResources().getString(R.string.hand)));
+        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.practice_missing), getResources().getString(R.string.practice)));
+        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.loves_missing), getResources().getString(R.string.loves)));
+        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.sight_missing), getResources().getString(R.string.sight)));
+        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.grasp_missing), getResources().getString(R.string.grasp)));
     }
 
     /*public void showBonus()
@@ -828,10 +874,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     public static String encodeToBase64(Bitmap image) {
         Bitmap immage = image;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        immage.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] b = baos.toByteArray();
-        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
-        return imageEncoded;
+        if(image != null) {
+            immage.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] b = baos.toByteArray();
+            String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+            return imageEncoded;
+        }
+        return null;
     }
 
     @Override
