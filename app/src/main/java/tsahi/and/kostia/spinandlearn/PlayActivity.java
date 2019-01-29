@@ -308,8 +308,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         PlayActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (!answer)
+                                if (!answer) {
                                     Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                                    score.setText(getString(R.string.score) + " " + scoreCounter);
+                                }
                             }
                         });
                     }
@@ -324,6 +327,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 if(tmp.length()!=0) {
                     if (tmp.equals(currentExercise.getAnswer())) {
                         Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+                        scoreCounter += scoreToAdd;
                     } else {
                         Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
                     }
@@ -331,6 +335,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     countDownTimer.cancel();
                     timer.cancel();
                     timeLeftInMillis = temp;
+                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                    score.setText(getString(R.string.score) + " " + scoreCounter);
                 }
             }
         });
@@ -471,8 +477,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 //            }
 //        });
 
-        round.setText(getString(R.string.round) + " " + roundsCounter);
-        score.setText(getString(R.string.score) + " " + scoreCounter);
+
     }
 
     private class MathButtonClickListener implements View.OnClickListener{
@@ -590,8 +595,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         PlayActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (!answer)
+                                if (!answer) {
                                     Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                                    score.setText(getString(R.string.score) + " " + scoreCounter);
+                                }
                             }
                         });
                     }
@@ -605,6 +613,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 public void onClick(View v) {
                     if(((TextView)v).getText().equals(currentExercise.getAnswer())){
                         Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+                        scoreCounter += scoreToAdd;
                     }
                     else{
                         Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
@@ -613,6 +622,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     countDownTimer.cancel();
                     timer.cancel();
                     timeLeftInMillis = temp;
+                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                    score.setText(getString(R.string.score) + " " + scoreCounter);
                 }
             });
         }
@@ -739,8 +750,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 //            }
 //        });*/
 
-        round.setText(getString(R.string.round) + " " + roundsCounter);
-        score.setText(getString(R.string.score) + " " + scoreCounter);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -788,8 +798,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         PlayActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (!answer)
+                                if (!answer) {
                                     Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                                    score.setText(getString(R.string.score) + " " + scoreCounter);
+                                }
                             }
                         });
                     }
@@ -803,6 +816,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 public void onClick(View v) {
                     if(((TextView)v).getText().equals(currentExercise.getAnswer())){
                         Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+                        scoreCounter += scoreToAdd;
                     }
                     else{
                         Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
@@ -811,6 +825,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     countDownTimer.cancel();
                     timer.cancel();
                     timeLeftInMillis = temp;
+                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                    score.setText(getString(R.string.score) + " " + scoreCounter);
                 }
             });
         }
@@ -818,8 +834,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         startTimer(dialogView);
 
 
-        round.setText(getString(R.string.round) + " " + roundsCounter);
-        score.setText(getString(R.string.score) + " " + scoreCounter);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -936,8 +951,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         PlayActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (!answer)
+                                if (!answer) {
                                     Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                                    score.setText(getString(R.string.score) + " " + scoreCounter);
+                                }
                             }
                         });
                     }
@@ -964,6 +982,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 }
                 if (tmp.equals(currentExercise.getAnswer())) {
                     Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+                    scoreCounter += scoreToAdd;
                 } else {
                     Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
                 }
@@ -971,14 +990,15 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 countDownTimer.cancel();
                 timer.cancel();
                 timeLeftInMillis = temp;
+                round.setText(getString(R.string.round) + " " + roundsCounter);
+                score.setText(getString(R.string.score) + " " + scoreCounter);
             }
         });
 
         startTimer(dialogView);
 
 
-        round.setText(getString(R.string.round) + " " + roundsCounter);
-        score.setText(getString(R.string.score) + " " + scoreCounter);
+
     }
 
     public void initArray()
