@@ -726,7 +726,71 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void sentenceQuestion()
     {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
+        View dialogView = getLayoutInflater().inflate(R.layout.cities_dialog, null);
+        builder.setView(dialogView).setCancelable(false);
+        final AlertDialog dialog = builder.show();
 
+        final SentenceExercise currentExercise = exercises.getSentenceExercises().get(0);
+        exercises.getSentenceExercises().remove(0);
+
+        TextView question = dialogView.findViewById(R.id.exerciseCities);
+
+        final TextView[] btn = {dialogView.findViewById(R.id.tv_c00),
+                dialogView.findViewById(R.id.tv_c01),
+                dialogView.findViewById(R.id.tv_c10),
+                dialogView.findViewById(R.id.tv_c11)};
+
+        question.setText(currentExercise.getQuestion());
+
+        ArrayList<String> answers = currentExercise.getWrongAnswers();
+        answers.add(currentExercise.getAnswer());
+
+        for(int i=0;i<4;i++){
+            int tmp = (int)(Math.random()*4);
+            while(answers.get(tmp).length() == 0){
+                tmp = (int)(Math.random()*4);
+            }
+            btn[i].setText(answers.get(tmp));
+            answers.set(tmp, "");
+        }
+
+        for(int i=0;i<4;i++){
+            btn[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(((TextView)v).getText().equals(currentExercise.getAnswer())){
+                        Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+                    }
+                    dialog.dismiss();
+                }
+            });
+        }
+
+        final Timer timer = new Timer(); //timer round
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                timer.cancel();
+                new Thread()
+                {
+                    @Override
+                    public void run() {
+                        PlayActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!answer)
+                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }.start();
+            }
+        }, timeLeftInMillis);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
