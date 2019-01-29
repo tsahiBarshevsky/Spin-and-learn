@@ -295,6 +295,28 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         TextView padBS = dialogView.findViewById(R.id.tv_mBack);
         TextView padC = dialogView.findViewById(R.id.tv_mClear);
 
+        final Timer timer = new Timer(); //timer round
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                timer.cancel();
+                new Thread()
+                {
+                    @Override
+                    public void run() {
+                        PlayActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!answer)
+                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }.start();
+            }
+        }, timeLeftInMillis);
+
         answer_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -306,6 +328,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
                     }
                     dialog.dismiss();
+                    countDownTimer.cancel();
+                    timer.cancel();
+                    timeLeftInMillis = temp;
                 }
             }
         });
@@ -324,6 +349,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         padBS.setOnClickListener(mathButtonClickListener);
         padC.setOnClickListener(mathButtonClickListener);
 
+        startTimer(dialogView);
 //
 //        Random random = new Random();
 //        int size = exercises.getMathExercises().size();
@@ -444,29 +470,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 //                timeLeftInMillis = temp;
 //            }
 //        });
-        final Timer timer = new Timer(); //timer round
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-                timer.cancel();
-                new Thread()
-                {
-                    @Override
-                    public void run() {
-                        PlayActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!answer)
-                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }.start();
-            }
-        }, timeLeftInMillis);
-        /*round.setText(getString(R.string.round) + " " + roundsCounter);
-        score.setText(getString(R.string.score) + " " + scoreCounter);*/
+
+        round.setText(getString(R.string.round) + " " + roundsCounter);
+        score.setText(getString(R.string.score) + " " + scoreCounter);
     }
 
     private class MathButtonClickListener implements View.OnClickListener{
@@ -571,6 +577,28 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             answers.set(tmp, "");
         }
 
+        final Timer timer = new Timer(); //timer round
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                timer.cancel();
+                new Thread()
+                {
+                    @Override
+                    public void run() {
+                        PlayActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!answer)
+                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }.start();
+            }
+        }, timeLeftInMillis);
+
         for(int i=0;i<4;i++){
             btn[i].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -582,9 +610,14 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
                     }
                     dialog.dismiss();
+                    countDownTimer.cancel();
+                    timer.cancel();
+                    timeLeftInMillis = temp;
                 }
             });
         }
+
+        startTimer(dialogView);
 
 //        Random random = new Random();
 //        int size = exercises.getCitiesExercises().size();
@@ -705,27 +738,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 //                timeLeftInMillis = temp;
 //            }
 //        });*/
-        final Timer timer = new Timer(); //timer round
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-                timer.cancel();
-                new Thread()
-                {
-                    @Override
-                    public void run() {
-                        PlayActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!answer)
-                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }.start();
-            }
-        }, timeLeftInMillis);
+
+        round.setText(getString(R.string.round) + " " + roundsCounter);
+        score.setText(getString(R.string.score) + " " + scoreCounter);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -760,21 +775,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             answers.set(tmp, "");
         }
 
-        for(int i=0;i<4;i++){
-            btn[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(((TextView)v).getText().equals(currentExercise.getAnswer())){
-                        Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
-                    }
-                    dialog.dismiss();
-                }
-            });
-        }
-
         final Timer timer = new Timer(); //timer round
         timer.schedule(new TimerTask() {
             @Override
@@ -796,6 +796,30 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 }.start();
             }
         }, timeLeftInMillis);
+
+        for(int i=0;i<4;i++){
+            btn[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(((TextView)v).getText().equals(currentExercise.getAnswer())){
+                        Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+                    }
+                    dialog.dismiss();
+                    countDownTimer.cancel();
+                    timer.cancel();
+                    timeLeftInMillis = temp;
+                }
+            });
+        }
+
+        startTimer(dialogView);
+
+
+        round.setText(getString(R.string.round) + " " + roundsCounter);
+        score.setText(getString(R.string.score) + " " + scoreCounter);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -899,6 +923,28 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             });
         }
 
+        final Timer timer = new Timer(); //timer round
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                timer.cancel();
+                new Thread()
+                {
+                    @Override
+                    public void run() {
+                        PlayActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!answer)
+                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }.start();
+            }
+        }, timeLeftInMillis);
+
         Button ans_btn = dialogView.findViewById(R.id.wordAnswerBtn);
         ans_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -922,31 +968,17 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
+                countDownTimer.cancel();
+                timer.cancel();
+                timeLeftInMillis = temp;
             }
         });
 
+        startTimer(dialogView);
 
-        final Timer timer = new Timer(); //timer round
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-                timer.cancel();
-                new Thread()
-                {
-                    @Override
-                    public void run() {
-                        PlayActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!answer)
-                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }.start();
-            }
-        }, timeLeftInMillis);
+
+        round.setText(getString(R.string.round) + " " + roundsCounter);
+        score.setText(getString(R.string.score) + " " + scoreCounter);
     }
 
     public void initArray()
