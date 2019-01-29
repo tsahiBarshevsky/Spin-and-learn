@@ -983,7 +983,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     public void initArray()
     {
-        String[] wrongCities = {"New York", "Rome", "Lisbon"};
         exercises.getMathExercises().add(new MathExercise("32 + 17", "49"));
         exercises.getMathExercises().add(new MathExercise("67 - 52", "15"));
         exercises.getMathExercises().add(new MathExercise("12 x 5", "60"));
@@ -1032,6 +1031,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.loves_missing), getResources().getString(R.string.loves)));
         exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.sight_missing), getResources().getString(R.string.sight)));
         exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.grasp_missing), getResources().getString(R.string.grasp)));
+
+        Collections.shuffle(exercises.getCitiesExercises());
+        Collections.shuffle(exercises.getMathExercises());
+        Collections.shuffle(exercises.getSentenceExercises());
+        Collections.shuffle(exercises.getWordExercises());
     }
 
     /*public void showBonus()
