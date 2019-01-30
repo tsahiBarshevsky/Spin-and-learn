@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -50,6 +51,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     Button spinBtn;
     SharedPreferences sp;
     Bitmap bitmap;
+    MediaPlayer mediaPlayer;
 
     TextView mathAnswer;
 
@@ -310,6 +312,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                             public void run() {
                                 if (!answer) {
                                     Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                                    mediaPlayer = new MediaPlayer();
+                                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.out_of_time);
+                                    mediaPlayer.start();
                                     round.setText(getString(R.string.round) + " " + roundsCounter);
                                     score.setText(getString(R.string.score) + " " + scoreCounter);
                                 }
@@ -326,10 +331,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 String tmp = mathAnswer.getText().toString();
                 if(tmp.length()!=0) {
                     if (tmp.equals(currentExercise.getAnswer())) {
-                        Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+                        rightAnswer();
                         scoreCounter += scoreToAdd;
                     } else {
-                        Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+                        wrongAnswer();
                     }
                     dialog.dismiss();
                     countDownTimer.cancel();
@@ -597,6 +602,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                             public void run() {
                                 if (!answer) {
                                     Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                                    mediaPlayer = new MediaPlayer();
+                                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.out_of_time);
+                                    mediaPlayer.start();
                                     round.setText(getString(R.string.round) + " " + roundsCounter);
                                     score.setText(getString(R.string.score) + " " + scoreCounter);
                                 }
@@ -612,11 +620,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 @Override
                 public void onClick(View v) {
                     if(((TextView)v).getText().equals(currentExercise.getAnswer())){
-                        Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+                        rightAnswer();
                         scoreCounter += scoreToAdd;
                     }
                     else{
-                        Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+                        wrongAnswer();
                     }
                     dialog.dismiss();
                     countDownTimer.cancel();
@@ -800,6 +808,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                             public void run() {
                                 if (!answer) {
                                     Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                                    mediaPlayer = new MediaPlayer();
+                                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.out_of_time);
+                                    mediaPlayer.start();
                                     round.setText(getString(R.string.round) + " " + roundsCounter);
                                     score.setText(getString(R.string.score) + " " + scoreCounter);
                                 }
@@ -815,11 +826,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 @Override
                 public void onClick(View v) {
                     if(((TextView)v).getText().equals(currentExercise.getAnswer())){
-                        Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+                        rightAnswer();
                         scoreCounter += scoreToAdd;
                     }
                     else{
-                        Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+                        wrongAnswer();
                     }
                     dialog.dismiss();
                     countDownTimer.cancel();
@@ -953,6 +964,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                             public void run() {
                                 if (!answer) {
                                     Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                                    mediaPlayer = new MediaPlayer();
+                                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.out_of_time);
+                                    mediaPlayer.start();
                                     round.setText(getString(R.string.round) + " " + roundsCounter);
                                     score.setText(getString(R.string.score) + " " + scoreCounter);
                                 }
@@ -981,10 +995,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     }
                 }
                 if (tmp.equals(currentExercise.getAnswer())) {
-                    Toast.makeText(PlayActivity.this, "correct :)", Toast.LENGTH_SHORT).show();
+                    rightAnswer();
                     scoreCounter += scoreToAdd;
                 } else {
-                    Toast.makeText(PlayActivity.this, "incorrect :(", Toast.LENGTH_SHORT).show();
+                    wrongAnswer();
                 }
                 dialog.dismiss();
                 countDownTimer.cancel();
@@ -1123,6 +1137,42 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }
         });
     }*/
+
+    public void rightAnswer()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
+        View dialogView = getLayoutInflater().inflate(R.layout.right_answer_dialog, null);
+        builder.setView(dialogView).setCancelable(false);
+        final AlertDialog dialog = builder.show();
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer = MediaPlayer.create(this, R.raw.right_answer);
+        mediaPlayer.start();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, 2000);
+    }
+
+    public void wrongAnswer()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
+        View dialogView = getLayoutInflater().inflate(R.layout.wrong_answer_dialog, null);
+        builder.setView(dialogView).setCancelable(false);
+        final AlertDialog dialog = builder.show();
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer = MediaPlayer.create(this, R.raw.wrong_answer);
+        mediaPlayer.start();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, 2000);
+    }
 
     public void changeBack()
     {
