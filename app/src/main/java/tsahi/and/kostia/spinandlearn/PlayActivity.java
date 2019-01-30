@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
@@ -40,11 +41,11 @@ import java.util.TimerTask;
 public class PlayActivity extends AppCompatActivity implements Animation.AnimationListener{
 
     int roundsCounter = 1, scoreCounter = 0, scoreToAdd;
-    boolean blnButtonRotation = true, answer, bonus;
+    boolean blnButtonRotation = true, answer, bonus, isFirstImage = true;
     int intNumber = 10;
-    long lngDegrees = 0, timeLeftInMillis, temp;
+    long lngDegrees = 0, lngDegrees2 = 0, timeLeftInMillis, temp;
     Exercises exercises;
-    ImageView imageRoulette;
+    ImageView imageRoulette, bonusRoulette;
     TextView round, score, levelTV;
     CountDownTimer countDownTimer;
     String level, type;
@@ -92,7 +93,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 break;
         }
         initArray();
-        imageRoulette = findViewById(R.id.roulette);
+        imageRoulette = findViewById(R.id.ImageView01);
+        bonusRoulette = findViewById(R.id.ImageView02);
+        bonusRoulette.setVisibility(View.GONE);
         round = findViewById(R.id.round);
         round.setText(getString(R.string.round) + " " + "1");
         score = findViewById(R.id.score);
@@ -115,6 +118,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     imageRoulette.setAnimation(rotateAnimation);
                     imageRoulette.startAnimation(rotateAnimation);
                 }
+                Toast.makeText(PlayActivity.this, "spin...", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -144,9 +148,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     type = "cities";
                     citiesQuestion();
                     break;
-                /*case 2:
+                case 2:
                     showBonus();
-                    break;*/
+                    break;
                 case 3:
                     type = "cities";
                     citiesQuestion();
@@ -177,10 +181,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     break;
             }
         }
-        else //bonus wheel spin - need to check this
+        else //bonus wheel spin
         {
             String string = String.valueOf((int)(((double)4)
-                    - Math.floor(((double)lngDegrees) / (360.0d / ((double)4)))));
+                    - Math.floor(((double)lngDegrees2) / (360.0d / ((double)4)))));
             int pos = Integer.parseInt(string);
             pos--;
             switch (pos)
@@ -199,7 +203,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     break;
             }
             bonus = false;
-            changeBack();
+            blnButtonRotation = true;
+            applyRotation(0, -90);
+            isFirstImage = !isFirstImage;
         }
         if (roundsCounter > 50)
         {
@@ -1070,6 +1076,75 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         Collections.shuffle(exercises.getMathExercises());
         Collections.shuffle(exercises.getSentenceExercises());
         Collections.shuffle(exercises.getWordExercises());
+    }
+
+    public void showBonus()
+    {
+        bonus = true;
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer = MediaPlayer.create(this, R.raw.ta_da);
+        AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
+        View dialogView = getLayoutInflater().inflate(R.layout.bonus_dialog, null);
+        builder.setView(dialogView).setCancelable(false);
+        final AlertDialog dialog = builder.show();
+        mediaPlayer.start();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                applyRotation(0, 90);
+                isFirstImage = !isFirstImage;
+                LinearLayout bonusLayout = findViewById(R.id.bonusLayout);
+                bonusLayout.setVisibility(View.VISIBLE);
+                spinBtn.setVisibility(View.INVISIBLE);
+                Button spinBonusBtn = findViewById(R.id.spinBonusBtn);
+                spinBonusBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int ran = new Random().nextInt(360) + 3600;
+                        RotateAnimation rotateAnimation = new RotateAnimation((float)lngDegrees2, (float)
+                                (lngDegrees2 + ((long)ran)),1,0.5f,1,0.5f);
+                        lngDegrees2 = (lngDegrees2 + ((long)ran)) % 360;
+                        rotateAnimation.setDuration((long)ran);
+                        rotateAnimation.setFillAfter(true);
+                        rotateAnimation.setInterpolator(new DecelerateInterpolator());
+                        rotateAnimation.setAnimationListener(PlayActivity.this);
+                        bonusRoulette.setAnimation(rotateAnimation);
+                        bonusRoulette.startAnimation(rotateAnimation);
+                        bonusLayout.setVisibility(View.INVISIBLE);
+                        spinBtn.setVisibility(View.VISIBLE);
+                    }
+                });
+                Button leaveBtn = findViewById(R.id.leaveBtn);
+                leaveBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bonusLayout.setVisibility(View.INVISIBLE);
+                        spinBtn.setVisibility(View.VISIBLE);
+                        bonus = false;
+                        applyRotation(0, -90);
+                        isFirstImage = !isFirstImage;
+                    }
+                });
+            }
+        }, 2000);
+    }
+
+    private void applyRotation(float start, float end) {
+        final float centerX = imageRoulette.getWidth() / 2.0f;
+        final float centerY = bonusRoulette.getHeight() / 2.0f;
+        final Flip3dAnimation rotation =  new Flip3dAnimation(start, end, centerX, centerY);
+        rotation.setDuration(500);
+        rotation.setFillAfter(true);
+        rotation.setInterpolator(new AccelerateInterpolator());
+        rotation.setAnimationListener(new DisplayNextView(isFirstImage, imageRoulette, bonusRoulette));
+        if (isFirstImage)
+        {
+            imageRoulette.startAnimation(rotation);
+        } else {
+            bonusRoulette.startAnimation(rotation);
+        }
     }
 
     /*public void showBonus()

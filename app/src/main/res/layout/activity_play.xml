@@ -7,6 +7,9 @@
     tools:context=".PlayActivity"
     android:background="#b2f6df">
 
+    <include android:id="@+id/notelist" layout="@layout/first_view" />
+    <include android:id="@+id/notelist" layout="@layout/second_view" />
+
     <TextView android:id="@+id/level_TV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,12 +39,13 @@
     <ImageView android:id="@+id/base"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/base"/>
+        android:src="@drawable/base"
+        android:visibility="invisible"/>
 
-    <ImageView android:id="@+id/roulette"
+    <!--<ImageView android:id="@+id/roulette"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/rolutte_10"/>
+        android:src="@drawable/rolutte_10"/>-->
 
     <ImageView
         android:layout_width="wrap_content"
