@@ -9,18 +9,14 @@ import java.util.Arrays;
 
 public class CitiesExercise
 {
-    private Context context;
-
     private String question, answer;
     ArrayList<String> wrongAnswers;
 
 
     public CitiesExercise(Context context, String question, String answer) {
-        this.context=context;
         this.question = question;
         this.answer = answer;
         wrongAnswers = new ArrayList<>();
-
 
         String[] citiesBank = {context.getResources().getString(R.string.jerusalem),
                 context.getResources().getString(R.string.madrid),

@@ -7,14 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class SentenceExercise {
-    private Context context;
 
     private String question, answer;
     ArrayList<String> wrongAnswers;
 
 
     public SentenceExercise(Context context, String question, String answer) {
-        this.context=context;
         this.question = question;
         this.answer = answer;
         wrongAnswers = new ArrayList<>();

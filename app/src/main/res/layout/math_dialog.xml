@@ -136,11 +136,11 @@
                 <TextView android:id="@+id/tv_mClear"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:text="C"
+                    android:text="@string/clr"
                     android:background="@drawable/complete_the_latters_design"/>
                 <TextView android:id="@+id/tv_m0"
                     android:layout_width="50dp"
@@ -154,11 +154,11 @@
                 <TextView android:id="@+id/tv_mBack"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:text="b"
+                    android:text="@string/del"
                     android:background="@drawable/complete_the_latters_design"/>
             </TableRow>
 

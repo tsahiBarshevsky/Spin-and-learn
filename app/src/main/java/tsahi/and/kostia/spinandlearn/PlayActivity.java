@@ -74,7 +74,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         if (extras != null)
             bitmap = extras.getParcelable("user_pic");
         sp = getSharedPreferences("score detail", MODE_PRIVATE);
-        exercises = new Exercises();
+        exercises = new Exercises(this);
         levelTV = findViewById(R.id.level_TV);
         level = getIntent().getStringExtra("Level");
         switch (level)
@@ -98,13 +98,15 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 levelTV.setText(getString(R.string.level) + getString(R.string.hard));
                 break;
         }
-        initArray();
+
         imageRoulette = findViewById(R.id.ImageView01);
         bonusRoulette = findViewById(R.id.ImageView02);
         bonusRoulette.setVisibility(View.INVISIBLE);
         scale = getApplicationContext().getResources().getDisplayMetrics().density;
         distanceRoulette = imageRoulette.getCameraDistance() * (scale + (scale / 3));
         distanceBonus = imageRoulette.getCameraDistance() * (scale + (scale / 3));
+        imageRoulette.setCameraDistance(distanceRoulette);
+        bonusRoulette.setCameraDistance(distanceBonus);
         round = findViewById(R.id.round);
         round.setText(getString(R.string.round) + " " + "1");
         score = findViewById(R.id.score);
@@ -212,28 +214,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }
             bonus = false;
             blnButtonRotation = true;
-            imageRoulette.setCameraDistance(distanceRoulette);
-            bonusRoulette.setCameraDistance(distanceBonus);
-
-            bonusRoulette.animate().withLayer()
-                    .rotationY(90)
-                    .setDuration(300)
-                    .withEndAction(
-                            new Runnable() {
-                                @Override public void run() {
-
-                                    bonusRoulette.setVisibility(View.INVISIBLE);
-                                    imageRoulette.setVisibility(View.VISIBLE);
-
-                                    // second quarter turn
-                                    imageRoulette.setRotationY(-90);
-                                    imageRoulette.animate().withLayer()
-                                            .rotationY(0)
-                                            .setDuration(300)
-                                            .start();
-                                }
-                            }
-                    ).start();
+            boardFlip();
         }
         if (roundsCounter > 50)
         {
@@ -302,8 +283,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void mathQuestion()
-    {
+    public void mathQuestion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
         View dialogView = getLayoutInflater().inflate(R.layout.math_dialog, null);
         builder.setView(dialogView).setCancelable(false);
@@ -318,18 +298,18 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         question.setText(currentExercise.getQuestion());
 
         Button answer_btn = dialogView.findViewById(R.id.mathAnswerBtn);
-        TextView pad1 = dialogView.findViewById(R.id.tv_m1);
-        TextView pad2 = dialogView.findViewById(R.id.tv_m2);
-        TextView pad3 = dialogView.findViewById(R.id.tv_m3);
-        TextView pad4 = dialogView.findViewById(R.id.tv_m4);
-        TextView pad5 = dialogView.findViewById(R.id.tv_m5);
-        TextView pad6 = dialogView.findViewById(R.id.tv_m6);
-        TextView pad7 = dialogView.findViewById(R.id.tv_m7);
-        TextView pad8 = dialogView.findViewById(R.id.tv_m8);
-        TextView pad9 = dialogView.findViewById(R.id.tv_m9);
-        TextView pad0 = dialogView.findViewById(R.id.tv_m0);
-        TextView padBS = dialogView.findViewById(R.id.tv_mBack);
-        TextView padC = dialogView.findViewById(R.id.tv_mClear);
+        TextView[] pad = {dialogView.findViewById(R.id.tv_m1),
+                dialogView.findViewById(R.id.tv_m2),
+                dialogView.findViewById(R.id.tv_m3),
+                dialogView.findViewById(R.id.tv_m4),
+                dialogView.findViewById(R.id.tv_m5),
+                dialogView.findViewById(R.id.tv_m6),
+                dialogView.findViewById(R.id.tv_m7),
+                dialogView.findViewById(R.id.tv_m8),
+                dialogView.findViewById(R.id.tv_m9),
+                dialogView.findViewById(R.id.tv_m0),
+                dialogView.findViewById(R.id.tv_mBack),
+                dialogView.findViewById(R.id.tv_mClear)};
 
         final Timer timer = new Timer(); //timer round
         timer.schedule(new TimerTask() {
@@ -337,8 +317,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             public void run() {
                 dialog.dismiss();
                 timer.cancel();
-                new Thread()
-                {
+                new Thread() {
                     @Override
                     public void run() {
                         PlayActivity.this.runOnUiThread(new Runnable() {
@@ -363,7 +342,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             @Override
             public void onClick(View v) {
                 String tmp = mathAnswer.getText().toString();
-                if(tmp.length()!=0) {
+                if (tmp.length() != 0) {
                     if (tmp.equals(currentExercise.getAnswer())) {
                         rightAnswer();
                         scoreCounter += scoreToAdd;
@@ -380,93 +359,34 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }
         });
 
-        MathButtonClickListener mathButtonClickListener = new MathButtonClickListener();
-        pad0.setOnClickListener(mathButtonClickListener);
-        pad1.setOnClickListener(mathButtonClickListener);
-        pad2.setOnClickListener(mathButtonClickListener);
-        pad3.setOnClickListener(mathButtonClickListener);
-        pad4.setOnClickListener(mathButtonClickListener);
-        pad5.setOnClickListener(mathButtonClickListener);
-        pad6.setOnClickListener(mathButtonClickListener);
-        pad7.setOnClickListener(mathButtonClickListener);
-        pad8.setOnClickListener(mathButtonClickListener);
-        pad9.setOnClickListener(mathButtonClickListener);
-        padBS.setOnClickListener(mathButtonClickListener);
-        padC.setOnClickListener(mathButtonClickListener);
+        for(int i=0;i<12;i++){
+            pad[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String padString = ((TextView) v).getText().toString();
+                    String tmp = mathAnswer.getText().toString();
+                    if(getResources().getString(R.string.clr).equals(padString)){
+                        mathAnswer.setText("");
+                    }
+                    else if(getResources().getString(R.string.del).equals(padString)){
+                        tmp = mathAnswer.getText().toString();
+                        if(tmp.length() != 0) {
+                            tmp = tmp.substring(0, tmp.length() - 1);
+                            mathAnswer.setText(tmp);
+                        }
+                    }
+                    else {
+                        tmp += padString;
+                        mathAnswer.setText(tmp);
+                    }
+                }
+            });
+        }
 
         startTimer(dialogView);
 
     }
 
-    private class MathButtonClickListener implements View.OnClickListener{
-        @Override
-        public void onClick(View v) {
-            String btnString = ((TextView) v).getText().toString();
-            String tmp;
-            switch (btnString){
-                case "0":
-                    tmp = mathAnswer.getText().toString();
-                    tmp+="0";
-                    mathAnswer.setText(tmp);
-                    break;
-                case "1":
-                    tmp = mathAnswer.getText().toString();
-                    tmp+="1";
-                    mathAnswer.setText(tmp);
-                    break;
-                case "2":
-                    tmp = mathAnswer.getText().toString();
-                    tmp+="2";
-                    mathAnswer.setText(tmp);
-                    break;
-                case "3":
-                    tmp = mathAnswer.getText().toString();
-                    tmp+="3";
-                    mathAnswer.setText(tmp);
-                    break;
-                case "4":
-                    tmp = mathAnswer.getText().toString();
-                    tmp+="4";
-                    mathAnswer.setText(tmp);
-                    break;
-                case "5":
-                    tmp = mathAnswer.getText().toString();
-                    tmp+="5";
-                    mathAnswer.setText(tmp);
-                    break;
-                case "6":
-                    tmp = mathAnswer.getText().toString();
-                    tmp+="6";
-                    mathAnswer.setText(tmp);
-                    break;
-                case "7":
-                    tmp = mathAnswer.getText().toString();
-                    tmp+="7";
-                    mathAnswer.setText(tmp);
-                    break;
-                case "8":
-                    tmp = mathAnswer.getText().toString();
-                    tmp+="8";
-                    mathAnswer.setText(tmp);
-                    break;
-                case "9":
-                    tmp = mathAnswer.getText().toString();
-                    tmp+="9";
-                    mathAnswer.setText(tmp);
-                    break;
-                case "C":
-                    mathAnswer.setText("");
-                    break;
-                case "b":
-                    tmp = mathAnswer.getText().toString();
-                    if(tmp.length() != 0) {
-                        tmp = tmp.substring(0, tmp.length() - 1);
-                        mathAnswer.setText(tmp);
-                    }
-                    break;
-            }
-        }
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void citiesQuestion()
@@ -804,63 +724,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         startTimer(dialogView);
     }
 
-    public void initArray()
-    {
-        exercises.getMathExercises().add(new MathExercise("32 + 17", "49"));
-        exercises.getMathExercises().add(new MathExercise("67 - 52", "15"));
-        exercises.getMathExercises().add(new MathExercise("12 x 5", "60"));
-        exercises.getMathExercises().add(new MathExercise("72 / 9", "8"));
-        exercises.getMathExercises().add(new MathExercise("23 x 3", "69"));
-        exercises.getMathExercises().add(new MathExercise("128 / 32", "4"));
-        exercises.getMathExercises().add(new MathExercise("59 + 62", "121"));
-        exercises.getMathExercises().add(new MathExercise("236 - 140", "96"));
-        exercises.getMathExercises().add(new MathExercise("2 ^ 5", "32"));
-        exercises.getMathExercises().add(new MathExercise("5 ^ 3", "125"));
-
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.israel) + "?", getResources().getString(R.string.jerusalem)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.spain) + "?", getResources().getString(R.string.madrid)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.england) + "?", getResources().getString(R.string.london)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.usa) + "?", getResources().getString(R.string.washington)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.france) + "?", getResources().getString(R.string.paris)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.russsia) + "?", getResources().getString(R.string.moscow)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.ukraine) + "?", getResources().getString(R.string.kiev)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.japan) + "?", getResources().getString(R.string.tokyo)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.south_africa) + "?", getResources().getString(R.string.capetown)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.germany) + "?", getResources().getString(R.string.berlin)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.argentina) + "?", getResources().getString(R.string.buenos_aires)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.peru) + "?", getResources().getString(R.string.lima)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.egypt) + "?", getResources().getString(R.string.cairo)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.saudi_arabia) + "?", getResources().getString(R.string.riahd)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.lebanon) + "?", getResources().getString(R.string.beiruth)));
-        exercises.getCitiesExercises().add(new CitiesExercise(this,getResources().getString(R.string.capital_of) + " " + getResources().getString(R.string.siriya) + "?", getResources().getString(R.string.damascus)));
-
-        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.encylopedia_definition), getResources().getString(R.string.encyclopedia)));
-        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.bacteria_definition), getResources().getString(R.string.bacteria)));
-        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.allergy_definition), getResources().getString(R.string.allergy)));
-        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.ballerina_definition), getResources().getString(R.string.ballerina)));
-        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.boomernag_definition), getResources().getString(R.string.boomernag)));
-        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.camouflage_definition), getResources().getString(R.string.camouflage)));
-        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.magazine_definition), getResources().getString(R.string.magazine)));
-        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.archive_definition), getResources().getString(R.string.archive)));
-        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.feather_definition), getResources().getString(R.string.feather)));
-        exercises.getWordExercises().add(new WordExercise(this,getResources().getString(R.string.success_definition), getResources().getString(R.string.success)));
-
-        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.tooteth_missing), getResources().getString(R.string.tooteth)));
-        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.smoke_missing), getResources().getString(R.string.smoke)));
-        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.book_missing), getResources().getString(R.string.book)));
-        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.thousand_missing), getResources().getString(R.string.thousand)));
-        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.hand_missing), getResources().getString(R.string.hand)));
-        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.practice_missing), getResources().getString(R.string.practice)));
-        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.loves_missing), getResources().getString(R.string.loves)));
-        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.sight_missing), getResources().getString(R.string.sight)));
-        exercises.getSentenceExercises().add(new SentenceExercise(this,getResources().getString(R.string.grasp_missing), getResources().getString(R.string.grasp)));
-
-        Collections.shuffle(exercises.getCitiesExercises());
-        Collections.shuffle(exercises.getMathExercises());
-        Collections.shuffle(exercises.getSentenceExercises());
-        Collections.shuffle(exercises.getWordExercises());
-    }
-
     public void showBonus()
     {
         bonus = true;
@@ -877,27 +740,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             public void run() {
                 dialog.dismiss();
 
-                imageRoulette.setCameraDistance(distanceRoulette);
-                bonusRoulette.setCameraDistance(distanceBonus);
-                imageRoulette.animate().withLayer()
-                        .rotationY(90)
-                        .setDuration(300)
-                        .withEndAction(
-                                new Runnable() {
-                                    @Override public void run() {
-
-                                        imageRoulette.setVisibility(View.INVISIBLE);
-                                        bonusRoulette.setVisibility(View.VISIBLE);
-
-                                        // second quarter turn
-                                        bonusRoulette.setRotationY(-90);
-                                        bonusRoulette.animate().withLayer()
-                                                .rotationY(0)
-                                                .setDuration(300)
-                                                .start();
-                                    }
-                                }
-                        ).start();
+                boardFlip();
 
                 final LinearLayout bonusLayout = findViewById(R.id.bonusLayout);
                 bonusLayout.setVisibility(View.VISIBLE);
@@ -928,32 +771,47 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         spinBtn.setVisibility(View.VISIBLE);
                         bonus = false;
 
-                        imageRoulette.setCameraDistance(distanceRoulette);
-                        bonusRoulette.setCameraDistance(distanceBonus);
-
-                        bonusRoulette.animate().withLayer()
-                                .rotationY(90)
-                                .setDuration(300)
-                                .withEndAction(
-                                        new Runnable() {
-                                            @Override public void run() {
-
-                                                bonusRoulette.setVisibility(View.INVISIBLE);
-                                                imageRoulette.setVisibility(View.VISIBLE);
-
-                                                // second quarter turn
-                                                imageRoulette.setRotationY(-90);
-                                                imageRoulette.animate().withLayer()
-                                                        .rotationY(0)
-                                                        .setDuration(300)
-                                                        .start();
-                                            }
-                                        }
-                                ).start();
+                        boardFlip();
                     }
                 });
             }
         }, 2000);
+    }
+
+    void boardFlip(){
+        ImageView imgV1;
+        ImageView imgV2;
+        if(isFirstImage) {
+            imgV1 = imageRoulette;
+            imgV2 = bonusRoulette;
+        }
+        else{
+            imgV2 = imageRoulette;
+            imgV1 = bonusRoulette;
+        }
+        isFirstImage = !isFirstImage;
+        imgV1.setRotationX(0);
+        imgV1.animate().withLayer()
+                .rotationY(90)
+                .rotationX(0)
+                .setDuration(300)
+                .withEndAction(
+                        new Runnable() {
+                            @Override public void run() {
+
+                                imgV1.setVisibility(View.INVISIBLE);
+                                imgV2.setVisibility(View.VISIBLE);
+
+                                // second quarter turn
+                                imgV2.setRotationY(-90);
+                                imgV2.setRotationX(0);
+                                imgV2.animate().withLayer()
+                                        .rotationY(0)
+                                        .setDuration(300)
+                                        .start();
+                            }
+                        }
+                ).start();
     }
 
     public void rightAnswer()

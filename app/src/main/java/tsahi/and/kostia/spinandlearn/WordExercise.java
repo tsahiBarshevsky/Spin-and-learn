@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class WordExercise {
-    private Context context;
 
     private String definition, answer;
     ArrayList<Character> letterBank;
@@ -15,7 +14,6 @@ public class WordExercise {
     private StringBuilder question;
 
     public WordExercise(Context context, String definition, String answer) {
-        this.context=context;
         this.definition = definition;
         this.answer = answer;
 

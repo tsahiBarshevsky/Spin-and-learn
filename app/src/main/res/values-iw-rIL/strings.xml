@@ -103,4 +103,16 @@
     <string name="capital_of">עיר הבירה של</string>
     <string name="rnd_letter_index">א</string>
     <string name="leave">וותר</string>
+    <string name="del">מחק</string>
+    <string name="clr">אפס</string>
+    <string name="math1">17 + 32</string>
+    <string name="math2">52 - 67</string>
+    <string name="math3">5 x 12</string>
+    <string name="math4">9 / 72</string>
+    <string name="math5">3 x 23</string>
+    <string name="math6">32 / 128</string>
+    <string name="math7">62 + 59</string>
+    <string name="math8">140 - 236</string>
+    <string name="math9">5 ^ 2</string>
+    <string name="math10">3 ^ 5</string>
 </resources>
