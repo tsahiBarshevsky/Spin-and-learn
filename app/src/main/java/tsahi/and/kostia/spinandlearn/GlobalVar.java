@@ -13,4 +13,8 @@ public class GlobalVar extends Application {
     public void setgRes(Resources gRes) {
         this.gRes = gRes;
     }
+
+    public int rndNum(int start, int end){
+        return 0;
+    }
 }

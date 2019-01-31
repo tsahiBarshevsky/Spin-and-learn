@@ -360,7 +360,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         }
 
         startTimer(dialogView);
-
     }
 
 
@@ -404,7 +403,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         }
 
         startTimer(dialogView);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -447,9 +445,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         }
 
         startTimer(dialogView);
-
-
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -773,7 +768,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     int calcScore(){
         double precent = (double)timeLeftInMillis/(double)temp;
-        System.out.println(temp + " " + timeLeftInMillis + " " + precent);
         return scoreToAdd + (int)floor(precent*scoreRange);
     }
 
@@ -789,8 +783,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         editor.putInt("size", size);
         editor.commit();
 
-        Toast.makeText(this, "Your score is: " + scoreCounter + " Animation with aplouds", Toast.LENGTH_LONG).show();
+        if(strikes >= 3) {
+            Toast.makeText(this, "Strike out - Your score is: " + scoreCounter + " Animation with aplouds", Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(this, "Finished game - Your score is: " + scoreCounter + " Animation with aplouds", Toast.LENGTH_LONG).show();
 
+        }
         Intent intent = new Intent(PlayActivity.this, MainActivity.class);
         intent.putExtra("Name", getIntent().getStringExtra("Name"));
         startActivity(intent);
