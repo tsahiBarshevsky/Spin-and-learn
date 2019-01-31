@@ -37,10 +37,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     int NUM_OF_ROUNDS = 10;
 
     int roundsCounter = 1, scoreCounter = 0, scoreToAdd, scoreRange;
-    boolean blnButtonRotation = true, answer, bonus, isFirstImage = true;
+    boolean blnButtonRotation = true, bonus, isFirstImage = true;
     int intNumber = 10;
     long lngDegrees = 0, lngDegrees2 = 0, timeLeftInMillis, temp;
-    Exercises exercises;
+    ExercisesContainer exercisesContainer;
     ImageView imageRoulette, bonusRoulette;
     TextView round, score, levelTV;
     CountDownTimer countDownTimer;
@@ -51,12 +51,19 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     MediaPlayer mediaPlayer;
 
     TextView mathAnswer;
+    ArrayList<TextView> answer_blank;
 
     int blankIndex;
 
     float scale;
     float distanceRoulette ;
     float distanceBonus;
+
+    int strikes;
+
+    Exercises currentExercise;
+    Timer timer;
+    AlertDialog dialog;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -68,7 +75,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         if (extras != null)
             bitmap = extras.getParcelable("user_pic");
         sp = getSharedPreferences("score detail", MODE_PRIVATE);
-        exercises = new Exercises(this);
+        exercisesContainer = new ExercisesContainer(this);
         levelTV = findViewById(R.id.level_TV);
         level = getIntent().getStringExtra("Level");
         switch (level)
@@ -96,6 +103,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 break;
         }
 
+        strikes = 0;
         imageRoulette = findViewById(R.id.ImageView01);
         bonusRoulette = findViewById(R.id.ImageView02);
         bonusRoulette.setVisibility(View.INVISIBLE);
@@ -139,7 +147,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     @Override
     public void onAnimationEnd(Animation animation) {
         if (!bonus) {
-            answer = false;
             String string = String.valueOf((int) (((double) this.intNumber)
                     - floor(((double) this.lngDegrees) / (360.0d / ((double) this.intNumber)))));
             int pos = Integer.parseInt(string);
@@ -293,10 +300,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
         View dialogView = getLayoutInflater().inflate(R.layout.math_dialog, null);
         builder.setView(dialogView).setCancelable(false);
-        final AlertDialog dialog = builder.show();
+        dialog = builder.show();
 
-        final MathExercise currentExercise = exercises.getMathExercises().get(0);
-        exercises.getMathExercises().remove(0);
+        currentExercise = exercisesContainer.getMathExercises().get(0);
+        exercisesContainer.getMathExercises().remove(0);
 
         TextView question = dialogView.findViewById(R.id.exerciseMath);
         mathAnswer = dialogView.findViewById(R.id.answerMath);
@@ -317,59 +324,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 dialogView.findViewById(R.id.tv_mBack),
                 dialogView.findViewById(R.id.tv_mClear)};
 
-        final Timer timer = new Timer(); //timer round
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-                timer.cancel();
-                new Thread() {
-                    @Override
-                    public void run() {
-                        PlayActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!answer) {
-                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
-                                    mediaPlayer = new MediaPlayer();
-                                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.out_of_time);
-                                    mediaPlayer.start();
-                                    round.setText(getString(R.string.round) + " " + roundsCounter);
-                                    score.setText(getString(R.string.score) + " " + scoreCounter);
-                                    if (roundsCounter > NUM_OF_ROUNDS) {
-                                        endGame();
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }.start();
-            }
-        }, timeLeftInMillis);
+        timer = new Timer(); //timer round
+        questionTimer();
 
-        answer_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String tmp = mathAnswer.getText().toString();
-                if (tmp.length() != 0) {
-                    if (tmp.equals(currentExercise.getAnswer())) {
-                        rightAnswer();
-                        scoreCounter += calcScore();
-                    } else {
-                        wrongAnswer();
-                    }
-                    dialog.dismiss();
-                    countDownTimer.cancel();
-                    timer.cancel();
-                    timeLeftInMillis = temp;
-                    round.setText(getString(R.string.round) + " " + roundsCounter);
-                    score.setText(getString(R.string.score) + " " + scoreCounter);
-                    if (roundsCounter > NUM_OF_ROUNDS) {
-                        endGame();
-                    }
-                }
-            }
-        });
+        answer_btn.setOnClickListener(new answerBtn());
 
         for(int i=0;i<12;i++){
             pad[i].setOnClickListener(new View.OnClickListener() {
@@ -412,10 +370,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
         View dialogView = getLayoutInflater().inflate(R.layout.cities_dialog, null);
         builder.setView(dialogView).setCancelable(false);
-        final AlertDialog dialog = builder.show();
+        dialog = builder.show();
 
-        final CitiesExercise currentExercise = exercises.getCitiesExercises().get(0);
-        exercises.getCitiesExercises().remove(0);
+        currentExercise = exercisesContainer.getCitiesExercises().get(0);
+        exercisesContainer.getCitiesExercises().remove(0);
 
         TextView question = dialogView.findViewById(R.id.exerciseCities);
 
@@ -438,59 +396,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             answers.set(tmp, "");
         }
 
-        final Timer timer = new Timer(); //timer round
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-                timer.cancel();
-                new Thread()
-                {
-                    @Override
-                    public void run() {
-                        PlayActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!answer) {
-                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
-                                    mediaPlayer = new MediaPlayer();
-                                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.out_of_time);
-                                    mediaPlayer.start();
-                                    round.setText(getString(R.string.round) + " " + roundsCounter);
-                                    score.setText(getString(R.string.score) + " " + scoreCounter);
-                                    if (roundsCounter > NUM_OF_ROUNDS) {
-                                        endGame();
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }.start();
-            }
-        }, timeLeftInMillis);
+        timer = new Timer(); //timer round
+        questionTimer();
 
         for(int i=0;i<4;i++){
-            btn[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(((TextView)v).getText().equals(currentExercise.getAnswer())){
-                        rightAnswer();
-                        scoreCounter += calcScore();
-                    }
-                    else{
-                        wrongAnswer();
-                    }
-                    dialog.dismiss();
-                    countDownTimer.cancel();
-                    timer.cancel();
-                    timeLeftInMillis = temp;
-                    round.setText(getString(R.string.round) + " " + roundsCounter);
-                    score.setText(getString(R.string.score) + " " + scoreCounter);
-                    if (roundsCounter > NUM_OF_ROUNDS) {
-                        endGame();
-                    }
-                }
-            });
+            btn[i].setOnClickListener(new answerBtn());
         }
 
         startTimer(dialogView);
@@ -503,10 +413,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
         View dialogView = getLayoutInflater().inflate(R.layout.cities_dialog, null);
         builder.setView(dialogView).setCancelable(false);
-        final AlertDialog dialog = builder.show();
+        dialog = builder.show();
 
-        final SentenceExercise currentExercise = exercises.getSentenceExercises().get(0);
-        exercises.getSentenceExercises().remove(0);
+        currentExercise = exercisesContainer.getSentenceExercises().get(0);
+        exercisesContainer.getSentenceExercises().remove(0);
 
         TextView question = dialogView.findViewById(R.id.exerciseCities);
 
@@ -529,59 +439,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             answers.set(tmp, "");
         }
 
-        final Timer timer = new Timer(); //timer round
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-                timer.cancel();
-                new Thread()
-                {
-                    @Override
-                    public void run() {
-                        PlayActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!answer) {
-                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
-                                    mediaPlayer = new MediaPlayer();
-                                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.out_of_time);
-                                    mediaPlayer.start();
-                                    round.setText(getString(R.string.round) + " " + roundsCounter);
-                                    score.setText(getString(R.string.score) + " " + scoreCounter);
-                                    if (roundsCounter > NUM_OF_ROUNDS) {
-                                        endGame();
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }.start();
-            }
-        }, timeLeftInMillis);
+        timer = new Timer(); //timer round
+        questionTimer();
 
         for(int i=0;i<4;i++){
-            btn[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(((TextView)v).getText().equals(currentExercise.getAnswer())){
-                        rightAnswer();
-                        scoreCounter += calcScore();
-                    }
-                    else{
-                        wrongAnswer();
-                    }
-                    dialog.dismiss();
-                    countDownTimer.cancel();
-                    timer.cancel();
-                    timeLeftInMillis = temp;
-                    round.setText(getString(R.string.round) + " " + roundsCounter);
-                    score.setText(getString(R.string.score) + " " + scoreCounter);
-                    if (roundsCounter > NUM_OF_ROUNDS) {
-                        endGame();
-                    }
-                }
-            });
+            btn[i].setOnClickListener(new answerBtn());
         }
 
         startTimer(dialogView);
@@ -596,10 +458,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
         View dialogView = getLayoutInflater().inflate(R.layout.complete_the_latters_dialog, null);
         builder.setView(dialogView).setCancelable(false);
-        final AlertDialog dialog = builder.show();
+        dialog = builder.show();
 
-        final WordExercise currentExercise = exercises.getWordExercises().get(0);
-        exercises.getWordExercises().remove(0);
+        currentExercise = exercisesContainer.getWordExercises().get(0);
+        exercisesContainer.getWordExercises().remove(0);
 
         TextView definition = dialogView.findViewById(R.id.exerciseComplete);
         definition.setText(currentExercise.getDefinition());
@@ -637,7 +499,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             letterBank.set(tmp, '0');
         }
 
-        final ArrayList<TextView> answer_blank = new ArrayList<>();
+        answer_blank = new ArrayList<>();
         final LinearLayout answer_container = dialogView.findViewById(R.id.answerLayout);
         final int question_size = question.length();
         for(int i=0;i<question_size;i++){
@@ -691,43 +553,30 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             });
         }
 
-        final Timer timer = new Timer(); //timer round
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-                timer.cancel();
-                new Thread()
-                {
-                    @Override
-                    public void run() {
-                        PlayActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!answer) {
-                                    Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
-                                    mediaPlayer = new MediaPlayer();
-                                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.out_of_time);
-                                    mediaPlayer.start();
-                                    round.setText(getString(R.string.round) + " " + roundsCounter);
-                                    score.setText(getString(R.string.score) + " " + scoreCounter);
-                                    if (roundsCounter > NUM_OF_ROUNDS) {
-                                        endGame();
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }.start();
-            }
-        }, timeLeftInMillis);
+        timer = new Timer(); //timer round
+        questionTimer();
 
         Button ans_btn = dialogView.findViewById(R.id.wordAnswerBtn);
-        ans_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String tmp = "";
+        ans_btn.setOnClickListener(new answerBtn());
+
+        startTimer(dialogView);
+    }
+
+    class answerBtn implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            String tmp = "";
+
+            if(currentExercise instanceof MathExercise) {
+                tmp = mathAnswer.getText().toString();
+            }
+            else if (currentExercise instanceof CitiesExercise || currentExercise instanceof SentenceExercise){
+                tmp = ((TextView)v).getText().toString();
+            }
+            else if (currentExercise instanceof WordExercise){
                 int j =0;
+                String question = currentExercise.getQuestion();
+                int question_size = question.length();
                 for(int i=0;i<question_size;i++) {
                     if(question.charAt(i) == '_'){
                         if(answer_blank.get(j).getText().equals("_")){
@@ -739,11 +588,15 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         tmp+=question.charAt(i);
                     }
                 }
+            }
+
+            if (tmp.length() != 0) {
                 if (tmp.equals(currentExercise.getAnswer())) {
                     rightAnswer();
                     scoreCounter += calcScore();
                 } else {
                     wrongAnswer();
+                    strikes++;
                 }
                 dialog.dismiss();
                 countDownTimer.cancel();
@@ -751,13 +604,43 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 timeLeftInMillis = temp;
                 round.setText(getString(R.string.round) + " " + roundsCounter);
                 score.setText(getString(R.string.score) + " " + scoreCounter);
-                if (roundsCounter > NUM_OF_ROUNDS) {
+                if (roundsCounter > NUM_OF_ROUNDS || strikes >= 3) {
                     endGame();
                 }
             }
-        });
+        }
+    }
 
-        startTimer(dialogView);
+    void questionTimer(){
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                timer.cancel();
+                new Thread() {
+                    @Override
+                    public void run() {
+                        PlayActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                                mediaPlayer = new MediaPlayer();
+                                mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.out_of_time);
+                                mediaPlayer.start();
+                                round.setText(getString(R.string.round) + " " + roundsCounter);
+                                score.setText(getString(R.string.score) + " " + scoreCounter);
+                                strikes++;
+                                if (roundsCounter > NUM_OF_ROUNDS || strikes >= 3) {
+                                    endGame();
+                                }
+
+                            }
+                        });
+                    }
+                }.start();
+            }
+        }, timeLeftInMillis);
     }
 
     public void showBonus()

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
-public class CitiesExercise
+public class CitiesExercise implements Exercises
 {
     private String question, answer;
     ArrayList<String> wrongAnswers;
@@ -59,6 +59,16 @@ public class CitiesExercise
 
     public ArrayList<String> getWrongAnswers() {
         return wrongAnswers;
+    }
+
+    @Override
+    public ArrayList<Character> getLetterBank() {
+        return null;
+    }
+
+    @Override
+    public String getDefinition() {
+        return null;
     }
 
     public void setWrongAnswers(ArrayList<String> wrongAnswers) {

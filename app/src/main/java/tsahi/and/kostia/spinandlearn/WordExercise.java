@@ -4,12 +4,13 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
-public class WordExercise {
+public class WordExercise  implements Exercises {
 
     private String definition, answer;
     ArrayList<Character> letterBank;
     private int numOf_missing_letters, answer_size;
-    private StringBuilder question;
+    private String question;
+    private StringBuilder questionSB;
 
     public WordExercise(Context context, String definition, String answer) {
         this.definition = definition;
@@ -18,15 +19,17 @@ public class WordExercise {
         letterBank = new ArrayList<>();
         answer_size = answer.length();
         numOf_missing_letters = answer_size/2;
-        question = new StringBuilder(answer);
+        questionSB = new StringBuilder(answer);
         for(int i=0;i<numOf_missing_letters;i++){
             int tmp = (int)(Math.random()*(answer_size-1));
-            while (question.charAt(tmp) == '_'){
+            while (questionSB.charAt(tmp) == '_'){
                 tmp = (int)(Math.random()*(answer_size-1));
             }
-            question.setCharAt(tmp, '_');
+            questionSB.setCharAt(tmp, '_');
             letterBank.add(answer.charAt(tmp));
         }
+
+        question = questionSB.toString();
 
         for(int i=0;i<20-numOf_missing_letters;i++){
             letterBank.add((char)(Math.random()*26 + context.getResources().getString(R.string.rnd_letter_index).charAt(0)));
@@ -43,6 +46,11 @@ public class WordExercise {
 
     public String getAnswer() {
         return answer;
+    }
+
+    @Override
+    public ArrayList<String> getWrongAnswers() {
+        return null;
     }
 
     public void setAnswer(String answer) {
@@ -73,11 +81,12 @@ public class WordExercise {
         this.answer_size = answer_size;
     }
 
-    public StringBuilder getQuestion() {
+    @Override
+    public String getQuestion() {
         return question;
     }
 
-    public void setQuestion(StringBuilder question) {
+    public void setQuestion(String question) {
         this.question = question;
     }
 

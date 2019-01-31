@@ -4,7 +4,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
-public class SentenceExercise {
+public class SentenceExercise  implements Exercises {
 
     private String question, answer;
     ArrayList<String> wrongAnswers;
@@ -53,6 +53,16 @@ public class SentenceExercise {
 
     public ArrayList<String> getWrongAnswers() {
         return wrongAnswers;
+    }
+
+    @Override
+    public ArrayList<Character> getLetterBank() {
+        return null;
+    }
+
+    @Override
+    public String getDefinition() {
+        return null;
     }
 
     public void setWrongAnswers(ArrayList<String> wrongAnswers) {

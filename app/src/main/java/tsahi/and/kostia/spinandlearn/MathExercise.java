@@ -2,7 +2,7 @@ package tsahi.and.kostia.spinandlearn;
 
 import java.util.ArrayList;
 
-public class MathExercise
+public class MathExercise implements Exercises
 {
     private String question, answer;
     ArrayList<String> wrongAnswers;
@@ -39,6 +39,16 @@ public class MathExercise
 
     public ArrayList<String> getWrongAnswers() {
         return wrongAnswers;
+    }
+
+    @Override
+    public ArrayList<Character> getLetterBank() {
+        return null;
+    }
+
+    @Override
+    public String getDefinition() {
+        return null;
     }
 
     public void setWrongAnswers(ArrayList<String> wrongAnswers) {
