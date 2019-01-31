@@ -3,11 +3,8 @@ package tsahi.and.kostia.spinandlearn;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserInfo
 {

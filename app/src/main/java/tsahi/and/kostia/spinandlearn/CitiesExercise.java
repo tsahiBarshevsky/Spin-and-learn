@@ -1,11 +1,8 @@
 package tsahi.and.kostia.spinandlearn;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CitiesExercise
 {
