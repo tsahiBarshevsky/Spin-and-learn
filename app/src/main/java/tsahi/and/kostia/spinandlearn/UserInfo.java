@@ -17,7 +17,6 @@ public class UserInfo
 
     public UserInfo(String raw) {
         String[] data = raw.split(";");
-        System.out.println(raw);
         name = new String(data[0]);
         score = Integer.parseInt(data[1]);
         photo = StringToBitMap(data[2]);

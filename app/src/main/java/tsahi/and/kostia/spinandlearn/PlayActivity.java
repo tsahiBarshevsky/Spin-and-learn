@@ -220,7 +220,12 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     Toast.makeText(PlayActivity.this, "Green", Toast.LENGTH_SHORT).show();
                     break;
                 case 2:
-                    scoreCounter -= 100;
+                    if(scoreCounter < 100){
+                        scoreCounter = 0;
+                    }
+                    else {
+                        scoreCounter -= 100;
+                    }
                     wrongAnswer();
                     score.setText(getString(R.string.score) + " " + scoreCounter);
                     Toast.makeText(PlayActivity.this, "Orange", Toast.LENGTH_SHORT).show();
@@ -235,6 +240,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             bonus = false;
             blnButtonRotation = true;
             boardFlip();
+            if (roundsCounter > NUM_OF_ROUNDS) {
+                endGame();
+            }
         }
 
     }
@@ -780,7 +788,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 dialog.dismiss();
 
                 boardFlip();
-
+                round.setText(getString(R.string.round) + " " + roundsCounter);
                 final LinearLayout bonusLayout = findViewById(R.id.bonusLayout);
                 bonusLayout.setVisibility(View.VISIBLE);
                 spinBtn.setVisibility(View.INVISIBLE);

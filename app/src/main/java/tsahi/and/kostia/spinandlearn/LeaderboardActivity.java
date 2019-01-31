@@ -17,13 +17,15 @@ import org.w3c.dom.Text;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class LeaderboardActivity extends AppCompatActivity {
 
-    List<UserInfo> userInfoList;
+    ArrayList<UserInfo> userInfoList;
     ScoreAdapter adapter;
 
     @Override
@@ -47,7 +49,12 @@ public class LeaderboardActivity extends AppCompatActivity {
                 userInfoList.add(user);
             }
         }
-
+        Collections.sort(userInfoList, new Comparator<UserInfo>() {
+            @Override
+            public int compare(UserInfo o1, UserInfo o2) {
+                return o2.getScore() - o1.getScore();
+            }
+        });
         adapter = new ScoreAdapter(userInfoList);
         recyclerView.setAdapter(adapter);
         adapter.notifyItemInserted(userInfoList.size());

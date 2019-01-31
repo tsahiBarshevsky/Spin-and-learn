@@ -45,6 +45,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewHol
         UserInfo userInfo = users.get(position);
         holder.nameTV.setText(userInfo.getName());
         holder.scoreTV.setText(String.valueOf(userInfo.getScore()));
+        holder.imageView.setImageBitmap(userInfo.getPhoto());
     }
 
     @Override
