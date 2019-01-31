@@ -86,6 +86,15 @@ public class FirstActivity extends AppCompatActivity {
                         userImage.startAnimation(slideUp);
                         man.setVisibility(View.INVISIBLE);
                         speech.setVisibility(View.INVISIBLE);
+                        Handler animation = new Handler();
+                        animation.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Animation buttonAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
+                                enterBtn.startAnimation(buttonAnim);
+                                exitBtn.startAnimation(buttonAnim);
+                            }
+                        }, 1700);
                     }
                 }, 3000);
             }
