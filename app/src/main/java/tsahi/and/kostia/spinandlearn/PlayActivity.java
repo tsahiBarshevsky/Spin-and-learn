@@ -205,15 +205,27 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             switch (pos)
             {
                 case 0:
+                    scoreCounter += 100;
+                    score.setText(getString(R.string.score) + " " + scoreCounter);
+                    rightAnswer();
                     Toast.makeText(PlayActivity.this, "Blue", Toast.LENGTH_SHORT).show();
                     break;
                 case 1:
+                    scoreCounter =0;
+                    score.setText(getString(R.string.score) + " " + scoreCounter);
+                    wrongAnswer();
                     Toast.makeText(PlayActivity.this, "Green", Toast.LENGTH_SHORT).show();
                     break;
                 case 2:
+                    scoreCounter -= 100;
+                    wrongAnswer();
+                    score.setText(getString(R.string.score) + " " + scoreCounter);
                     Toast.makeText(PlayActivity.this, "Orange", Toast.LENGTH_SHORT).show();
                     break;
                 case 3:
+                    scoreCounter *= 2;
+                    rightAnswer();
+                    score.setText(getString(R.string.score) + " " + scoreCounter);
                     Toast.makeText(PlayActivity.this, "Red", Toast.LENGTH_SHORT).show();
                     break;
             }
@@ -804,7 +816,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         imgV1.setRotationX(0);
         imgV1.animate().withLayer()
                 .rotationY(90)
-                .rotationX(0)
+                .rotation(0)
                 .setDuration(300)
                 .withEndAction(
                         new Runnable() {
