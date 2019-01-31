@@ -146,12 +146,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_how_to_play)
+        int id = item.getItemId();
+        if(id == R.id.action_change_player){
+            Intent intent = new Intent(MainActivity.this, FirstActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.action_sound_toggle){
+
+        }
+        else if (id == R.id.action_how_to_play)
         {
             Intent intent = new Intent(MainActivity.this, WalkTroughActivity.class);
             intent.putExtra("from", MainActivity.class);
             startActivity(intent);
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -171,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
                 intent.addCategory(Intent.CATEGORY_HOME);
                 startActivity(intent);
                 android.os.Process.killProcess(android.os.Process.myPid());
+                finishAffinity();
+                System.exit(0);
             }});
         Button cancelBtn = dialogView.findViewById(R.id.cancle);
         cancelBtn.setOnClickListener(new Button.OnClickListener() {

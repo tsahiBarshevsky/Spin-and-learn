@@ -244,6 +244,8 @@ public class FirstActivity extends AppCompatActivity {
                 intent.addCategory(Intent.CATEGORY_HOME);
                 startActivity(intent);
                 android.os.Process.killProcess(android.os.Process.myPid());
+                finishAffinity();
+                System.exit(0);
             }});
         Button cancelBtn = dialogView.findViewById(R.id.cancle);
         cancelBtn.setOnClickListener(new Button.OnClickListener() {

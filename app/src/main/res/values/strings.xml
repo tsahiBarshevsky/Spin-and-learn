@@ -121,4 +121,7 @@
     <string name="skip_tutorial">Skip this tutorial?</string>
     <string name="quit">Are you sure you want to quit?</string>
     <string name="stop_game">Are you sure you want to end current game?\nYour score will not be saved!</string>
+    <string name="change_player">Change Player</string>
+    <string name="sound_on">Sound On</string>
+    <string name="sound_off">Sound Off</string>
 </resources>

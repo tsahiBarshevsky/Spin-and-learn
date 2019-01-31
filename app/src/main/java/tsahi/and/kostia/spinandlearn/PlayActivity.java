@@ -17,6 +17,8 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
@@ -917,9 +919,52 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         editor.putInt("size", size);
         editor.commit();
 
+        Toast.makeText(this, "Your score is: " + scoreCounter + " Animation with aplouds", Toast.LENGTH_LONG).show();
+
         Intent intent = new Intent(PlayActivity.this, MainActivity.class);
         intent.putExtra("Name", getIntent().getStringExtra("Name"));
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_change_player){
+            AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
+            View dialogView = getLayoutInflater().inflate(R.layout.stop_game_layout, null);
+            builder.setView(dialogView).setCancelable(false);
+            final AlertDialog dialog = builder.show();
+            Button okBtn = dialogView.findViewById(R.id.ok);
+            okBtn.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    Intent intent = new Intent(PlayActivity.this, FirstActivity.class);
+                    startActivity(intent);
+                }});
+            Button cancelBtn = dialogView.findViewById(R.id.cancle);
+            cancelBtn.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    dialog.dismiss();
+                }});
+        }
+        else if(id == R.id.action_sound_toggle){
+
+        }
+        else if (id == R.id.action_how_to_play)
+        {
+            Intent intent = new Intent(PlayActivity.this, WalkTroughActivity.class);
+            intent.putExtra("from", MainActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
