@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -106,6 +107,25 @@ public class MainActivity extends AppCompatActivity {
         hardBtn.startAnimation(slideRight);
         leaderboardBtn.startAnimation(slideLeft);
         howToPlay.startAnimation(slideRight);
+        /*Thread thread = new Thread()
+        {
+            public void run()
+            {
+
+            }
+        };
+        thread.start();*/
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Animation buttonAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
+                easyBtn.startAnimation(buttonAnim);
+                mediumBtn.startAnimation(buttonAnim);
+                hardBtn.startAnimation(buttonAnim);
+                leaderboardBtn.startAnimation(buttonAnim);
+                howToPlay.startAnimation(buttonAnim);
+            }
+        }, 2000);
         /*Button playBtn = findViewById(R.id.playBtn);
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
