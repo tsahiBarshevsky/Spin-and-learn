@@ -159,9 +159,25 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        startActivity(intent);
-        android.os.Process.killProcess(android.os.Process.myPid());
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.CustomAlertDialog);
+        View dialogView = getLayoutInflater().inflate(R.layout.exit_dialog, null);
+        builder.setView(dialogView).setCancelable(false);
+        final AlertDialog dialog = builder.show();
+        Button okBtn = dialogView.findViewById(R.id.ok);
+        okBtn.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+                android.os.Process.killProcess(android.os.Process.myPid());
+            }});
+        Button cancelBtn = dialogView.findViewById(R.id.cancle);
+        cancelBtn.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+            }});
+
     }
 }

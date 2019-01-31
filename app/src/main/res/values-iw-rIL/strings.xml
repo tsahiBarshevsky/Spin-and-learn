@@ -120,4 +120,5 @@
     <string name="ok">אשר</string>
     <string name="cancel">בטל</string>
     <string name="skip_tutorial">דלג על מדריך זה?</string>
+    <string name="quit">האם את/ה בטוחה שברצונך לצאת?</string>
 </resources>

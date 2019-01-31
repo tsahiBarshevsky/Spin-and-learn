@@ -40,9 +40,11 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static java.lang.Math.floor;
+
 public class PlayActivity extends AppCompatActivity implements Animation.AnimationListener{
 
-    int roundsCounter = 1, scoreCounter = 0, scoreToAdd;
+    int roundsCounter = 1, scoreCounter = 0, scoreToAdd, scoreRange;
     boolean blnButtonRotation = true, answer, bonus, isFirstImage = true;
     int intNumber = 10;
     long lngDegrees = 0, lngDegrees2 = 0, timeLeftInMillis, temp;
@@ -80,19 +82,22 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         switch (level)
         {
             case "Easy":
-                scoreToAdd = 10;          //add 10 points for right answer
+                scoreToAdd = 10;          //add 10-20 points for right answer
+                scoreRange = 10;
                 timeLeftInMillis = 60000; //1 minute
                 temp = timeLeftInMillis;
                 levelTV.setText(getString(R.string.level) + getString(R.string.easy));
                 break;
             case "Medium":
-                scoreToAdd = 20;          //add 10 points for right answer
+                scoreToAdd = 20;          //add 20-50 points for right answer
+                scoreRange = 30;
                 timeLeftInMillis = 30000; //30 seconds
                 temp = timeLeftInMillis;
                 levelTV.setText(getString(R.string.level) + getString(R.string.medium));
                 break;
             case "Hard":
-                scoreToAdd = 50;          //add 50 points for right answer
+                scoreToAdd = 50;          //add 50-100 points for right answer
+                scoreRange = 50;
                 timeLeftInMillis = 10000; //10 seconds
                 temp = timeLeftInMillis;
                 levelTV.setText(getString(R.string.level) + getString(R.string.hard));
@@ -144,7 +149,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         if (!bonus) {
             answer = false;
             String string = String.valueOf((int) (((double) this.intNumber)
-                    - Math.floor(((double) this.lngDegrees) / (360.0d / ((double) this.intNumber)))));
+                    - floor(((double) this.lngDegrees) / (360.0d / ((double) this.intNumber)))));
             int pos = Integer.parseInt(string);
             pos--;
             blnButtonRotation = true;
@@ -194,7 +199,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         else //bonus wheel spin
         {
             String string = String.valueOf((int)(((double)4)
-                    - Math.floor(((double)lngDegrees2) / (360.0d / ((double)4)))));
+                    - floor(((double)lngDegrees2) / (360.0d / ((double)4)))));
             int pos = Integer.parseInt(string);
             pos--;
             switch (pos)
@@ -345,7 +350,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 if (tmp.length() != 0) {
                     if (tmp.equals(currentExercise.getAnswer())) {
                         rightAnswer();
-                        scoreCounter += scoreToAdd;
+                        scoreCounter += calcScore();
                     } else {
                         wrongAnswer();
                     }
@@ -372,6 +377,12 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         tmp = mathAnswer.getText().toString();
                         if(tmp.length() != 0) {
                             tmp = tmp.substring(0, tmp.length() - 1);
+                            mathAnswer.setText(tmp);
+                        }
+                    }
+                    else if(padString.equals("0")){
+                        if(tmp.length() != 0) {
+                            tmp += padString;
                             mathAnswer.setText(tmp);
                         }
                     }
@@ -454,7 +465,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 public void onClick(View v) {
                     if(((TextView)v).getText().equals(currentExercise.getAnswer())){
                         rightAnswer();
-                        scoreCounter += scoreToAdd;
+                        scoreCounter += calcScore();
                     }
                     else{
                         wrongAnswer();
@@ -539,7 +550,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 public void onClick(View v) {
                     if(((TextView)v).getText().equals(currentExercise.getAnswer())){
                         rightAnswer();
-                        scoreCounter += scoreToAdd;
+                        scoreCounter += calcScore();
                     }
                     else{
                         wrongAnswer();
@@ -708,7 +719,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 }
                 if (tmp.equals(currentExercise.getAnswer())) {
                     rightAnswer();
-                    scoreCounter += scoreToAdd;
+                    scoreCounter += calcScore();
                 } else {
                     wrongAnswer();
                 }
@@ -860,6 +871,12 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             return imageEncoded;
         }
         return null;
+    }
+
+    int calcScore(){
+        double precent = (double)timeLeftInMillis/(double)temp;
+        System.out.println(temp + " " + timeLeftInMillis + " " + precent);
+        return scoreToAdd + (int)floor(precent*scoreRange);
     }
 
     @Override

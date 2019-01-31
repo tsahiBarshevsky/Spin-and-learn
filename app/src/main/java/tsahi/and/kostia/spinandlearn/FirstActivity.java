@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -131,7 +132,25 @@ public class FirstActivity extends AppCompatActivity {
         exitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(FirstActivity.this, R.style.CustomAlertDialog);
+                View dialogView = getLayoutInflater().inflate(R.layout.exit_dialog, null);
+                builder.setView(dialogView).setCancelable(false);
+                final AlertDialog dialog = builder.show();
+                Button okBtn = dialogView.findViewById(R.id.ok);
+                okBtn.setOnClickListener(new Button.OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        startActivity(intent);
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                    }});
+                Button cancelBtn = dialogView.findViewById(R.id.cancle);
+                cancelBtn.setOnClickListener(new Button.OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        dialog.dismiss();
+                    }});
             }
         });
         registerForContextMenu(userImage);
@@ -205,9 +224,24 @@ public class FirstActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        startActivity(intent);
-        android.os.Process.killProcess(android.os.Process.myPid());
+        AlertDialog.Builder builder = new AlertDialog.Builder(FirstActivity.this, R.style.CustomAlertDialog);
+        View dialogView = getLayoutInflater().inflate(R.layout.exit_dialog, null);
+        builder.setView(dialogView).setCancelable(false);
+        final AlertDialog dialog = builder.show();
+        Button okBtn = dialogView.findViewById(R.id.ok);
+        okBtn.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+                android.os.Process.killProcess(android.os.Process.myPid());
+            }});
+        Button cancelBtn = dialogView.findViewById(R.id.cancle);
+        cancelBtn.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+            }});
     }
 }

@@ -5,9 +5,10 @@
 
     <LinearLayout
         android:layout_width="310dp"
-        android:layout_height="375dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        >
 
         <TextView android:id="@+id/timeCities"
             android:layout_width="match_parent"
@@ -30,6 +31,7 @@
             android:layout_width="304dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="120dp"
+            android:layout_marginBottom="15dp"
             android:gravity="center"
             android:layout_gravity="center">
 
