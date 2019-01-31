@@ -1,7 +1,9 @@
 package tsahi.and.kostia.spinandlearn;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -39,6 +41,21 @@ public class FirstActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SharedPreferences sharedPref = this.getSharedPreferences(
+                "firstRun", this.MODE_PRIVATE);
+        int firstRun = sharedPref.getInt("firstRun", 0);
+
+        if (firstRun == 0){
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt("firstRun", 1);
+            editor.commit();
+            Intent intent = new Intent(FirstActivity.this, WalkTroughActivity.class);
+            intent.putExtra("from", FirstActivity.class);
+            intent.putExtra("firstRun", true);
+            startActivity(intent);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
@@ -184,5 +201,13 @@ public class FirstActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAMERA_REQUEST);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }

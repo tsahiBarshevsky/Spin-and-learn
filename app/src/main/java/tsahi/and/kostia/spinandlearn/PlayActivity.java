@@ -850,23 +850,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         }, 2000);
     }
 
-    public void changeBack()
-    {
-        final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageRoulette, "scaleX", 1f, 0f);
-        final ObjectAnimator oa2 = ObjectAnimator.ofFloat(imageRoulette, "scaleX", 0f, 1f);
-        oa1.setInterpolator(new DecelerateInterpolator());
-        oa2.setInterpolator(new AccelerateDecelerateInterpolator());
-        oa1.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                imageRoulette.setImageResource(R.drawable.rolutte_10);
-                oa2.start();
-            }
-        });
-        oa1.start();
-    }
-
     public static String encodeToBase64(Bitmap image) {
         Bitmap immage = image;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

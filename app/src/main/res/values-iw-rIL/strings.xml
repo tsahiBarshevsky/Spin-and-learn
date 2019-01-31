@@ -115,4 +115,9 @@
     <string name="math8">140 - 236</string>
     <string name="math9">5 ^ 2</string>
     <string name="math10">3 ^ 5</string>
+    <string name="skip">דלג</string>
+    <string name="done">סיים</string>
+    <string name="ok">אשר</string>
+    <string name="cancel">בטל</string>
+    <string name="skip_tutorial">דלג על מדריך זה?</string>
 </resources>

@@ -14,7 +14,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
         howToPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showInstructions();
+                Intent intent = new Intent(MainActivity.this, WalkTroughActivity.class);
+                intent.putExtra("from", MainActivity.class);
+                startActivity(intent);
             }
         });
         Button easyBtn = findViewById(R.id.easyBtn);
@@ -147,24 +148,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_how_to_play)
         {
-            showInstructions();
+            Intent intent = new Intent(MainActivity.this, WalkTroughActivity.class);
+            intent.putExtra("from", MainActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void showInstructions()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.CustomAlertDialog);
-        View dialogView = getLayoutInflater().inflate(R.layout.how_to_play_dialog, null);
-        builder.setView(dialogView).setCancelable(false);
-        final AlertDialog dialog = builder.show();
-        Button backBtn = dialogView.findViewById(R.id.back);
-        backBtn.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                dialog.dismiss();
-            }});
-    }
+
 
     @Override
     public void onBackPressed() {

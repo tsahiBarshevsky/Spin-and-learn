@@ -114,4 +114,9 @@
     <string name="math8">236 - 140</string>
     <string name="math9">2 ^ 5</string>
     <string name="math10">5 ^ 3</string>
+    <string name="skip">Skip</string>
+    <string name="done">Done</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="skip_tutorial">Skip this tutorial?</string>
 </resources>
