@@ -60,6 +60,8 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
+        bitmap = null;
+
         enterBtn = findViewById(R.id.enter);
         name = findViewById(R.id.name);
         exitBtn = findViewById(R.id.exit);

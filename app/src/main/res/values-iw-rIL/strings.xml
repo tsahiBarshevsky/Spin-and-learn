@@ -121,4 +121,5 @@
     <string name="cancel">בטל</string>
     <string name="skip_tutorial">דלג על מדריך זה?</string>
     <string name="quit">האם את/ה בטוחה שברצונך לצאת?</string>
+    <string name="stop_game">האם את/ה בטוח/ה שברצונך לסיים את המשחק הנוכחי?\nתוצאתך לא תישמר!</string>
 </resources>

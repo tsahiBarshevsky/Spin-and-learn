@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -43,6 +44,8 @@ import java.util.TimerTask;
 import static java.lang.Math.floor;
 
 public class PlayActivity extends AppCompatActivity implements Animation.AnimationListener{
+
+    int NUM_OF_ROUNDS = 2;
 
     int roundsCounter = 1, scoreCounter = 0, scoreToAdd, scoreRange;
     boolean blnButtonRotation = true, answer, bonus, isFirstImage = true;
@@ -233,18 +236,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             blnButtonRotation = true;
             boardFlip();
         }
-        if (roundsCounter > 50)
-        {
-            spinBtn.setVisibility(View.INVISIBLE);
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
 
-                @Override
-                public void run() {
-                    finish();
-                }
-            }, timeLeftInMillis);
-        }
     }
 
     @Override
@@ -347,6 +339,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                                     mediaPlayer.start();
                                     round.setText(getString(R.string.round) + " " + roundsCounter);
                                     score.setText(getString(R.string.score) + " " + scoreCounter);
+                                    if (roundsCounter > NUM_OF_ROUNDS) {
+                                        endGame();
+                                    }
                                 }
                             }
                         });
@@ -372,6 +367,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     timeLeftInMillis = temp;
                     round.setText(getString(R.string.round) + " " + roundsCounter);
                     score.setText(getString(R.string.score) + " " + scoreCounter);
+                    if (roundsCounter > NUM_OF_ROUNDS) {
+                        endGame();
+                    }
                 }
             }
         });
@@ -463,6 +461,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                                     mediaPlayer.start();
                                     round.setText(getString(R.string.round) + " " + roundsCounter);
                                     score.setText(getString(R.string.score) + " " + scoreCounter);
+                                    if (roundsCounter > NUM_OF_ROUNDS) {
+                                        endGame();
+                                    }
                                 }
                             }
                         });
@@ -488,6 +489,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     timeLeftInMillis = temp;
                     round.setText(getString(R.string.round) + " " + roundsCounter);
                     score.setText(getString(R.string.score) + " " + scoreCounter);
+                    if (roundsCounter > NUM_OF_ROUNDS) {
+                        endGame();
+                    }
                 }
             });
         }
@@ -548,6 +552,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                                     mediaPlayer.start();
                                     round.setText(getString(R.string.round) + " " + roundsCounter);
                                     score.setText(getString(R.string.score) + " " + scoreCounter);
+                                    if (roundsCounter > NUM_OF_ROUNDS) {
+                                        endGame();
+                                    }
                                 }
                             }
                         });
@@ -573,6 +580,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     timeLeftInMillis = temp;
                     round.setText(getString(R.string.round) + " " + roundsCounter);
                     score.setText(getString(R.string.score) + " " + scoreCounter);
+                    if (roundsCounter > NUM_OF_ROUNDS) {
+                        endGame();
+                    }
                 }
             });
         }
@@ -704,6 +714,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                                     mediaPlayer.start();
                                     round.setText(getString(R.string.round) + " " + roundsCounter);
                                     score.setText(getString(R.string.score) + " " + scoreCounter);
+                                    if (roundsCounter > NUM_OF_ROUNDS) {
+                                        endGame();
+                                    }
                                 }
                             }
                         });
@@ -741,6 +754,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 timeLeftInMillis = temp;
                 round.setText(getString(R.string.round) + " " + roundsCounter);
                 score.setText(getString(R.string.score) + " " + scoreCounter);
+                if (roundsCounter > NUM_OF_ROUNDS) {
+                    endGame();
+                }
             }
         });
 
@@ -873,17 +889,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         }, 2000);
     }
 
-    public static String encodeToBase64(Bitmap image) {
-        Bitmap immage = image;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        if(image != null) {
-            immage.compress(Bitmap.CompressFormat.PNG, 100, baos);
-            byte[] b = baos.toByteArray();
-            String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
-            return imageEncoded;
-        }
-        return null;
-    }
+
 
     int calcScore(){
         double precent = (double)timeLeftInMillis/(double)temp;
@@ -891,13 +897,48 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         return scoreToAdd + (int)floor(precent*scoreRange);
     }
 
+    void endGame(){
+        SharedPreferences sharedPref = this.getSharedPreferences("gameData", this.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        Integer size = sharedPref.getInt("size", 0);
+        UserInfo score = new UserInfo(bitmap, getIntent().getStringExtra("Name"), scoreCounter);
+        size++;
+        System.out.println(score.toString());
+        editor.putString(size.toString(), score.toString());
+        editor.putInt("size", size);
+        editor.commit();
+
+        Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+        intent.putExtra("Name", getIntent().getStringExtra("Name"));
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
+        View dialogView = getLayoutInflater().inflate(R.layout.stop_game_layout, null);
+        builder.setView(dialogView).setCancelable(false);
+        final AlertDialog dialog = builder.show();
+        Button okBtn = dialogView.findViewById(R.id.ok);
+        okBtn.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+                startActivity(intent);
+            }});
+        Button cancelBtn = dialogView.findViewById(R.id.cancle);
+        cancelBtn.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+            }});
+
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("Name", getIntent().getStringExtra("Name"));
-        editor.putInt("Score", scoreCounter);
-        editor.putString("Pic", encodeToBase64(bitmap));
-        editor.commit();
+
     }
 }

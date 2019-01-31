@@ -35,21 +35,22 @@ public class LeaderboardActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         userInfoList = new ArrayList<>();
-        SharedPreferences sp = getSharedPreferences("score detail", MODE_PRIVATE);
-        String imageS = sp.getString("Pic", "");
-        Bitmap imageB = null;
-        if(!imageS.equals(""))
-            imageB = decodeToBase64(imageS);
-        CircleImageView circleImageView = new CircleImageView(this);
-        circleImageView.setImageBitmap(imageB);
-        userInfoList.add(new UserInfo(circleImageView, sp.getString("Name", "def"), sp.getInt("Score", 0)));
+
+        SharedPreferences sharedPref = this.getSharedPreferences("gameData", this.MODE_PRIVATE);
+
+        Integer size = sharedPref.getInt("size", 0);
+
+        for(Integer i = 1; i<=size;i++){
+            String tmp = sharedPref.getString(i.toString(), "");
+            if(!tmp.equals("")){
+                UserInfo user = new UserInfo(tmp);
+                userInfoList.add(user);
+            }
+        }
+
         adapter = new ScoreAdapter(userInfoList);
         recyclerView.setAdapter(adapter);
         adapter.notifyItemInserted(userInfoList.size());
     }
 
-    public static Bitmap decodeToBase64(String input) {
-        byte[] decodedByte = Base64.decode(input, 0);
-        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
-    }
 }

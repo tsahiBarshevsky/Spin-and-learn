@@ -1,27 +1,40 @@
 package tsahi.and.kostia.spinandlearn;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.widget.TextView;
+
+import java.io.ByteArrayOutputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserInfo
 {
-    private CircleImageView imageView;
+    private Bitmap photo;
     private String name;
-    private int score;
+    private Integer score;
 
-    public UserInfo(CircleImageView imageView, String name, int score) {
-        this.imageView = imageView;
+    public UserInfo(String raw) {
+        String[] data = raw.split(";");
+        System.out.println(raw);
+        name = new String(data[0]);
+        score = Integer.parseInt(data[1]);
+        photo = StringToBitMap(data[2]);
+    }
+
+    public UserInfo(Bitmap photo, String name, Integer score) {
+        this.photo = photo;
         this.name = name;
         this.score = score;
     }
 
-    public CircleImageView getImageView() {
-        return imageView;
+    public Bitmap getPhoto() {
+        return photo;
     }
 
-    public void setImageView(CircleImageView imageView) {
-        this.imageView = imageView;
+    public void setPhoto(Bitmap photo) {
+        this.photo = photo;
     }
 
     public String getName() {
@@ -32,11 +45,43 @@ public class UserInfo
         this.name = name;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public String BitMapToString(Bitmap bitmap) {
+        if(bitmap != null) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] b = baos.toByteArray();
+            String temp = Base64.encodeToString(b, Base64.DEFAULT);
+            return temp;
+        }
+        return "-1";
+    }
+
+    public Bitmap StringToBitMap(String encodedString) {
+        if (!encodedString.equals("-1")) {
+            try {
+                byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+                return bitmap;
+            } catch (Exception e) {
+                e.getMessage();
+                return null;
+            }
+        }
+        return null;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return (name + ";" + score + ";" + BitMapToString(photo));
     }
 }
