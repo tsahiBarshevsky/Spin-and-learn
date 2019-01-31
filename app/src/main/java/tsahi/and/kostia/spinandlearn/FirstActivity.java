@@ -16,6 +16,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -24,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import java.util.Locale;
@@ -43,10 +46,8 @@ public class FirstActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        SharedPreferences sharedPref = this.getSharedPreferences(
-                "firstRun", this.MODE_PRIVATE);
+        SharedPreferences sharedPref = this.getSharedPreferences("firstRun", this.MODE_PRIVATE);
         int firstRun = sharedPref.getInt("firstRun", 0);
-
         if (firstRun == 0){
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt("firstRun", 1);
@@ -156,6 +157,48 @@ public class FirstActivity extends AppCompatActivity {
             }
         });
         registerForContextMenu(userImage);
+        userImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMenu(v);
+            }
+        });
+    }
+
+    public void showMenu(View v)
+    {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.capture:
+                        if(Build.VERSION.SDK_INT>=23) {
+                            int hasCameraPermission = checkSelfPermission(Manifest.permission.CAMERA);
+                            if (hasCameraPermission == PackageManager.PERMISSION_GRANTED)
+                                takeImage();
+                            else //PERMISSION_DENIED
+                                requestPermissions(new String[] {Manifest.permission.CAMERA}, CAMERA_REQUEST);
+                        }
+                        return true;
+                    case R.id.gallery:
+                        if(Build.VERSION.SDK_INT>=23) {
+                            int hasCallPermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
+                            if (hasCallPermission == PackageManager.PERMISSION_GRANTED)
+                                selectImage();
+                            else //PERMISSION_DENIED
+                                requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST);
+                        }
+                        else
+                            selectImage();
+                        return true;
+                }
+                return false;
+            }
+        });
+        popup.inflate(R.menu.first_image_menu);
+        popup.show();
     }
 
     @Override
@@ -172,43 +215,6 @@ public class FirstActivity extends AppCompatActivity {
                     imageUri = data.getData();
                 userImage.setImageURI(imageUri);
             }
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        if (v.getId() == R.id.userImage)
-            getMenuInflater().inflate(R.menu.first_image_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.capture) {
-            if(Build.VERSION.SDK_INT>=23) {
-                int hasCallPermission = checkSelfPermission(Manifest.permission.CAMERA);
-                if (hasCallPermission == PackageManager.PERMISSION_GRANTED)
-                    takeImage();
-                else //PERMISSION_DENIED
-                    requestPermissions(new String[] {Manifest.permission.CAMERA}, CAMERA_REQUEST);
-            }
-            else
-                takeImage();
-            return true;
-        }
-        else
-            if (item.getItemId() == R.id.gallery) {
-                if(Build.VERSION.SDK_INT>=23) {
-                    int hasCallPermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
-                    if (hasCallPermission == PackageManager.PERMISSION_GRANTED)
-                        selectImage();
-                    else //PERMISSION_DENIED
-                        requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST);
-                }
-                else
-                    selectImage();
-                return true;
-            }
-        return super.onContextItemSelected(item);
     }
 
     private void selectImage()
