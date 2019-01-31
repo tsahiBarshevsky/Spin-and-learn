@@ -99,7 +99,6 @@ public class FirstActivity extends AppCompatActivity {
                 }, 3000);
             }
         }, 1000);
-
         enterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
