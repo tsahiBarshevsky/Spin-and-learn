@@ -46,10 +46,8 @@ public class FirstActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        SharedPreferences sharedPref = this.getSharedPreferences(
-                "firstRun", this.MODE_PRIVATE);
+        SharedPreferences sharedPref = this.getSharedPreferences("firstRun", this.MODE_PRIVATE);
         int firstRun = sharedPref.getInt("firstRun", 0);
-
         if (firstRun == 0){
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt("firstRun", 1);
@@ -175,15 +173,23 @@ public class FirstActivity extends AppCompatActivity {
                 {
                     case R.id.capture:
                         if(Build.VERSION.SDK_INT>=23) {
-                            int hasCallPermission = checkSelfPermission(Manifest.permission.CAMERA);
-                            if (hasCallPermission == PackageManager.PERMISSION_GRANTED)
+                            int hasCameraPermission = checkSelfPermission(Manifest.permission.CAMERA);
+                            if (hasCameraPermission == PackageManager.PERMISSION_GRANTED)
                                 takeImage();
                             else //PERMISSION_DENIED
                                 requestPermissions(new String[] {Manifest.permission.CAMERA}, CAMERA_REQUEST);
                         }
                         return true;
                     case R.id.gallery:
-                        selectImage();
+                        if(Build.VERSION.SDK_INT>=23) {
+                            int hasCallPermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
+                            if (hasCallPermission == PackageManager.PERMISSION_GRANTED)
+                                selectImage();
+                            else //PERMISSION_DENIED
+                                requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST);
+                        }
+                        else
+                            selectImage();
                         return true;
                 }
                 return false;
