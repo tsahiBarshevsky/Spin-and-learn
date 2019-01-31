@@ -7,8 +7,7 @@
     tools:context=".PlayActivity"
     android:background="#b2f6df">
 
-    <include android:id="@+id/notelist" layout="@layout/first_view" />
-    <include android:id="@+id/notelist" layout="@layout/second_view" />
+
 
     <TextView android:id="@+id/level_TV"
         android:layout_width="match_parent"
@@ -41,6 +40,14 @@
         android:layout_height="wrap_content"
         android:src="@drawable/base"
         android:visibility="invisible"/>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <include android:id="@+id/notelist" layout="@layout/first_view" />
+        <include android:id="@+id/notelist" layout="@layout/second_view" />
+    </FrameLayout>
 
     <!--<ImageView android:id="@+id/roulette"
         android:layout_width="wrap_content"
@@ -91,7 +98,7 @@
             android:layout_height="45dp"
             android:layout_margin="5dp"
             android:background="@drawable/button_design"
-            android:text="Leave"
+            android:text="@string/leave"
             android:textAllCaps="false"/>
 
     </LinearLayout>

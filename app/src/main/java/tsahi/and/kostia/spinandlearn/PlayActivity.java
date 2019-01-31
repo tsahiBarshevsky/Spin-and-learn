@@ -23,9 +23,11 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +59,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     TextView mathAnswer;
 
     int blankIndex;
+
+    float scale;
+    float distanceRoulette ;
+    float distanceBonus;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -95,7 +101,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         initArray();
         imageRoulette = findViewById(R.id.ImageView01);
         bonusRoulette = findViewById(R.id.ImageView02);
-        bonusRoulette.setVisibility(View.GONE);
+        bonusRoulette.setVisibility(View.INVISIBLE);
+        scale = getApplicationContext().getResources().getDisplayMetrics().density;
+        distanceRoulette = imageRoulette.getCameraDistance() * (scale + (scale / 3));
+        distanceBonus = imageRoulette.getCameraDistance() * (scale + (scale / 3));
         round = findViewById(R.id.round);
         round.setText(getString(R.string.round) + " " + "1");
         score = findViewById(R.id.score);
@@ -118,7 +127,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     imageRoulette.setAnimation(rotateAnimation);
                     imageRoulette.startAnimation(rotateAnimation);
                 }
-                Toast.makeText(PlayActivity.this, "spin...", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -138,48 +146,49 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             int pos = Integer.parseInt(string);
             pos--;
             blnButtonRotation = true;
-            switch (pos)
-            {
-                case 0:
-                    type = "math";
-                    mathQuestion();
-                    break;
-                case 1:
-                    type = "cities";
-                    citiesQuestion();
-                    break;
-                case 2:
-                    showBonus();
-                    break;
-                case 3:
-                    type = "cities";
-                    citiesQuestion();
-                    break;
-                case 4:
-                    type = "sentence";
-                    sentenceQuestion();
-                    break;
-                case 5:
-                    type = "words";
-                    wordsQuestion();
-                    break;
-                case 6:
-                    type = "math";
-                    mathQuestion();
-                    break;
-                case 7:
-                    type = "cities";
-                    citiesQuestion();
-                    break;
-                case 8:
-                    type = "sentence";
-                    sentenceQuestion();
-                    break;
-                case 9:
-                    type = "words";
-                    wordsQuestion();
-                    break;
-            }
+            showBonus();
+//            switch (pos)
+//            {
+//                case 0:
+//                    type = "math";
+//                    mathQuestion();
+//                    break;
+//                case 1:
+//                    type = "cities";
+//                    citiesQuestion();
+//                    break;
+//                case 2:
+//                    showBonus();
+//                    break;
+//                case 3:
+//                    type = "cities";
+//                    citiesQuestion();
+//                    break;
+//                case 4:
+//                    type = "sentence";
+//                    sentenceQuestion();
+//                    break;
+//                case 5:
+//                    type = "words";
+//                    wordsQuestion();
+//                    break;
+//                case 6:
+//                    type = "math";
+//                    mathQuestion();
+//                    break;
+//                case 7:
+//                    type = "cities";
+//                    citiesQuestion();
+//                    break;
+//                case 8:
+//                    type = "sentence";
+//                    sentenceQuestion();
+//                    break;
+//                case 9:
+//                    type = "words";
+//                    wordsQuestion();
+//                    break;
+//            }
         }
         else //bonus wheel spin
         {
@@ -204,8 +213,28 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }
             bonus = false;
             blnButtonRotation = true;
-            applyRotation(0, -90);
-            isFirstImage = !isFirstImage;
+            imageRoulette.setCameraDistance(distanceRoulette);
+            bonusRoulette.setCameraDistance(distanceBonus);
+
+            bonusRoulette.animate().withLayer()
+                    .rotationY(90)
+                    .setDuration(300)
+                    .withEndAction(
+                            new Runnable() {
+                                @Override public void run() {
+
+                                    bonusRoulette.setVisibility(View.INVISIBLE);
+                                    imageRoulette.setVisibility(View.VISIBLE);
+
+                                    // second quarter turn
+                                    imageRoulette.setRotationY(-90);
+                                    imageRoulette.animate().withLayer()
+                                            .rotationY(0)
+                                            .setDuration(300)
+                                            .start();
+                                }
+                            }
+                    ).start();
         }
         if (roundsCounter > 50)
         {
@@ -253,7 +282,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             case "cities":
                 timerText = v.findViewById(R.id.timeCities);
                 break;
-            case "word":
+            case "words":
                 timerText = v.findViewById(R.id.timeComplete);
                 break;
             case "sentence":
@@ -1016,9 +1045,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         });
 
         startTimer(dialogView);
-
-
-
     }
 
     public void initArray()
@@ -1093,9 +1119,30 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             @Override
             public void run() {
                 dialog.dismiss();
-                applyRotation(0, 90);
-                isFirstImage = !isFirstImage;
-                LinearLayout bonusLayout = findViewById(R.id.bonusLayout);
+
+                imageRoulette.setCameraDistance(distanceRoulette);
+                bonusRoulette.setCameraDistance(distanceBonus);
+                imageRoulette.animate().withLayer()
+                        .rotationY(90)
+                        .setDuration(300)
+                        .withEndAction(
+                                new Runnable() {
+                                    @Override public void run() {
+
+                                        imageRoulette.setVisibility(View.INVISIBLE);
+                                        bonusRoulette.setVisibility(View.VISIBLE);
+
+                                        // second quarter turn
+                                        bonusRoulette.setRotationY(-90);
+                                        bonusRoulette.animate().withLayer()
+                                                .rotationY(0)
+                                                .setDuration(300)
+                                                .start();
+                                    }
+                                }
+                        ).start();
+
+                final LinearLayout bonusLayout = findViewById(R.id.bonusLayout);
                 bonusLayout.setVisibility(View.VISIBLE);
                 spinBtn.setVisibility(View.INVISIBLE);
                 Button spinBonusBtn = findViewById(R.id.spinBonusBtn);
@@ -1123,8 +1170,29 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         bonusLayout.setVisibility(View.INVISIBLE);
                         spinBtn.setVisibility(View.VISIBLE);
                         bonus = false;
-                        applyRotation(0, -90);
-                        isFirstImage = !isFirstImage;
+
+                        imageRoulette.setCameraDistance(distanceRoulette);
+                        bonusRoulette.setCameraDistance(distanceBonus);
+
+                        bonusRoulette.animate().withLayer()
+                                .rotationY(90)
+                                .setDuration(300)
+                                .withEndAction(
+                                        new Runnable() {
+                                            @Override public void run() {
+
+                                                bonusRoulette.setVisibility(View.INVISIBLE);
+                                                imageRoulette.setVisibility(View.VISIBLE);
+
+                                                // second quarter turn
+                                                imageRoulette.setRotationY(-90);
+                                                imageRoulette.animate().withLayer()
+                                                        .rotationY(0)
+                                                        .setDuration(300)
+                                                        .start();
+                                            }
+                                        }
+                                ).start();
                     }
                 });
             }
@@ -1133,12 +1201,22 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     private void applyRotation(float start, float end) {
         final float centerX = imageRoulette.getWidth() / 2.0f;
-        final float centerY = bonusRoulette.getHeight() / 2.0f;
+        final float centerY = imageRoulette.getHeight() /2.0f;
+
         final Flip3dAnimation rotation =  new Flip3dAnimation(start, end, centerX, centerY);
         rotation.setDuration(500);
         rotation.setFillAfter(true);
         rotation.setInterpolator(new AccelerateInterpolator());
         rotation.setAnimationListener(new DisplayNextView(isFirstImage, imageRoulette, bonusRoulette));
+
+        float scale = this.getResources().getDisplayMetrics().density;
+        FrameLayout container = findViewById(R.id.container);
+
+        System.out.println(imageRoulette.getCameraDistance());
+        imageRoulette.setCameraDistance(8000 * scale);
+        bonusRoulette.setCameraDistance(8000 * scale);
+        System.out.println(imageRoulette.getCameraDistance());
+
         if (isFirstImage)
         {
             imageRoulette.startAnimation(rotation);

@@ -24,6 +24,7 @@ public class Flip3dAnimation  extends Animation {
     public void initialize(int width, int height, int parentWidth, int parentHeight) {
         super.initialize(width, height, parentWidth, parentHeight);
         mCamera = new Camera();
+
     }
 
     @Override
