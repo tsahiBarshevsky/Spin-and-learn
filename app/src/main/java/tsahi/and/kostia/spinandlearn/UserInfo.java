@@ -12,6 +12,12 @@ public class UserInfo
     private String name;
     private Integer score;
 
+    public UserInfo() {
+        photo = null;
+        name = "";
+        score = 0;
+    }
+
     public UserInfo(String raw) {
         String[] data = raw.split(";");
         name = new String(data[0]);

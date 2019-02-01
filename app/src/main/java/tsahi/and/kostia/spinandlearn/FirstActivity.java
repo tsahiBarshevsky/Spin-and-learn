@@ -36,11 +36,13 @@ public class FirstActivity extends AppCompatActivity {
     Button enterBtn, exitBtn;
     Bitmap bitmap;
     Uri imageUri;
+    String userName;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        SharedPreferences sharedPref = this.getSharedPreferences("firstRun", this.MODE_PRIVATE);
+        sharedPref = this.getSharedPreferences("firstRun", this.MODE_PRIVATE);
         int firstRun = sharedPref.getInt("firstRun", 0);
         if (firstRun == 0){
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -55,12 +57,18 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
-        bitmap = null;
+        sharedPref = this.getSharedPreferences("lastUser", this.MODE_PRIVATE);
+        bitmap = new UserInfo().StringToBitMap(sharedPref.getString("Photo", "-1"));
+        userName = sharedPref.getString("Name", "");
 
         enterBtn = findViewById(R.id.enter);
         name = findViewById(R.id.name);
+        name.setText(userName);
         exitBtn = findViewById(R.id.exit);
         userImage = findViewById(R.id.userImage);
+        if(bitmap != null){
+            userImage.setImageBitmap(bitmap);
+        }
         final Animation slideRight = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_right);
         final Animation slideRightOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_right);
         final Animation slideLeft = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left);
@@ -117,9 +125,16 @@ public class FirstActivity extends AppCompatActivity {
         enterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String string = name.getText().toString();
+                SharedPreferences.Editor editor = sharedPref.edit();
+                if(bitmap != null){
+                    editor.putString("Photo", new UserInfo().BitMapToString(bitmap));
+                }
+                userName = name.getText().toString();
+                editor.putString("Name", userName);
+                editor.commit();
+
                 Intent intent = new Intent(FirstActivity.this, MainActivity.class);
-                intent.putExtra("Name", string);
+                intent.putExtra("Name", userName);
                 Bundle extras = new Bundle();
                 extras.putParcelable("user_pic", bitmap);
                 intent.putExtras(extras);
@@ -141,6 +156,8 @@ public class FirstActivity extends AppCompatActivity {
                         intent.addCategory(Intent.CATEGORY_HOME);
                         startActivity(intent);
                         android.os.Process.killProcess(android.os.Process.myPid());
+                        finishAffinity();
+                        System.exit(0);
                     }});
                 Button cancelBtn = dialogView.findViewById(R.id.cancle);
                 cancelBtn.setOnClickListener(new Button.OnClickListener() {
