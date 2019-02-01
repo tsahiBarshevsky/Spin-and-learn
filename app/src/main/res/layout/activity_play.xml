@@ -7,33 +7,66 @@
     tools:context=".PlayActivity"
     android:background="#b2f6df">
 
-
-
-    <TextView android:id="@+id/level_TV"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="#000"
-        android:textSize="20sp"
-        android:layout_marginTop="10dp"/>
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
 
-    <TextView android:id="@+id/round"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="#000"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/level_TV"/>
+        <ImageView android:id="@+id/heart1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/heart"
+            android:layout_margin="2dp"/>
 
-    <TextView android:id="@+id/score"
-        android:layout_width="match_parent"
+        <ImageView android:id="@+id/heart2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/heart"
+            android:layout_margin="2dp"/>
+
+        <ImageView android:id="@+id/heart3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/heart"
+            android:layout_margin="2dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="#000"
-        android:textSize="20sp"
-        android:layout_below="@id/round"
-        android:layout_marginTop="10dp"/>
+        android:orientation="vertical"
+        android:layout_margin="5dp"
+        android:layout_alignEnd="@id/base">
+
+        <TextView android:id="@+id/level_TV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView android:id="@+id/round"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:gravity="center"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
 
     <ImageView android:id="@+id/base"
         android:layout_width="wrap_content"

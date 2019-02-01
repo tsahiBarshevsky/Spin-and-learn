@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
@@ -41,7 +42,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     int intNumber = 10;
     long lngDegrees = 0, lngDegrees2 = 0, timeLeftInMillis, temp;
     ExercisesContainer exercisesContainer;
-    ImageView imageRoulette, bonusRoulette;
+    ImageView imageRoulette, bonusRoulette, heart1, heart2, heart3;
     TextView round, score, levelTV;
     CountDownTimer countDownTimer;
     String level, type;
@@ -105,6 +106,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 break;
         }
 
+        heart1 = findViewById(R.id.heart1);
+        heart2 = findViewById(R.id.heart2);
+        heart3 = findViewById(R.id.heart3);
+        final Animation animation = AnimationUtils.loadAnimation(getApplicationContext() ,R.anim.button_anim);
+        heart1.startAnimation(animation);
+        heart2.startAnimation(animation);
+        heart3.startAnimation(animation);
         strikes = 0;
         imageRoulette = findViewById(R.id.ImageView01);
         bonusRoulette = findViewById(R.id.ImageView02);
@@ -576,6 +584,21 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 } else {
                     wrongAnswer();
                     strikes++;
+                    switch (strikes)
+                    {
+                        case 3:
+                            heart1.clearAnimation();
+                            heart1.setVisibility(View.INVISIBLE);
+                            break;
+                        case 2:
+                            heart2.clearAnimation();
+                            heart2.setVisibility(View.INVISIBLE);
+                            break;
+                        case 1:
+                            heart3.clearAnimation();
+                            heart3.setVisibility(View.INVISIBLE);
+                            break;
+                    }
                 }
                 dialog.dismiss();
                 countDownTimer.cancel();
@@ -610,6 +633,21 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                                 round.setText(getString(R.string.round) + " " + roundsCounter);
                                 score.setText(getString(R.string.score) + " " + scoreCounter);
                                 strikes++;
+                                switch (strikes)
+                                {
+                                    case 3:
+                                        heart1.clearAnimation();
+                                        heart1.setVisibility(View.INVISIBLE);
+                                        break;
+                                    case 2:
+                                        heart2.clearAnimation();
+                                        heart2.setVisibility(View.INVISIBLE);
+                                        break;
+                                    case 1:
+                                        heart3.clearAnimation();
+                                        heart3.setVisibility(View.INVISIBLE);
+                                        break;
+                                }
                                 if (roundsCounter > NUM_OF_ROUNDS || strikes >= 3) {
                                     endGame();
                                 }
@@ -734,9 +772,27 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     public void rightAnswer()
     {
+        Random rand = new Random();
+        int num = rand.nextInt(4) + 1;
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
         View dialogView = getLayoutInflater().inflate(R.layout.right_answer_dialog, null);
         builder.setView(dialogView).setCancelable(false);
+        ImageView imageView = dialogView.findViewById(R.id.right_answer_pic);
+        switch (num)
+        {
+            case 1:
+                imageView.setImageResource(R.drawable.right_answer);
+                break;
+            case 2:
+                imageView.setImageResource(R.drawable.excellent);
+                break;
+            case 3:
+                imageView.setImageResource(R.drawable.fantastic);
+                break;
+            case 4:
+                imageView.setImageResource(R.drawable.great);
+                break;
+        }
         final AlertDialog dialog = builder.show();
         mediaPlayer = new MediaPlayer();
         mediaPlayer = MediaPlayer.create(this, R.raw.right_answer);
@@ -752,9 +808,27 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     public void wrongAnswer()
     {
+        Random rand = new Random();
+        int num = rand.nextInt(4) + 1;
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
         View dialogView = getLayoutInflater().inflate(R.layout.wrong_answer_dialog, null);
         builder.setView(dialogView).setCancelable(false);
+        ImageView imageView = dialogView.findViewById(R.id.wrong_answer_pic);
+        switch (num)
+        {
+            case 1:
+                imageView.setImageResource(R.drawable.wrong_answer);
+                break;
+            case 2:
+                imageView.setImageResource(R.drawable.mistake);
+                break;
+            case 3:
+                imageView.setImageResource(R.drawable.not_answer);
+                break;
+            case 4:
+                imageView.setImageResource(R.drawable.improve);
+                break;
+        }
         final AlertDialog dialog = builder.show();
         mediaPlayer = new MediaPlayer();
         mediaPlayer = MediaPlayer.create(this, R.raw.wrong_answer);
@@ -767,8 +841,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }
         }, 2000);
     }
-
-
 
     int calcScore(){
         double precent = (double)timeLeftInMillis/(double)temp;
@@ -866,6 +938,5 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     @Override
     protected void onPause() {
         super.onPause();
-
     }
 }
