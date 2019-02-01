@@ -237,7 +237,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     scoreCounter *= 2;
                     endBonus(4);
                     score.setText(getString(R.string.score) + " " + scoreCounter);
-                    Toast.makeText(PlayActivity.this, "Red", Toast.LENGTH_SHORT).show();
                     break;
             }
             bonus = false;

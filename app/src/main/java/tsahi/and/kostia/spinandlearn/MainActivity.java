@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else if(id == R.id.action_sound_toggle){
-
+            //to do
         }
         else if (id == R.id.action_how_to_play)
         {

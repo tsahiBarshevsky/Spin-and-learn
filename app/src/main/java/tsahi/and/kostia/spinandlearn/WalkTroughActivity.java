@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import com.github.paolorotolo.appintro.AppIntro;
@@ -96,6 +98,9 @@ public class WalkTroughActivity extends AppIntro {
             public void onClick(View arg0) {
                 dialog.dismiss();
             }});
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
+        okBtn.startAnimation(animation);
+        cancelBtn.startAnimation(animation);
     }
 
     SliderPage[] create_pages(){
