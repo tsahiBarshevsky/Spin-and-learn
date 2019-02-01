@@ -65,6 +65,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     Timer timer;
     AlertDialog dialog;
 
+    LinearLayout bonusLayout;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,25 +119,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         score = findViewById(R.id.score);
         score.setText(getString(R.string.score) + " " + "0");
         spinBtn = findViewById(R.id.spinBtn);
-        spinBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (blnButtonRotation)
-                {
-                    roundsCounter++;
-                    int ran = new Random().nextInt(360) + 3600;
-                    RotateAnimation rotateAnimation = new RotateAnimation((float)lngDegrees, (float)
-                            (lngDegrees + ((long)ran)),1,0.5f,1,0.5f);
-                    lngDegrees = (lngDegrees + ((long)ran)) % 360;
-                    rotateAnimation.setDuration((long)ran);
-                    rotateAnimation.setFillAfter(true);
-                    rotateAnimation.setInterpolator(new DecelerateInterpolator());
-                    rotateAnimation.setAnimationListener(PlayActivity.this);
-                    imageRoulette.setAnimation(rotateAnimation);
-                    imageRoulette.startAnimation(rotateAnimation);
-                }
-            }
-        });
+        spinBtn.setOnClickListener(new spinWheelClickListener());
     }
 
     @Override
@@ -327,7 +311,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         timer = new Timer(); //timer round
         questionTimer();
 
-        answer_btn.setOnClickListener(new answerBtn());
+        answer_btn.setOnClickListener(new answerBtnClickListener());
 
         for(int i=0;i<12;i++){
             pad[i].setOnClickListener(new View.OnClickListener() {
@@ -399,7 +383,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         questionTimer();
 
         for(int i=0;i<4;i++){
-            btn[i].setOnClickListener(new answerBtn());
+            btn[i].setOnClickListener(new answerBtnClickListener());
         }
 
         startTimer(dialogView);
@@ -441,7 +425,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         questionTimer();
 
         for(int i=0;i<4;i++){
-            btn[i].setOnClickListener(new answerBtn());
+            btn[i].setOnClickListener(new answerBtnClickListener());
         }
 
         startTimer(dialogView);
@@ -552,12 +536,12 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         questionTimer();
 
         Button ans_btn = dialogView.findViewById(R.id.wordAnswerBtn);
-        ans_btn.setOnClickListener(new answerBtn());
+        ans_btn.setOnClickListener(new answerBtnClickListener());
 
         startTimer(dialogView);
     }
 
-    class answerBtn implements View.OnClickListener {
+    class answerBtnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             String tmp = "";
@@ -646,7 +630,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
         View dialogView = getLayoutInflater().inflate(R.layout.bonus_dialog, null);
         builder.setView(dialogView).setCancelable(false);
-        final AlertDialog dialog = builder.show();
+        dialog = builder.show();
         mediaPlayer.start();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -656,27 +640,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
                 boardFlip();
                 round.setText(getString(R.string.round) + " " + roundsCounter);
-                final LinearLayout bonusLayout = findViewById(R.id.bonusLayout);
+                bonusLayout = findViewById(R.id.bonusLayout);
                 bonusLayout.setVisibility(View.VISIBLE);
                 spinBtn.setVisibility(View.INVISIBLE);
                 Button spinBonusBtn = findViewById(R.id.spinBonusBtn);
-                spinBonusBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int ran = new Random().nextInt(360) + 3600;
-                        RotateAnimation rotateAnimation = new RotateAnimation((float)lngDegrees2, (float)
-                                (lngDegrees2 + ((long)ran)),1,0.5f,1,0.5f);
-                        lngDegrees2 = (lngDegrees2 + ((long)ran)) % 360;
-                        rotateAnimation.setDuration((long)ran);
-                        rotateAnimation.setFillAfter(true);
-                        rotateAnimation.setInterpolator(new DecelerateInterpolator());
-                        rotateAnimation.setAnimationListener(PlayActivity.this);
-                        bonusRoulette.setAnimation(rotateAnimation);
-                        bonusRoulette.startAnimation(rotateAnimation);
-                        bonusLayout.setVisibility(View.INVISIBLE);
-                        spinBtn.setVisibility(View.VISIBLE);
-                    }
-                });
+                spinBonusBtn.setOnClickListener(new spinWheelClickListener());
                 Button leaveBtn = findViewById(R.id.leaveBtn);
                 leaveBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -690,6 +658,42 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 });
             }
         }, 2000);
+    }
+
+    class spinWheelClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            if (blnButtonRotation) {
+                int btnId = ((Button) v).getId();
+                int ran = new Random().nextInt(360) + 3600;
+                long degrees;
+                ImageView roulette;
+                if (btnId == R.id.spinBtn) {
+                    roundsCounter++;
+                    degrees = lngDegrees;
+                    roulette = imageRoulette;
+                    lngDegrees = (degrees + ((long) ran)) % 360;
+                }
+                else if (btnId == R.id.spinBonusBtn) {
+                    degrees = lngDegrees2;
+                    roulette = bonusRoulette;
+                    bonusLayout.setVisibility(View.INVISIBLE);
+                    spinBtn.setVisibility(View.VISIBLE);
+                    lngDegrees2 = (degrees + ((long) ran)) % 360;
+                }
+                else {
+                    return;
+                }
+                RotateAnimation rotateAnimation = new RotateAnimation((float) degrees, (float)
+                        (degrees + ((long) ran)), 1, 0.5f, 1, 0.5f);
+                rotateAnimation.setDuration((long) ran);
+                rotateAnimation.setFillAfter(true);
+                rotateAnimation.setInterpolator(new DecelerateInterpolator());
+                rotateAnimation.setAnimationListener(PlayActivity.this);
+                roulette.setAnimation(rotateAnimation);
+                roulette.startAnimation(rotateAnimation);
+            }
+        }
     }
 
     void boardFlip(){
@@ -847,6 +851,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+                intent.putExtra("Name", getIntent().getStringExtra("Name"));
                 startActivity(intent);
             }});
         Button cancelBtn = dialogView.findViewById(R.id.cancle);
