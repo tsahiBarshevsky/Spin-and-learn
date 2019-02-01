@@ -600,6 +600,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                             break;
                     }
                 }
+
                 dialog.dismiss();
                 countDownTimer.cancel();
                 timer.cancel();
