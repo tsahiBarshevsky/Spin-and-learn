@@ -1,6 +1,7 @@
 package tsahi.and.kostia.spinandlearn;
 
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,6 +34,9 @@ public class LeaderboardActivity extends AppCompatActivity {
             String tmp = sharedPref.getString(i.toString(), "");
             if(!tmp.equals("")){
                 UserInfo user = new UserInfo(tmp);
+                if(user.getPhoto() == null){
+                    user.setPhoto(BitmapFactory.decodeResource(getResources(), R.drawable.camera));
+                }
                 userInfoList.add(user);
             }
         }
