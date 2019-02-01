@@ -280,6 +280,8 @@ public class FirstActivity extends AppCompatActivity {
         builder.setView(dialogView).setCancelable(false);
         final AlertDialog dialog = builder.show();
         Button okBtn = dialogView.findViewById(R.id.ok);
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
+        okBtn.startAnimation(animation);
         okBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -291,6 +293,7 @@ public class FirstActivity extends AppCompatActivity {
                 System.exit(0);
             }});
         Button cancelBtn = dialogView.findViewById(R.id.cancle);
+        cancelBtn.startAnimation(animation);
         cancelBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
