@@ -415,10 +415,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         exercisesContainer.getCitiesExercises().remove(0);
 
         TextView question = dialogView.findViewById(R.id.exerciseCities);
-        ImageView flag = findViewById(R.id.flagIMG);
-        System.out.println(currentExercise.getFlagID());
+        ImageView flag = dialogView.findViewById(R.id.flagIMG);
 
-        //flag.setImageDrawable(getResources().getDrawable(currentExercise.getFlagID()));
+        flag.setImageResource(currentExercise.getFlagID());
 
         final TextView[] btn = {dialogView.findViewById(R.id.tv_c00),
                 dialogView.findViewById(R.id.tv_c01),
