@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, WalkTroughActivity.class);
                 intent.putExtra("from", MainActivity.class);
+                intent.putExtra("Name", userName);
                 startActivity(intent);
             }
         });
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LeaderboardActivity.class);
+                intent.putExtra("Name", userName);
                 startActivity(intent);
             }
         });
@@ -158,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
         {
             Intent intent = new Intent(MainActivity.this, WalkTroughActivity.class);
             intent.putExtra("from", MainActivity.class);
+            intent.putExtra("Name", getIntent().getStringExtra("Name"));
             startActivity(intent);
         }
 

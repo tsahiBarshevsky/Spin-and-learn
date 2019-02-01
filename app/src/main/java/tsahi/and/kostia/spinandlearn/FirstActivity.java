@@ -40,6 +40,8 @@ public class FirstActivity extends AppCompatActivity {
     String userName;
     SharedPreferences sharedPref;
 
+    int BMP_MAX_SIZE = 250;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -224,7 +226,7 @@ public class FirstActivity extends AppCompatActivity {
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             if (data != null) {
                 bitmap = (Bitmap) data.getExtras().get("data");
-                bitmap = getResizedBitmap(bitmap, 100);
+                bitmap = getResizedBitmap(bitmap, BMP_MAX_SIZE);
             }
             userImage.setImageBitmap(bitmap);
         }
@@ -237,7 +239,7 @@ public class FirstActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                bitmap = getResizedBitmap(bitmap, 100);
+                bitmap = getResizedBitmap(bitmap, BMP_MAX_SIZE);
                 userImage.setImageBitmap(bitmap);
             }
     }

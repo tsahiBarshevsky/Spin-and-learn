@@ -8,11 +8,13 @@ public class CitiesExercise implements Exercises
 {
     private String question, answer;
     ArrayList<String> wrongAnswers;
+    int flagID;
 
 
-    public CitiesExercise(Context context, String question, String answer) {
+    public CitiesExercise(Context context, String question, String answer, int flagID) {
         this.question = question;
         this.answer = answer;
+        this.flagID = flagID;
         wrongAnswers = new ArrayList<>();
 
         String[] citiesBank = {context.getResources().getString(R.string.jerusalem),
@@ -41,6 +43,7 @@ public class CitiesExercise implements Exercises
         }
     }
 
+    @Override
     public String getQuestion() {
         return question;
     }
@@ -49,6 +52,7 @@ public class CitiesExercise implements Exercises
         this.question = question;
     }
 
+    @Override
     public String getAnswer() {
         return answer;
     }
@@ -57,6 +61,7 @@ public class CitiesExercise implements Exercises
         this.answer = answer;
     }
 
+    @Override
     public ArrayList<String> getWrongAnswers() {
         return wrongAnswers;
     }
@@ -73,6 +78,15 @@ public class CitiesExercise implements Exercises
 
     public void setWrongAnswers(ArrayList<String> wrongAnswers) {
         this.wrongAnswers = wrongAnswers;
+    }
+
+    @Override
+    public int getFlagID() {
+        return flagID;
+    }
+
+    public void setFlagID(int flagID) {
+        this.flagID = flagID;
     }
 
     @Override

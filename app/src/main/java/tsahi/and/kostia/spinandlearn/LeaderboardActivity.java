@@ -1,5 +1,6 @@
 package tsahi.and.kostia.spinandlearn;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         userInfoList = new ArrayList<>();
 
         SharedPreferences sharedPref = this.getSharedPreferences("gameData", this.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
 
         Integer size = sharedPref.getInt("size", 0);
 
@@ -46,9 +48,22 @@ public class LeaderboardActivity extends AppCompatActivity {
                 return o2.getScore() - o1.getScore();
             }
         });
+
+        if(size > 0) {
+            editor.putInt("HighScore", userInfoList.get(0).getScore());
+            editor.commit();
+        }
+
         adapter = new ScoreAdapter(userInfoList);
         recyclerView.setAdapter(adapter);
         adapter.notifyItemInserted(userInfoList.size());
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(LeaderboardActivity.this, MainActivity.class);
+        intent.putExtra("Name", getIntent().getStringExtra("Name"));
+        startActivity(intent);
+    }
 }

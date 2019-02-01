@@ -29,22 +29,22 @@ public class ExercisesContainer
         mathExercises.add(new MathExercise(context.getString(R.string.math9), "32"));
         mathExercises.add(new MathExercise(context.getString(R.string.math10), "125"));
 
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.israel) + "?", context.getString(R.string.jerusalem)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.spain) + "?", context.getString(R.string.madrid)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.england) + "?", context.getString(R.string.london)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.usa) + "?", context.getString(R.string.washington)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.france) + "?", context.getString(R.string.paris)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.russsia) + "?", context.getString(R.string.moscow)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.ukraine) + "?", context.getString(R.string.kiev)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.japan) + "?", context.getString(R.string.tokyo)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.south_africa) + "?", context.getString(R.string.capetown)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.germany) + "?", context.getString(R.string.berlin)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.argentina) + "?", context.getString(R.string.buenos_aires)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.peru) + "?", context.getString(R.string.lima)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.egypt) + "?", context.getString(R.string.cairo)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.saudi_arabia) + "?", context.getString(R.string.riahd)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.lebanon) + "?", context.getString(R.string.beiruth)));
-        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.siriya) + "?", context.getString(R.string.damascus)));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.israel) + "?", context.getString(R.string.jerusalem), R.drawable.israel_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.spain) + "?", context.getString(R.string.madrid), R.drawable.spain_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.england) + "?", context.getString(R.string.london), R.drawable.uk_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.usa) + "?", context.getString(R.string.washington), R.drawable.usa_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.france) + "?", context.getString(R.string.paris), R.drawable.france_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.russsia) + "?", context.getString(R.string.moscow), R.drawable.russia_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.ukraine) + "?", context.getString(R.string.kiev), R.drawable.ukraine_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.japan) + "?", context.getString(R.string.tokyo), R.drawable.japan_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.south_africa) + "?", context.getString(R.string.capetown), R.drawable.south_africa_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.germany) + "?", context.getString(R.string.berlin), R.drawable.germany_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.argentina) + "?", context.getString(R.string.buenos_aires), R.drawable.argentina_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.peru) + "?", context.getString(R.string.lima), R.drawable.peru_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.egypt) + "?", context.getString(R.string.cairo), R.drawable.egypt_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.saudi_arabia) + "?", context.getString(R.string.riahd), R.drawable.saudi_arabia_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.lebanon) + "?", context.getString(R.string.beiruth), R.drawable.lebanon_flag));
+        citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.siriya) + "?", context.getString(R.string.damascus), R.drawable.syria_flag));
 
         wordExercises.add(new WordExercise(context,context.getString(R.string.encylopedia_definition), context.getString(R.string.encyclopedia)));
         wordExercises.add(new WordExercise(context,context.getString(R.string.bacteria_definition), context.getString(R.string.bacteria)));

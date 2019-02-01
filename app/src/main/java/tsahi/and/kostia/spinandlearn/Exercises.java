@@ -8,4 +8,5 @@ public interface Exercises {
     ArrayList<String> getWrongAnswers();
     ArrayList<Character> getLetterBank();
     String getDefinition();
+    int getFlagID();
 }

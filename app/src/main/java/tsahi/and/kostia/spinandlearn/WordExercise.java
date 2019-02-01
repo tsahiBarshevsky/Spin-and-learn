@@ -36,14 +36,21 @@ public class WordExercise  implements Exercises {
         }
     }
 
+    @Override
     public String getDefinition() {
         return definition;
+    }
+
+    @Override
+    public int getFlagID() {
+        return 0;
     }
 
     public void setDefinition(String definition) {
         this.definition = definition;
     }
 
+    @Override
     public String getAnswer() {
         return answer;
     }
@@ -57,6 +64,7 @@ public class WordExercise  implements Exercises {
         this.answer = answer;
     }
 
+    @Override
     public ArrayList<Character> getLetterBank() {
         return letterBank;
     }

@@ -359,6 +359,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         exercisesContainer.getCitiesExercises().remove(0);
 
         TextView question = dialogView.findViewById(R.id.exerciseCities);
+        ImageView flag = findViewById(R.id.flagIMG);
+        System.out.println(currentExercise.getFlagID());
+
+        //flag.setImageDrawable(getResources().getDrawable(currentExercise.getFlagID()));
 
         final TextView[] btn = {dialogView.findViewById(R.id.tv_c00),
                 dialogView.findViewById(R.id.tv_c01),
@@ -787,6 +791,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         editor.putInt("size", size);
         editor.commit();
 
+        int highScore = sharedPref.getInt("HighScore", 0);
+
         if(strikes >= 3) {
             Toast.makeText(this, "Strike out - Your score is: " + scoreCounter + " Animation with aplouds", Toast.LENGTH_LONG).show();
         }
@@ -794,6 +800,12 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             Toast.makeText(this, "Finished game - Your score is: " + scoreCounter + " Animation with aplouds", Toast.LENGTH_LONG).show();
 
         }
+
+
+        if(scoreCounter >= highScore){
+            Toast.makeText(this, "YOU GOT THE HIGHEST SCORE", Toast.LENGTH_LONG).show();
+        }
+
         Intent intent = new Intent(PlayActivity.this, MainActivity.class);
         intent.putExtra("Name", getIntent().getStringExtra("Name"));
         startActivity(intent);

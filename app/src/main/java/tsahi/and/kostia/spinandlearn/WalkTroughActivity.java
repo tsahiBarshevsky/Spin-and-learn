@@ -60,6 +60,7 @@ public class WalkTroughActivity extends AppIntro {
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
         Intent intent = new Intent(WalkTroughActivity.this, from);
+        intent.putExtra("Name", getIntent().getStringExtra("Name"));
         startActivity(intent);    }
 
     @Override
@@ -86,6 +87,7 @@ public class WalkTroughActivity extends AppIntro {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(WalkTroughActivity.this, from);
+                intent.putExtra("Name", getIntent().getStringExtra("Name"));
                 startActivity(intent);
             }});
         Button cancelBtn = dialogView.findViewById(R.id.cancle);

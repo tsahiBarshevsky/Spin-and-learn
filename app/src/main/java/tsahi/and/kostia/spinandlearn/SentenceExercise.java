@@ -35,6 +35,7 @@ public class SentenceExercise  implements Exercises {
         }
     }
 
+    @Override
     public String getQuestion() {
         return question;
     }
@@ -43,6 +44,7 @@ public class SentenceExercise  implements Exercises {
         this.question = question;
     }
 
+    @Override
     public String getAnswer() {
         return answer;
     }
@@ -51,6 +53,7 @@ public class SentenceExercise  implements Exercises {
         this.answer = answer;
     }
 
+    @Override
     public ArrayList<String> getWrongAnswers() {
         return wrongAnswers;
     }
@@ -63,6 +66,11 @@ public class SentenceExercise  implements Exercises {
     @Override
     public String getDefinition() {
         return null;
+    }
+
+    @Override
+    public int getFlagID() {
+        return 0;
     }
 
     public void setWrongAnswers(ArrayList<String> wrongAnswers) {
