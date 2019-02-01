@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 
+import java.io.IOException;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -204,6 +205,11 @@ public class FirstActivity extends AppCompatActivity {
                         else
                             selectImage();
                         return true;
+                    case R.id.reset:
+                        userImage.setImageBitmap(null);
+                        userImage.setImageDrawable(getResources().getDrawable(R.drawable.camera));
+                        bitmap = null;
+                        return true;
                 }
                 return false;
             }
@@ -216,15 +222,23 @@ public class FirstActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            if (data != null)
+            if (data != null) {
                 bitmap = (Bitmap) data.getExtras().get("data");
+                bitmap = getResizedBitmap(bitmap, 100);
+            }
             userImage.setImageBitmap(bitmap);
         }
         else
             if (requestCode == PICK_IMAGE && resultCode == RESULT_OK){
                 if (data != null)
                     imageUri = data.getData();
-                userImage.setImageURI(imageUri);
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                bitmap = getResizedBitmap(bitmap, 100);
+                userImage.setImageBitmap(bitmap);
             }
     }
 
@@ -239,6 +253,22 @@ public class FirstActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAMERA_REQUEST);
+    }
+
+    Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
     @Override
