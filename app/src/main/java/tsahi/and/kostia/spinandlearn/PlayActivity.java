@@ -50,7 +50,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     SharedPreferences sp;
     Bitmap bitmap;
     MediaPlayer mediaPlayer;
-
+    Animation animation;
     TextView mathAnswer;
     ArrayList<TextView> answer_blank;
 
@@ -109,7 +109,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         heart1 = findViewById(R.id.heart1);
         heart2 = findViewById(R.id.heart2);
         heart3 = findViewById(R.id.heart3);
-        final Animation animation = AnimationUtils.loadAnimation(getApplicationContext() ,R.anim.button_anim);
+        animation = AnimationUtils.loadAnimation(getApplicationContext() ,R.anim.button_anim);
         heart1.startAnimation(animation);
         heart2.startAnimation(animation);
         heart3.startAnimation(animation);
@@ -189,8 +189,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         }
         else //bonus wheel spin
         {
-            String string = String.valueOf((int)(((double)4)
-                    - floor(((double)lngDegrees2) / (360.0d / ((double)4)))));
+            String string = String.valueOf((int)(((double)5)
+                    - floor(((double)lngDegrees2) / (360.0d / ((double)5)))));
             int pos = Integer.parseInt(string);
             pos--;
             switch (pos)
@@ -198,29 +198,45 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 case 0:
                     scoreCounter += 100;
                     score.setText(getString(R.string.score) + " " + scoreCounter);
-                    rightAnswer();
-                    Toast.makeText(PlayActivity.this, "Blue", Toast.LENGTH_SHORT).show();
+                    endBonus(0);
                     break;
                 case 1:
-                    scoreCounter =0;
+                    scoreCounter = 0;
                     score.setText(getString(R.string.score) + " " + scoreCounter);
-                    wrongAnswer();
-                    Toast.makeText(PlayActivity.this, "Green", Toast.LENGTH_SHORT).show();
+                    endBonus(1);
                     break;
                 case 2:
+                    strikes--;
+                    switch (strikes)
+                    {
+                        case 3:
+                            heart1.startAnimation(animation);
+                            heart1.setVisibility(View.VISIBLE);
+                            break;
+                        case 2:
+                            heart2.startAnimation(animation);
+                            heart2.setVisibility(View.VISIBLE);
+                            break;
+                        case 1:
+                            heart3.startAnimation(animation);
+                            heart3.setVisibility(View.VISIBLE);
+                            break;
+                    }
+                    endBonus(2);
+                    break;
+                case 3:
                     if(scoreCounter < 100){
                         scoreCounter = 0;
                     }
                     else {
                         scoreCounter -= 100;
                     }
-                    wrongAnswer();
+                    endBonus(3);
                     score.setText(getString(R.string.score) + " " + scoreCounter);
-                    Toast.makeText(PlayActivity.this, "Orange", Toast.LENGTH_SHORT).show();
                     break;
-                case 3:
+                case 4:
                     scoreCounter *= 2;
-                    rightAnswer();
+                    endBonus(4);
                     score.setText(getString(R.string.score) + " " + scoreCounter);
                     Toast.makeText(PlayActivity.this, "Red", Toast.LENGTH_SHORT).show();
                     break;
@@ -232,12 +248,45 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 endGame();
             }
         }
-
     }
 
     @Override
     public void onAnimationRepeat(Animation animation) {
 
+    }
+
+    public void endBonus(int result)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
+        View dialogView = getLayoutInflater().inflate(R.layout.bonus_result, null);
+        builder.setView(dialogView).setCancelable(false);
+        ImageView imageView = dialogView.findViewById(R.id.bonus_result);
+        switch (result)
+        {
+            case 0:
+                imageView.setImageResource(R.drawable.plus_100);
+                break;
+            case 1:
+                imageView.setImageResource(R.drawable.zero_score);
+                break;
+            case 2:
+                imageView.setImageResource(R.drawable.extra_life);
+                break;
+            case 3:
+                imageView.setImageResource(R.drawable.minus_100);
+                break;
+            case 4:
+                imageView.setImageResource(R.drawable.double_score);
+                break;
+        }
+        final AlertDialog dialog = builder.show();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, 3000);
     }
 
     private void startTimer(final View v) {
@@ -676,7 +725,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             @Override
             public void run() {
                 dialog.dismiss();
-
                 boardFlip();
                 round.setText(getString(R.string.round) + " " + roundsCounter);
                 bonusLayout = findViewById(R.id.bonusLayout);
