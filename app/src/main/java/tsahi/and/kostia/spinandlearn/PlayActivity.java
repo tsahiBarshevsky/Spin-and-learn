@@ -105,7 +105,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 levelTV.setText(getString(R.string.level) + getString(R.string.hard));
                 break;
         }
-
         heart1 = findViewById(R.id.heart1);
         heart2 = findViewById(R.id.heart2);
         heart3 = findViewById(R.id.heart3);
