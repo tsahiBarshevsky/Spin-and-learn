@@ -170,7 +170,7 @@ public class FirstActivity extends AppCompatActivity {
                     }});
             }
         });
-        registerForContextMenu(userImage);
+        //registerForContextMenu(userImage);
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
