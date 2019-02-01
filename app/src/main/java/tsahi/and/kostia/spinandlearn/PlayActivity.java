@@ -43,7 +43,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     long lngDegrees = 0, lngDegrees2 = 0, timeLeftInMillis, temp;
     ExercisesContainer exercisesContainer;
     ImageView imageRoulette, bonusRoulette, heart1, heart2, heart3;
-    TextView round, score, levelTV;
+    TextView round, score;
     CountDownTimer countDownTimer;
     String level, type;
     Button spinBtn;
@@ -79,32 +79,45 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             bitmap = extras.getParcelable("user_pic");
         sp = getSharedPreferences("score detail", MODE_PRIVATE);
         exercisesContainer = new ExercisesContainer(this);
-        levelTV = findViewById(R.id.level_TV);
         level = getIntent().getStringExtra("Level");
+        AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
+        View dialogView = getLayoutInflater().inflate(R.layout.level_dialog, null);
+        builder.setView(dialogView).setCancelable(false);
+        ImageView imageView = dialogView.findViewById(R.id.level_source);
+        Animation scaleUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.level_scale_up);
         switch (level)
         {
             case "Easy":
+                imageView.setImageResource(R.drawable.easy);
                 scoreToAdd = 10;          //add 10-20 points for right answer
                 scoreRange = 10;
                 timeLeftInMillis = 60000; //1 minute
                 temp = timeLeftInMillis;
-                levelTV.setText(getString(R.string.level) + getString(R.string.easy));
                 break;
             case "Medium":
+                imageView.setImageResource(R.drawable.medium);
                 scoreToAdd = 20;          //add 20-50 points for right answer
                 scoreRange = 30;
                 timeLeftInMillis = 30000; //30 seconds
                 temp = timeLeftInMillis;
-                levelTV.setText(getString(R.string.level) + getString(R.string.medium));
                 break;
             case "Hard":
+                imageView.setImageResource(R.drawable.hard);
                 scoreToAdd = 50;          //add 50-100 points for right answer
                 scoreRange = 50;
                 timeLeftInMillis = 10000; //10 seconds
                 temp = timeLeftInMillis;
-                levelTV.setText(getString(R.string.level) + getString(R.string.hard));
                 break;
         }
+        imageView.startAnimation(scaleUp);
+        final AlertDialog dialog = builder.show();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, 3000);
         heart1 = findViewById(R.id.heart1);
         heart2 = findViewById(R.id.heart2);
         heart3 = findViewById(R.id.heart3);
@@ -127,6 +140,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         score.setText(getString(R.string.score) + " " + "0");
         spinBtn = findViewById(R.id.spinBtn);
         spinBtn.setOnClickListener(new spinWheelClickListener());
+        //spinBtn.startAnimation(animation);
     }
 
     @Override
@@ -150,39 +164,39 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     mathQuestion();
                     break;
                 case 1:
-                    type = "cities";
-                    citiesQuestion();
+                    type = "words";
+                    wordsQuestion();
                     break;
                 case 2:
                     showBonus();
                     break;
                 case 3:
-                    type = "cities";
-                    citiesQuestion();
+                    type = "words";
+                    wordsQuestion();
                     break;
                 case 4:
                     type = "sentence";
                     sentenceQuestion();
                     break;
                 case 5:
-                    type = "words";
-                    wordsQuestion();
+                    type = "cities";
+                    citiesQuestion();
                     break;
                 case 6:
                     type = "math";
                     mathQuestion();
                     break;
                 case 7:
-                    type = "cities";
-                    citiesQuestion();
+                    type = "words";
+                    wordsQuestion();
                     break;
                 case 8:
                     type = "sentence";
                     sentenceQuestion();
                     break;
                 case 9:
-                    type = "words";
-                    wordsQuestion();
+                    type = "cities";
+                    citiesQuestion();
                     break;
             }
         }
@@ -990,7 +1004,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             public void onClick(View arg0) {
                 dialog.dismiss();
             }});
-
+        okBtn.startAnimation(animation);
+        cancelBtn.startAnimation(animation);
     }
 
     @Override
