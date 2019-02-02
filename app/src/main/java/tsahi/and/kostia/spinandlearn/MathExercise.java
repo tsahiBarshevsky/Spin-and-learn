@@ -2,14 +2,49 @@ package tsahi.and.kostia.spinandlearn;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.floor;
+import static java.lang.Math.pow;
+
 public class MathExercise implements Exercises
 {
     private String question, answer;
 
+    public MathExercise(){
+        Double a, b, symbol, result = -1.0;
+        boolean flag = true;
+        String strSymb = "";
+        symbol = floor(Math.random() * 5);
+        while(flag) {
+            a = floor(Math.random() * 100 + 1);
+            b = floor(Math.random() * 100 + 1);
 
-    public MathExercise(String question, String answer) {
-        this.question = question;
-        this.answer = answer;
+            if(symbol == 0.0) {
+                result = a + b;
+                strSymb = " + ";
+            }
+            else if(symbol == 1.0) {
+                result = a - b;
+                strSymb = " - ";
+            }
+            else if(symbol == 2.0) {
+                result = a * b;
+                strSymb = " x ";
+            }
+            else if(symbol == 3.0) {
+                result = a / b;
+                strSymb = " / ";
+            }
+            else if(symbol == 4.0) {
+                result = pow(a,b);
+                strSymb = " ^ ";
+            }
+
+            if(result == floor(result) && result > 0 && result <= 1000){
+                question = new Integer(a.intValue()).toString() + strSymb + new Integer(b.intValue()).toString();
+                answer = new Integer(result.intValue()).toString();
+                flag = false;
+            }
+        }
     }
 
     @Override
@@ -20,10 +55,6 @@ public class MathExercise implements Exercises
     @Override
     public String getAnswer() {
         return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
     }
 
     @Override

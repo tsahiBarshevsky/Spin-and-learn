@@ -24,7 +24,8 @@
             android:textSize="25sp"
             android:textColor="#000"
             android:gravity="center"
-            android:background="@drawable/question_design"/>
+            android:background="@drawable/question_design"
+            />
 
         <TextView android:id="@+id/answerMath"
             android:layout_width="match_parent"
@@ -40,7 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_margin="1dp">
 
             <TableRow>
                 <TextView android:id="@+id/tv_m7"

@@ -10,8 +10,8 @@
                 android:bottom="0dp"/>
             <stroke android:width="0.5dp"
                 android:color="#000"/>
-            <size android:height="30dp"
-                android:width="30dp"/>
+            <size android:height="28dp"
+                android:width="28dp"/>
         </shape>
     </item>
 </selector>

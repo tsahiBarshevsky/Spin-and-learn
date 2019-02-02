@@ -376,8 +376,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         builder.setView(dialogView).setCancelable(false);
         dialog = builder.show();
 
-        currentExercise = exercisesContainer.getMathExercises().get(0);
-        exercisesContainer.getMathExercises().remove(0);
+//        currentExercise = exercisesContainer.getMathExercises().get(0);
+//        exercisesContainer.getMathExercises().remove(0);
+        currentExercise = new MathExercise();
 
         TextView question = dialogView.findViewById(R.id.exerciseMath);
         mathAnswer = dialogView.findViewById(R.id.answerMath);
@@ -573,7 +574,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         final int question_size = question.length();
         for(int i=0;i<question_size;i++){
             TextView tmp = new TextView(dialogView.getContext());
-            tmp.setTextSize(20);
+            tmp.setTextSize(18);
             tmp.setGravity(Gravity.CENTER);
             tmp.setBackground(getResources().getDrawable(R.drawable.words_design));
             tmp.setPadding(5,0,5,0);
@@ -689,7 +690,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 countDownTimer.cancel();
                 timer.cancel();
                 timeLeftInMillis = temp;
-                round.setText(getString(R.string.round) + " " + roundsCounter);
+                if(roundsCounter <= NUM_OF_ROUNDS) {
+                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                }
                 score.setText(getString(R.string.score) + " " + scoreCounter);
                 if (roundsCounter > NUM_OF_ROUNDS || strikes >= 3) {
                     endGame();
@@ -722,7 +725,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                                     }
                                 }, 1500);
                                 playSound(R.raw.out_of_time);
-                                round.setText(getString(R.string.round) + " " + roundsCounter);
+                                if(roundsCounter <= NUM_OF_ROUNDS) {
+                                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                                }
                                 score.setText(getString(R.string.score) + " " + scoreCounter);
                                 strikes++;
                                 switch (strikes)
@@ -766,7 +771,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             public void run() {
                 dialog.dismiss();
                 boardFlip();
-                round.setText(getString(R.string.round) + " " + roundsCounter);
+                if(roundsCounter <= NUM_OF_ROUNDS) {
+                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                }
                 bonusLayout = findViewById(R.id.bonusLayout);
                 bonusLayout.setVisibility(View.VISIBLE);
                 spinBtn.clearAnimation();
@@ -797,14 +804,14 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         public void onClick(View v) {
             if (blnButtonRotation) {
                 int btnId = ((Button) v).getId();
-                int ran = new Random().nextInt(360) + 3600;
+                long ran = new Random().nextInt(360) + 3600;
                 long degrees;
                 ImageView roulette;
                 if (btnId == R.id.spinBtn) {
                     roundsCounter++;
                     degrees = lngDegrees;
                     roulette = imageRoulette;
-                    lngDegrees = (degrees + ((long) ran)) % 360;
+                    lngDegrees = (degrees + (ran)) % 360;
                     spinBtn.setEnabled(false);
                 }
                 else if (btnId == R.id.spinBonusBtn) {
@@ -812,14 +819,14 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     roulette = bonusRoulette;
                     bonusLayout.setVisibility(View.INVISIBLE);
                     spinBtn.setVisibility(View.VISIBLE);
-                    lngDegrees2 = (degrees + ((long) ran)) % 360;
+                    lngDegrees2 = (degrees + (ran)) % 360;
                 }
                 else {
                     return;
                 }
                 RotateAnimation rotateAnimation = new RotateAnimation((float) degrees, (float)
-                        (degrees + ((long) ran)), 1, 0.5f, 1, 0.5f);
-                rotateAnimation.setDuration((long) ran);
+                        (degrees + (ran)), 1, 0.5f, 1, 0.5f);
+                rotateAnimation.setDuration(ran);
                 rotateAnimation.setFillAfter(true);
                 rotateAnimation.setInterpolator(new DecelerateInterpolator());
                 rotateAnimation.setAnimationListener(PlayActivity.this);
@@ -1005,7 +1012,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 intent.putExtra("Name", getIntent().getStringExtra("Name"));
                 startActivity(intent);
             }
-        }, 10000);
+        }, 5000);
     }
 
     @Override

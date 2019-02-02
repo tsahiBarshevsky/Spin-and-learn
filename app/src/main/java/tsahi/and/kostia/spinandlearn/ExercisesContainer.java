@@ -13,51 +13,9 @@ public class ExercisesContainer
     ArrayList<SentenceExercise> sentenceExercises;
 
     public ExercisesContainer(Context context) {
-        mathExercises = new ArrayList<>();
         citiesExercises = new ArrayList<>();
         wordExercises = new ArrayList<>();
         sentenceExercises = new ArrayList<>();
-
-        mathExercises.add(new MathExercise(context.getString(R.string.math1), "49"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math2), "15"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math3), "60"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math4), "8"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math5), "69"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math6), "4"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math7), "121"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math8), "96"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math9), "32"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math10), "125"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math11), "24"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math12), "12"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math13), "9"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math14), "8"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math15), "8"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math16), "1024"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math17), "256"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math18), "256"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math19), "64"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math20), "144"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math21), "49"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math22), "51"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math23), "21"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math24), "64"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math25), "133"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math26), "376"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math27), "1"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math28), "634"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math29), "48"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math30), "30"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math31), "55"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math32), "99"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math33), "25"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math34), "39"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math35), "100"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math36), "36"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math37), "140"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math38), "56"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math39), "23"));
-        mathExercises.add(new MathExercise(context.getString(R.string.math40), "6"));
 
         citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.australia) + "?", context.getString(R.string.canberra), R.drawable.australia_flag));
         citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.argentina) + "?", context.getString(R.string.buenos_aires), R.drawable.argentina_flag));
@@ -99,8 +57,6 @@ public class ExercisesContainer
         citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.ukraine) + "?", context.getString(R.string.kiev), R.drawable.ukraine_flag));
         citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.usa) + "?", context.getString(R.string.washington), R.drawable.usa_flag));
         citiesExercises.add(new CitiesExercise(context,context.getString(R.string.capital_of) + " " + context.getString(R.string.vietnam) + "?", context.getString(R.string.hanoi), R.drawable.vietnam_flag));
-
-
 
         wordExercises.add(new WordExercise(context,context.getString(R.string.encylopedia_definition), context.getString(R.string.encyclopedia)));
         wordExercises.add(new WordExercise(context,context.getString(R.string.bacteria_definition), context.getString(R.string.bacteria)));
@@ -194,13 +150,8 @@ public class ExercisesContainer
         }
 
         Collections.shuffle(citiesExercises);
-        Collections.shuffle(mathExercises);
         Collections.shuffle(sentenceExercises);
         Collections.shuffle(wordExercises);
-    }
-
-    public ArrayList<MathExercise> getMathExercises() {
-        return mathExercises;
     }
 
     public ArrayList<CitiesExercise> getCitiesExercises() {
