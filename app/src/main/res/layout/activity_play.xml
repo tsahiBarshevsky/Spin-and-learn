@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="5dp">
+        android:layout_margin="10dp">
 
         <ImageView android:id="@+id/heart1"
             android:layout_width="40dp"
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:layout_below="@id/hearts">
 
         <TextView android:id="@+id/round"
@@ -45,8 +45,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="#000"
-            android:gravity="center"
-            />
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/score"
@@ -55,7 +54,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:textColor="#000"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
