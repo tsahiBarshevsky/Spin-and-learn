@@ -271,6 +271,15 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 endGame();
             }
         }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                spinBtn.setEnabled(true);
+                //spinBtn.startAnimation(animation); --> bug
+            }
+        }, 500);
+        //spinBtn.startAnimation(animation);
     }
 
     @Override
@@ -443,7 +452,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
         flag.setImageResource(currentExercise.getFlagID());
 
-        final TextView[] btn = {dialogView.findViewById(R.id.tv_c00),
+        final Button[] btn = {dialogView.findViewById(R.id.tv_c00),
                 dialogView.findViewById(R.id.tv_c01),
                 dialogView.findViewById(R.id.tv_c10),
                 dialogView.findViewById(R.id.tv_c11)};
@@ -485,7 +494,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
         TextView question = dialogView.findViewById(R.id.exerciseCities);
 
-        final TextView[] btn = {dialogView.findViewById(R.id.tv_c00),
+        final Button[] btn = {dialogView.findViewById(R.id.tv_c00),
                 dialogView.findViewById(R.id.tv_c01),
                 dialogView.findViewById(R.id.tv_c10),
                 dialogView.findViewById(R.id.tv_c11)};
@@ -529,7 +538,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         definition.setText(currentExercise.getDefinition());
         final String question = currentExercise.getQuestion().toString();
 
-        final TextView[] letter = {dialogView.findViewById(R.id.tv00),
+        final Button[] letter = {dialogView.findViewById(R.id.tv00),
           dialogView.findViewById(R.id.tv01),
           dialogView.findViewById(R.id.tv02),
           dialogView.findViewById(R.id.tv03),
@@ -760,6 +769,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 round.setText(getString(R.string.round) + " " + roundsCounter);
                 bonusLayout = findViewById(R.id.bonusLayout);
                 bonusLayout.setVisibility(View.VISIBLE);
+                spinBtn.clearAnimation();
                 spinBtn.setVisibility(View.INVISIBLE);
                 Button spinBonusBtn = findViewById(R.id.spinBonusBtn);
                 spinBonusBtn.setOnClickListener(new spinWheelClickListener());
@@ -769,11 +779,15 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     public void onClick(View v) {
                         bonusLayout.setVisibility(View.INVISIBLE);
                         spinBtn.setVisibility(View.VISIBLE);
+                        spinBtn.startAnimation(animation);
+                        spinBtn.setEnabled(true);
                         bonus = false;
-
                         boardFlip();
                     }
                 });
+                spinBonusBtn.startAnimation(animation);
+                leaveBtn.startAnimation(animation);
+                spinBtn.setEnabled(false);
             }
         }, 2000);
     }
@@ -791,6 +805,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     degrees = lngDegrees;
                     roulette = imageRoulette;
                     lngDegrees = (degrees + ((long) ran)) % 360;
+                    spinBtn.setEnabled(false);
                 }
                 else if (btnId == R.id.spinBonusBtn) {
                     degrees = lngDegrees2;
@@ -926,7 +941,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     void endGame(){
         SharedPreferences sharedPref = this.getSharedPreferences("gameData", this.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-
         Integer size = sharedPref.getInt("size", 0);
         UserInfo score = new UserInfo(bitmap, getIntent().getStringExtra("Name"), scoreCounter);
         size++;
@@ -934,25 +948,64 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         editor.putString(size.toString(), score.toString());
         editor.putInt("size", size);
         editor.commit();
-
         int highScore = sharedPref.getInt("HighScore", 0);
-
-        if(strikes >= 3) {
-            Toast.makeText(this, "Strike out - Your score is: " + scoreCounter + " Animation with aplouds", Toast.LENGTH_LONG).show();
+        if(strikes >= 3) //end game by 3 strikes
+        {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
+                    View dialogView = getLayoutInflater().inflate(R.layout.end_game_by_strikes_dialog, null);
+                    builder.setView(dialogView).setCancelable(false);
+                    TextView textView = dialogView.findViewById(R.id.score_strikes);
+                    textView.setText(getResources().getString(R.string.your_score) + scoreCounter + ".");
+                    dialog = builder.show();
+                }
+            }, 2000);
         }
-        else{
-            Toast.makeText(this, "Finished game - Your score is: " + scoreCounter + " Animation with aplouds", Toast.LENGTH_LONG).show();
-
+        else //game over after 10 rounds
+        {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
+                    View dialogView = getLayoutInflater().inflate(R.layout.game_over_by_victory_dialog, null);
+                    builder.setView(dialogView).setCancelable(false);
+                    TextView textView = dialogView.findViewById(R.id.score_vic);
+                    textView.setText(getResources().getString(R.string.your_score) + scoreCounter + ".");
+                    dialog = builder.show();
+                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.end_game_sound);
+                    mediaPlayer.start();
+                }
+            }, 2000);
         }
-
-
-        if(scoreCounter >= highScore){
-            Toast.makeText(this, "YOU GOT THE HIGHEST SCORE", Toast.LENGTH_LONG).show();
+        if (scoreCounter >= highScore) //new high score
+        {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.dismiss();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
+                    View dialogView = getLayoutInflater().inflate(R.layout.high_score_dialog, null);
+                    builder.setView(dialogView).setCancelable(false);
+                    builder.show();
+                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.yahoo);
+                    mediaPlayer.start();
+                }
+            }, 7000);
         }
-
-        Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-        intent.putExtra("Name", getIntent().getStringExtra("Name"));
-        startActivity(intent);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+                intent.putExtra("Name", getIntent().getStringExtra("Name"));
+                startActivity(intent);
+            }
+        }, 10000);
     }
 
     @Override

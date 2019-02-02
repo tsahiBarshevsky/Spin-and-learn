@@ -7,8 +7,7 @@
         android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
-        >
+        android:layout_centerInParent="true">
 
         <TextView android:id="@+id/timeCities"
             android:layout_width="match_parent"
@@ -43,41 +42,41 @@
             android:layout_gravity="center">
 
             <TableRow>
-                <TextView android:id="@+id/tv_c00"
+                <Button android:id="@+id/tv_c00"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/answer_design"/>
-                <TextView android:id="@+id/tv_c01"
+                    android:background="@drawable/button_design"/>
+                <Button android:id="@+id/tv_c01"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/answer_design"/>
+                    android:background="@drawable/button_design"/>
             </TableRow>
 
             <TableRow>
-                <TextView android:id="@+id/tv_c10"
+                <Button android:id="@+id/tv_c10"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/answer_design"/>
-                <TextView android:id="@+id/tv_c11"
+                    android:background="@drawable/button_design"/>
+                <Button android:id="@+id/tv_c11"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/answer_design"/>
+                    android:background="@drawable/button_design"/>
             </TableRow>
 
         </TableLayout>
