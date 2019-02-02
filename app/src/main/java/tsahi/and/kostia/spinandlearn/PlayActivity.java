@@ -538,48 +538,47 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         definition.setText(currentExercise.getDefinition());
         final String question = currentExercise.getQuestion().toString();
 
-        final Button[] letter = {dialogView.findViewById(R.id.tv00),
-          dialogView.findViewById(R.id.tv01),
-          dialogView.findViewById(R.id.tv02),
-          dialogView.findViewById(R.id.tv03),
-          dialogView.findViewById(R.id.tv04),
-          dialogView.findViewById(R.id.tv05),
-          dialogView.findViewById(R.id.tv06),
-          dialogView.findViewById(R.id.tv07),
-          dialogView.findViewById(R.id.tv08),
-          dialogView.findViewById(R.id.tv09),
-          dialogView.findViewById(R.id.tv10),
-          dialogView.findViewById(R.id.tv11),
-          dialogView.findViewById(R.id.tv12),
-          dialogView.findViewById(R.id.tv13),
-          dialogView.findViewById(R.id.tv14),
-          dialogView.findViewById(R.id.tv15),
-          dialogView.findViewById(R.id.tv16),
-          dialogView.findViewById(R.id.tv17),
-          dialogView.findViewById(R.id.tv18),
-          dialogView.findViewById(R.id.tv19)};
+        final Button[] letter = {
+                dialogView.findViewById(R.id.tv00),
+                dialogView.findViewById(R.id.tv01),
+                dialogView.findViewById(R.id.tv02),
+                dialogView.findViewById(R.id.tv03),
+                dialogView.findViewById(R.id.tv04),
+                dialogView.findViewById(R.id.tv05),
+                dialogView.findViewById(R.id.tv06),
+                dialogView.findViewById(R.id.tv07),
+                dialogView.findViewById(R.id.tv08),
+                dialogView.findViewById(R.id.tv09),
+                dialogView.findViewById(R.id.tv10),
+                dialogView.findViewById(R.id.tv11),
+                dialogView.findViewById(R.id.tv12),
+                dialogView.findViewById(R.id.tv13)
+        };
 
         ArrayList<Character> letterBank = currentExercise.getLetterBank();
 
-        for(int i=0;i<20;i++){
-            int tmp = (int)(Math.random()*20);
+        for(int i=0;i<14;i++){
+            int tmp = (int)(Math.random()*14);
             while(letterBank.get(tmp).equals('0')){
-                tmp = (int)(Math.random()*20);
+                tmp = (int)(Math.random()*14);
             }
             letter[i].setText(letterBank.get(tmp).toString());
             letterBank.set(tmp, '0');
         }
 
+        System.out.println("1");
         answer_blank = new ArrayList<>();
         final LinearLayout answer_container = dialogView.findViewById(R.id.answerLayout);
         final int question_size = question.length();
         for(int i=0;i<question_size;i++){
             TextView tmp = new TextView(dialogView.getContext());
-            tmp.setTextSize(30);
-            tmp.setTextColor(Color.BLACK);
+            tmp.setTextSize(20);
+            tmp.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            tmp.setBackground(getResources().getDrawable(R.drawable.words_design));
             tmp.setPadding(5,0,5,0);
             tmp.setText(((Character)question.charAt(i)).toString());
             if(question.charAt(i) == '_'){
+                tmp.setBackground(getResources().getDrawable(R.drawable.word_design_answer));
                 answer_blank.add(tmp);
             }
             answer_container.addView(tmp);
@@ -588,7 +587,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         blankIndex = 0;
         final int blankSize = answer_blank.size();
 
-        for(int i=0;i<20;i++){
+        for(int i=0;i<14;i++){
             letter[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -608,7 +607,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     String tmp = ((TextView) v).getText().toString();
                     if(!tmp.equals("_")){
                         ((TextView) v).setText("_");
-                        for(int j=0;j<20;j++){
+                        for(int j=0;j<14;j++){
                             if(letter[j].getVisibility() == View.INVISIBLE && letter[j].getText().equals(tmp)){
                                 letter[j].setVisibility(View.VISIBLE);
                                 for(int k = 0;k<blankSize;k++){
@@ -934,8 +933,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     }
 
     int calcScore(){
-        double precent = (double)timeLeftInMillis/(double)temp;
-        return scoreToAdd + (int)floor(precent*scoreRange);
+        double percent = (double)timeLeftInMillis/(double)temp;
+        return scoreToAdd + (int)floor(percent*scoreRange);
     }
 
     void endGame(){

@@ -31,7 +31,7 @@ public class WordExercise  implements Exercises {
 
         question = questionSB.toString();
 
-        for(int i=0;i<20-numOf_missing_letters;i++){
+        for(int i=0;i<14-numOf_missing_letters;i++){
             letterBank.add((char)(Math.random()*26 + context.getResources().getString(R.string.rnd_letter_index).charAt(0)));
         }
     }
@@ -68,9 +68,5 @@ public class WordExercise  implements Exercises {
     @Override
     public String getQuestion() {
         return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
     }
 }
