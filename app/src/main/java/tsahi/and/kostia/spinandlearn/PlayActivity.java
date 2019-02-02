@@ -926,7 +926,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     void endGame(){
         SharedPreferences sharedPref = this.getSharedPreferences("gameData", this.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-
         Integer size = sharedPref.getInt("size", 0);
         UserInfo score = new UserInfo(bitmap, getIntent().getStringExtra("Name"), scoreCounter);
         size++;
@@ -934,25 +933,64 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         editor.putString(size.toString(), score.toString());
         editor.putInt("size", size);
         editor.commit();
-
         int highScore = sharedPref.getInt("HighScore", 0);
-
-        if(strikes >= 3) {
-            Toast.makeText(this, "Strike out - Your score is: " + scoreCounter + " Animation with aplouds", Toast.LENGTH_LONG).show();
+        if(strikes >= 3) //end game by 3 strikes
+        {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
+                    View dialogView = getLayoutInflater().inflate(R.layout.end_game_by_strikes_dialog, null);
+                    builder.setView(dialogView).setCancelable(false);
+                    TextView textView = dialogView.findViewById(R.id.score_strikes);
+                    textView.setText(getResources().getString(R.string.your_score) + scoreCounter + ".");
+                    dialog = builder.show();
+                }
+            }, 2000);
         }
-        else{
-            Toast.makeText(this, "Finished game - Your score is: " + scoreCounter + " Animation with aplouds", Toast.LENGTH_LONG).show();
-
+        else //game over after 10 rounds
+        {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
+                    View dialogView = getLayoutInflater().inflate(R.layout.game_over_by_victory_dialog, null);
+                    builder.setView(dialogView).setCancelable(false);
+                    TextView textView = dialogView.findViewById(R.id.score_vic);
+                    textView.setText(getResources().getString(R.string.your_score) + scoreCounter + ".");
+                    dialog = builder.show();
+                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.end_game_sound);
+                    mediaPlayer.start();
+                }
+            }, 2000);
         }
-
-
-        if(scoreCounter >= highScore){
-            Toast.makeText(this, "YOU GOT THE HIGHEST SCORE", Toast.LENGTH_LONG).show();
+        if (scoreCounter >= highScore) //new high score
+        {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.dismiss();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
+                    View dialogView = getLayoutInflater().inflate(R.layout.high_score_dialog, null);
+                    builder.setView(dialogView).setCancelable(false);
+                    builder.show();
+                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.yahoo);
+                    mediaPlayer.start();
+                }
+            }, 7000);
         }
-
-        Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-        intent.putExtra("Name", getIntent().getStringExtra("Name"));
-        startActivity(intent);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+                intent.putExtra("Name", getIntent().getStringExtra("Name"));
+                startActivity(intent);
+            }
+        }, 10000);
     }
 
     @Override

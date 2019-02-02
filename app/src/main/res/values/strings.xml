@@ -263,4 +263,5 @@
     <string name="hipopotam_definition">A large thick-skinned semiaquatic African mammal, with massive jaws and large tusks</string>
     <string name="democracy_definition">A system of government by the whole population or all the eligible members of a state, typically through elected representatives</string>
     <string name="technology_definition">The application of scientific knowledge for practical purposes, especially in industry</string>
+    <string name="your_score">"Your score is "</string>
 </resources>

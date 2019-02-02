@@ -13,5 +13,8 @@
     <style name="BonusDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/bonus_dialog_design</item>
     </style>
+    <style name="GameOverDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/game_over_gialog_design</item>
+    </style>
 
 </resources>

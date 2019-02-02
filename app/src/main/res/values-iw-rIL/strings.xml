@@ -264,4 +264,5 @@
     <string name="hipopotam_definition">יונק אפריקאי גדול בעל עור עבה עם לסתות מאסיביות וניבים גדולים</string>
     <string name="democracy_definition">משטר שבו האזרחים יכולים להשפיע על אופי השלטון באמצעות בחירת נציגים למוסדות השונים</string>
     <string name="technology_definition">"תחום ידע שרותם את ממצאי המדע לשם פיתוח וייצור אמצעים לפתרון בעיות או מילוי צרכים של האדם "</string>
+    <string name="your_score">"הניקוד שלך הוא "</string>
 </resources>
