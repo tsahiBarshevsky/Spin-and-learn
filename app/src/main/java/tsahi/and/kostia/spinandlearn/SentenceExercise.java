@@ -1,47 +1,37 @@
 package tsahi.and.kostia.spinandlearn;
 
-import android.content.Context;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SentenceExercise  implements Exercises {
 
     private String question, answer;
     ArrayList<String> wrongAnswers;
 
-
-    public SentenceExercise(Context context, String question, String answer) {
+    public SentenceExercise(String question){
         this.question = question;
-        this.answer = answer;
-        wrongAnswers = new ArrayList<>();
-
-
-        String[] wordBank = {context.getResources().getString(R.string.tooteth),
-                context.getResources().getString(R.string.smoke),
-                context.getResources().getString(R.string.book),
-                context.getResources().getString(R.string.thousand),
-                context.getResources().getString(R.string.hand),
-                context.getResources().getString(R.string.practice),
-                context.getResources().getString(R.string.loves),
-                context.getResources().getString(R.string.sight),
-                context.getResources().getString(R.string.grasp)};
-
-        for(int i=0;i<3;i++){
-            int tmp = (int)(Math.random()*9);
-            while(answer.equals(wordBank[tmp]) || wrongAnswers.contains(wordBank[tmp])){
-                tmp = (int)(Math.random()*9);
-            }
-            wrongAnswers.add(wordBank[tmp]);
+        ArrayList<String> word = new ArrayList<>(Arrays.asList(question.split(" ")));
+        int numOfWord = word.size();
+        int rndWord = (int)(Math.random()*numOfWord);
+        this.answer = word.get(rndWord);
+        this.answer = this.answer.substring(0, 1).toUpperCase() + this.answer.substring(1);
+        int wordSize = word.get(rndWord).length();
+        String blankWord = "";
+        for(int i=0;i<wordSize;i++){
+            blankWord += "_";
         }
+        word.set(rndWord, blankWord);
+        this.question = word.get(0);
+        for(int i = 1; i<numOfWord;i++){
+            this.question += " ";
+            this.question += word.get(i);
+        }
+        wrongAnswers = new ArrayList<>();
     }
 
     @Override
     public String getQuestion() {
         return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
     }
 
     @Override
@@ -73,15 +63,14 @@ public class SentenceExercise  implements Exercises {
         return 0;
     }
 
-    public void setWrongAnswers(ArrayList<String> wrongAnswers) {
-        this.wrongAnswers = wrongAnswers;
-    }
-
-    @Override
-    public String toString() {
-        return "CitiesExercise{" +
-                "question='" + question + '\'' +
-                ", answer='" + answer + '\'' +
-                '}';
+    public void setWrongAnswers(ArrayList<String> wrongAnswersBank) {
+        int bankSize = wrongAnswersBank.size();
+        for(int i=0;i<3;i++){
+            int tmp = (int)(Math.random()*bankSize);
+            while(answer.equals(wrongAnswersBank.get(tmp)) || wrongAnswers.contains(answer.equals(wrongAnswersBank.get(tmp)))){
+                tmp = (int)(Math.random()*bankSize);
+            }
+            wrongAnswers.add(wrongAnswersBank.get(tmp));
+        }
     }
 }

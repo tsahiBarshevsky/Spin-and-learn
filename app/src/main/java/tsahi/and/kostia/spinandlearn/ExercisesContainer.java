@@ -143,15 +143,55 @@ public class ExercisesContainer
         wordExercises.add(new WordExercise(context,context.getString(R.string.democracy_definition), context.getString(R.string.democracy)));
         wordExercises.add(new WordExercise(context,context.getString(R.string.technology_definition), context.getString(R.string.technology)));
 
-        sentenceExercises.add(new SentenceExercise(context,context.getString(R.string.tooteth_missing), context.getString(R.string.tooteth)));
-        sentenceExercises.add(new SentenceExercise(context,context.getString(R.string.smoke_missing), context.getString(R.string.smoke)));
-        sentenceExercises.add(new SentenceExercise(context,context.getString(R.string.book_missing), context.getString(R.string.book)));
-        sentenceExercises.add(new SentenceExercise(context,context.getString(R.string.thousand_missing), context.getString(R.string.thousand)));
-        sentenceExercises.add(new SentenceExercise(context,context.getString(R.string.hand_missing), context.getString(R.string.hand)));
-        sentenceExercises.add(new SentenceExercise(context,context.getString(R.string.practice_missing), context.getString(R.string.practice)));
-        sentenceExercises.add(new SentenceExercise(context,context.getString(R.string.loves_missing), context.getString(R.string.loves)));
-        sentenceExercises.add(new SentenceExercise(context,context.getString(R.string.sight_missing), context.getString(R.string.sight)));
-        sentenceExercises.add(new SentenceExercise(context,context.getString(R.string.grasp_missing), context.getString(R.string.grasp)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence1)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence2)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence3)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence4)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence5)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence6)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence7)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence8)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence9)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence10)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence11)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence12)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence13)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence14)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence15)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence16)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence17)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence18)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence19)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence20)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence21)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence22)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence23)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence24)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence25)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence26)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence27)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence28)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence29)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence30)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence31)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence32)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence33)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence34)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence35)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence36)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence37)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence38)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence39)));
+        sentenceExercises.add(new SentenceExercise(context.getString(R.string.sentence40)));
+
+
+        ArrayList<String> wrongAnswerBank = new ArrayList<>();
+        for(int i=0;i<40;i++){
+            wrongAnswerBank.add(sentenceExercises.get(i).getAnswer());
+        }
+        for(int i=0;i<40;i++){
+            sentenceExercises.get(i).setWrongAnswers(wrongAnswerBank);
+        }
 
         Collections.shuffle(citiesExercises);
         Collections.shuffle(mathExercises);
@@ -163,41 +203,15 @@ public class ExercisesContainer
         return mathExercises;
     }
 
-    public void setMathExercises(ArrayList<MathExercise> mathExercises) {
-        this.mathExercises = mathExercises;
-    }
-
     public ArrayList<CitiesExercise> getCitiesExercises() {
         return citiesExercises;
-    }
-
-    public void setCitiesExercises(ArrayList<CitiesExercise> citiesExercises) {
-        this.citiesExercises = citiesExercises;
     }
 
     public ArrayList<WordExercise> getWordExercises() {
         return wordExercises;
     }
 
-    public void setWordExercises(ArrayList<WordExercise> wordExercises) {
-        this.wordExercises = wordExercises;
-    }
-
     public ArrayList<SentenceExercise> getSentenceExercises() {
         return sentenceExercises;
-    }
-
-    public void setSentenceExercises(ArrayList<SentenceExercise> sentenceExercises) {
-        this.sentenceExercises = sentenceExercises;
-    }
-
-    @Override
-    public String toString() {
-        return "ExercisesContainer{" +
-                "mathExercises=" + mathExercises +
-                ", citiesExercises=" + citiesExercises +
-                ", wordExercises=" + wordExercises +
-                ", sentenceExercises=" + sentenceExercises +
-                '}';
     }
 }
