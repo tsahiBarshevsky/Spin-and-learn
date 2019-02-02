@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -573,7 +574,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         for(int i=0;i<question_size;i++){
             TextView tmp = new TextView(dialogView.getContext());
             tmp.setTextSize(20);
-            tmp.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            tmp.setGravity(Gravity.CENTER);
             tmp.setBackground(getResources().getDrawable(R.drawable.words_design));
             tmp.setPadding(5,0,5,0);
             tmp.setText(((Character)question.charAt(i)).toString());
