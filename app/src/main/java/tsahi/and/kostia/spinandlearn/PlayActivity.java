@@ -168,9 +168,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             int pos = Integer.parseInt(string);
             pos--;
             blnButtonRotation = true;
-            wordsQuestion();
-            type = "words";
-            /*switch (pos)
+            switch (pos)
             {
                 case 0:
                     type = "math";
@@ -211,7 +209,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     type = "cities";
                     citiesQuestion();
                     break;
-            }*/
+            }
         }
         else //bonus wheel spin
         {
