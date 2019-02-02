@@ -122,9 +122,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         heart2 = findViewById(R.id.heart2);
         heart3 = findViewById(R.id.heart3);
         animation = AnimationUtils.loadAnimation(getApplicationContext() ,R.anim.button_anim);
-        heart1.startAnimation(animation);
+        /*heart1.startAnimation(animation);
         heart2.startAnimation(animation);
-        heart3.startAnimation(animation);
+        heart3.startAnimation(animation);*/
         strikes = 0;
         imageRoulette = findViewById(R.id.ImageView01);
         bonusRoulette = findViewById(R.id.ImageView02);
@@ -140,6 +140,15 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         score.setText(getString(R.string.score) + " " + "0");
         spinBtn = findViewById(R.id.spinBtn);
         spinBtn.setOnClickListener(new spinWheelClickListener());
+        Thread animations = new Thread(){
+            public void run(){
+                heart1.startAnimation(animation);
+                heart2.startAnimation(animation);
+                heart3.startAnimation(animation);
+                spinBtn.startAnimation(animation);
+            }
+        };
+        animations.start();
         //spinBtn.startAnimation(animation);
     }
 
@@ -690,8 +699,17 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         PlayActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
-                                Toast.makeText(PlayActivity.this, "Sorry, you run out of time", Toast.LENGTH_SHORT).show();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
+                                View dialogView = getLayoutInflater().inflate(R.layout.time_is_up_dialog, null);
+                                builder.setView(dialogView).setCancelable(false);
+                                dialog = builder.show();
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.dismiss();
+                                    }
+                                }, 1500);
                                 mediaPlayer = new MediaPlayer();
                                 mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.out_of_time);
                                 mediaPlayer.start();
