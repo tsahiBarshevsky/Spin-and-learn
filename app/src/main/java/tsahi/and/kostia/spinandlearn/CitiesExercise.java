@@ -17,7 +17,8 @@ public class CitiesExercise implements Exercises
         this.flagID = flagID;
         wrongAnswers = new ArrayList<>();
 
-        String[] citiesBank = {context.getResources().getString(R.string.jerusalem),
+        String[] citiesBank = {
+                context.getResources().getString(R.string.jerusalem),
                 context.getResources().getString(R.string.madrid),
                 context.getResources().getString(R.string.london),
                 context.getResources().getString(R.string.washington),
@@ -32,12 +33,36 @@ public class CitiesExercise implements Exercises
                 context.getResources().getString(R.string.cairo),
                 context.getResources().getString(R.string.riahd),
                 context.getResources().getString(R.string.beiruth),
-                context.getResources().getString(R.string.damascus)};
+                context.getResources().getString(R.string.damascus),
+                context.getResources().getString(R.string.hanoi),
+                context.getResources().getString(R.string.ankara),
+                context.getResources().getString(R.string.bern),
+                context.getResources().getString(R.string.khartoum),
+                context.getResources().getString(R.string.bucharest),
+                context.getResources().getString(R.string.amsterdam),
+                context.getResources().getString(R.string.rabat),
+                context.getResources().getString(R.string.seoul),
+                context.getResources().getString(R.string.amman),
+                context.getResources().getString(R.string.rome),
+                context.getResources().getString(R.string.baghdad),
+                context.getResources().getString(R.string.tehran),
+                context.getResources().getString(R.string.new_delhi),
+                context.getResources().getString(R.string.budapest),
+                context.getResources().getString(R.string.athens),
+                context.getResources().getString(R.string.addis_ababa),
+                context.getResources().getString(R.string.nicosia),
+                context.getResources().getString(R.string.zagreb),
+                context.getResources().getString(R.string.ottawa),
+                context.getResources().getString(R.string.sofia),
+                context.getResources().getString(R.string.brasilia),
+                context.getResources().getString(R.string.vienna),
+                context.getResources().getString(R.string.canberra),
+                context.getResources().getString(R.string.brussels)};
 
         for(int i=0;i<3;i++){
-            int tmp = (int)(Math.random()*16);
+            int tmp = (int)(Math.random()*40);
             while(answer.equals(citiesBank[tmp]) || wrongAnswers.contains(citiesBank[tmp])){
-                tmp = (int)(Math.random()*16);
+                tmp = (int)(Math.random()*40);
             }
             wrongAnswers.add(citiesBank[tmp]);
         }
@@ -46,10 +71,6 @@ public class CitiesExercise implements Exercises
     @Override
     public String getQuestion() {
         return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
     }
 
     @Override
@@ -76,24 +97,8 @@ public class CitiesExercise implements Exercises
         return null;
     }
 
-    public void setWrongAnswers(ArrayList<String> wrongAnswers) {
-        this.wrongAnswers = wrongAnswers;
-    }
-
     @Override
     public int getFlagID() {
         return flagID;
-    }
-
-    public void setFlagID(int flagID) {
-        this.flagID = flagID;
-    }
-
-    @Override
-    public String toString() {
-        return "CitiesExercise{" +
-                "question='" + question + '\'' +
-                ", answer='" + answer + '\'' +
-                '}';
     }
 }
