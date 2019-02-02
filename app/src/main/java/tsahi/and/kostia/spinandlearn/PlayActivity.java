@@ -168,7 +168,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             int pos = Integer.parseInt(string);
             pos--;
             blnButtonRotation = true;
-            switch (pos)
+            showBonus();
+            /*switch (pos)
             {
                 case 0:
                     type = "math";
@@ -209,7 +210,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     type = "cities";
                     citiesQuestion();
                     break;
-            }
+            }*/
         }
         else //bonus wheel spin
         {
@@ -271,6 +272,15 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 endGame();
             }
         }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                spinBtn.setEnabled(true);
+                //spinBtn.startAnimation(animation);
+            }
+        }, 500);
+        //spinBtn.startAnimation(animation);
     }
 
     @Override
@@ -760,6 +770,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 round.setText(getString(R.string.round) + " " + roundsCounter);
                 bonusLayout = findViewById(R.id.bonusLayout);
                 bonusLayout.setVisibility(View.VISIBLE);
+                spinBtn.clearAnimation();
                 spinBtn.setVisibility(View.INVISIBLE);
                 Button spinBonusBtn = findViewById(R.id.spinBonusBtn);
                 spinBonusBtn.setOnClickListener(new spinWheelClickListener());
@@ -769,11 +780,15 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     public void onClick(View v) {
                         bonusLayout.setVisibility(View.INVISIBLE);
                         spinBtn.setVisibility(View.VISIBLE);
+                        spinBtn.startAnimation(animation);
+                        spinBtn.setEnabled(true);
                         bonus = false;
-
                         boardFlip();
                     }
                 });
+                spinBonusBtn.startAnimation(animation);
+                leaveBtn.startAnimation(animation);
+                spinBtn.setEnabled(false);
             }
         }, 2000);
     }
@@ -791,6 +806,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     degrees = lngDegrees;
                     roulette = imageRoulette;
                     lngDegrees = (degrees + ((long) ran)) % 360;
+                    spinBtn.setEnabled(false);
                 }
                 else if (btnId == R.id.spinBonusBtn) {
                     degrees = lngDegrees2;
