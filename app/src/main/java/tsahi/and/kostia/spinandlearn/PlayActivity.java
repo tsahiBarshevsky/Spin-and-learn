@@ -168,8 +168,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             int pos = Integer.parseInt(string);
             pos--;
             blnButtonRotation = true;
-            showBonus();
-            /*switch (pos)
+            switch (pos)
             {
                 case 0:
                     type = "math";
@@ -210,7 +209,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     type = "cities";
                     citiesQuestion();
                     break;
-            }*/
+            }
         }
         else //bonus wheel spin
         {
@@ -277,7 +276,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             @Override
             public void run() {
                 spinBtn.setEnabled(true);
-                //spinBtn.startAnimation(animation);
+                //spinBtn.startAnimation(animation); --> bug
             }
         }, 500);
         //spinBtn.startAnimation(animation);
