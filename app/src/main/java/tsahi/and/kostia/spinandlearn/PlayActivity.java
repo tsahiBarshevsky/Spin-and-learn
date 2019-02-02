@@ -68,12 +68,14 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     LinearLayout bonusLayout;
 
+    Boolean isAppPaused = false;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-
+        isAppPaused = false;
         Bundle extras = getIntent().getExtras();
         if (extras != null)
             bitmap = extras.getParcelable("user_pic");
@@ -710,9 +712,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                                         dialog.dismiss();
                                     }
                                 }, 1500);
-                                mediaPlayer = new MediaPlayer();
-                                mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.out_of_time);
-                                mediaPlayer.start();
+                                playSound(R.raw.out_of_time);
                                 round.setText(getString(R.string.round) + " " + roundsCounter);
                                 score.setText(getString(R.string.score) + " " + scoreCounter);
                                 strikes++;
@@ -746,13 +746,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     public void showBonus()
     {
         bonus = true;
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer = MediaPlayer.create(this, R.raw.ta_da);
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
         View dialogView = getLayoutInflater().inflate(R.layout.bonus_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         dialog = builder.show();
-        mediaPlayer.start();
+        playSound(R.raw.ta_da);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -876,9 +874,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 break;
         }
         final AlertDialog dialog = builder.show();
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer = MediaPlayer.create(this, R.raw.right_answer);
-        mediaPlayer.start();
+        playSound(R.raw.right_answer);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -912,9 +908,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 break;
         }
         final AlertDialog dialog = builder.show();
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer = MediaPlayer.create(this, R.raw.wrong_answer);
-        mediaPlayer.start();
+        playSound(R.raw.wrong_answer);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -1002,6 +996,15 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         return super.onOptionsItemSelected(item);
     }
 
+    void playSound(int rawID){
+        if(isAppPaused){
+            return;
+        }
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer = MediaPlayer.create(PlayActivity.this, rawID);
+        mediaPlayer.start();
+    }
+
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
@@ -1029,5 +1032,12 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     @Override
     protected void onPause() {
         super.onPause();
+        isAppPaused = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isAppPaused = false;
     }
 }
