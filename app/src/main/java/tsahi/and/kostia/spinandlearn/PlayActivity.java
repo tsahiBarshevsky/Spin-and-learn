@@ -959,7 +959,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     View dialogView = getLayoutInflater().inflate(R.layout.end_game_by_strikes_dialog, null);
                     builder.setView(dialogView).setCancelable(false);
                     TextView textView = dialogView.findViewById(R.id.score_strikes);
-                    textView.setText(getResources().getString(R.string.your_score) + scoreCounter + ".");
+                    textView.setText(getResources().getString(R.string.your_score) + " " + scoreCounter + ".");
                     dialog = builder.show();
                 }
             }, 2000);
@@ -974,7 +974,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     View dialogView = getLayoutInflater().inflate(R.layout.game_over_by_victory_dialog, null);
                     builder.setView(dialogView).setCancelable(false);
                     TextView textView = dialogView.findViewById(R.id.score_vic);
-                    textView.setText(getResources().getString(R.string.your_score) + scoreCounter + ".");
+                    textView.setText(getResources().getString(R.string.your_score) + " " + scoreCounter + ".");
                     dialog = builder.show();
                     mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.end_game_sound);
                     mediaPlayer.start();
@@ -1041,9 +1041,24 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         }
         else if (id == R.id.action_how_to_play)
         {
-            Intent intent = new Intent(PlayActivity.this, WalkTroughActivity.class);
-            intent.putExtra("from", MainActivity.class);
-            startActivity(intent);
+            AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
+            View dialogView = getLayoutInflater().inflate(R.layout.stop_game_layout, null);
+            builder.setView(dialogView).setCancelable(false);
+            final AlertDialog dialog = builder.show();
+            Button okBtn = dialogView.findViewById(R.id.ok);
+            okBtn.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    Intent intent = new Intent(PlayActivity.this, WalkTroughActivity.class);
+                    intent.putExtra("from", MainActivity.class);
+                    startActivity(intent);
+                }});
+            Button cancelBtn = dialogView.findViewById(R.id.cancle);
+            cancelBtn.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    dialog.dismiss();
+                }});
         }
 
         return super.onOptionsItemSelected(item);
