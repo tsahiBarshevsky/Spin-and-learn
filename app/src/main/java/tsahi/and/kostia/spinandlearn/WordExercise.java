@@ -46,10 +46,6 @@ public class WordExercise  implements Exercises {
         return 0;
     }
 
-    public void setDefinition(String definition) {
-        this.definition = definition;
-    }
-
     @Override
     public String getAnswer() {
         return answer;
@@ -69,26 +65,6 @@ public class WordExercise  implements Exercises {
         return letterBank;
     }
 
-    public void setLetterBank(ArrayList<Character> letterBank) {
-        this.letterBank = letterBank;
-    }
-
-    public int getNumOf_missing_letters() {
-        return numOf_missing_letters;
-    }
-
-    public void setNumOf_missing_letters(int numOf_missing_letters) {
-        this.numOf_missing_letters = numOf_missing_letters;
-    }
-
-    public int getAnswer_size() {
-        return answer_size;
-    }
-
-    public void setAnswer_size(int answer_size) {
-        this.answer_size = answer_size;
-    }
-
     @Override
     public String getQuestion() {
         return question;
@@ -96,13 +72,5 @@ public class WordExercise  implements Exercises {
 
     public void setQuestion(String question) {
         this.question = question;
-    }
-
-    @Override
-    public String toString() {
-        return "WordExercise{" +
-                "definition='" + definition + '\'' +
-                ", answer='" + answer + '\'' +
-                '}';
     }
 }
