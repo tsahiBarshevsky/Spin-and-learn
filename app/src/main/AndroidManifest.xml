@@ -30,8 +30,6 @@
         </activity>
         <activity android:name=".PlayActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".LevelActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".LeaderboardActivity"
             android:screenOrientation="portrait"/>
     </application>
