@@ -1,6 +1,7 @@
 package tsahi.and.kostia.spinandlearn;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,10 +20,17 @@ public class MainActivity extends AppCompatActivity {
 
     Bitmap bitmap = null;
 
+    GlobalVar global;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        global = ((GlobalVar) this.getApplication());
+
+        global.setAppPaused(false);
+        SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
+        global.setMute(sharedPref.getBoolean("mute", false));
 
         Animation fade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         final ImageView logo = findViewById(R.id.logo);
@@ -99,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
         });
         Animation slideRight = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_right);
         Animation slideLeft  = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left);
-        for(int i=0;i<3;i++) {
-            difficulty[i].startAnimation(slideLeft);
-        }
+        difficulty[0].startAnimation(slideRight);
+        difficulty[1].startAnimation(slideLeft);
+        difficulty[2].startAnimation(slideRight);
         leaderboardBtn.startAnimation(slideLeft);
         howToPlay.startAnimation(slideRight);
 
@@ -121,6 +129,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
+        if(global.isMute()){
+            MenuItem sound = menu.findItem(R.id.action_sound_toggle);
+            sound.setTitle(getResources().getString(R.string.sound_on));
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -132,7 +144,18 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else if(id == R.id.action_sound_toggle){
-            //to do
+            SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            if(global.isMute()) {
+                editor.putBoolean("mute", false);
+                editor.commit();
+                item.setTitle(getResources().getString(R.string.sound_off));
+            }
+            else{
+                editor.putBoolean("mute", true);
+                editor.commit();
+                item.setTitle(getResources().getString(R.string.sound_on));
+            }
         }
         else if (id == R.id.action_how_to_play)
         {
@@ -172,5 +195,17 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }});
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        global.setAppPaused(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        global.setAppPaused(false);
     }
 }

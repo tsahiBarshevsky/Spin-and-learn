@@ -50,7 +50,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     CountDownTimer countDownTimer;
     String level, type;
     Button spinBtn;
-    SharedPreferences sp;
     Bitmap bitmap;
     MediaPlayer mediaPlayer;
     Animation animation;
@@ -71,18 +70,21 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     LinearLayout bonusLayout;
 
-    Boolean isAppPaused = false;
+    GlobalVar global;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-        isAppPaused = false;
+        global = ((GlobalVar) this.getApplication());
+
+        global.setAppPaused(false);
+        SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
+        global.setMute(sharedPref.getBoolean("mute", false));
         Bundle extras = getIntent().getExtras();
         if (extras != null)
             bitmap = extras.getParcelable("user_pic");
-        sp = getSharedPreferences("score detail", MODE_PRIVATE);
         exercisesContainer = new ExercisesContainer(this);
         level = getIntent().getStringExtra("Level");
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
@@ -846,6 +848,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         rotateAnimation.setAnimationListener(PlayActivity.this);
                         roulette.setAnimation(rotateAnimation);
                         roulette.startAnimation(rotateAnimation);
+                        playSound(R.raw.tic_tic_tic);
                     }
                 }
             }, 100);
@@ -1131,6 +1134,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
+        if(global.isMute()){
+            MenuItem sound = menu.findItem(R.id.action_sound_toggle);
+            sound.setTitle(getResources().getString(R.string.sound_on));
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -1157,7 +1164,18 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 }});
         }
         else if(id == R.id.action_sound_toggle){
-
+            SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            if(global.isMute()) {
+                editor.putBoolean("mute", false);
+                editor.commit();
+                item.setTitle(getResources().getString(R.string.sound_off));
+            }
+            else{
+                editor.putBoolean("mute", true);
+                editor.commit();
+                item.setTitle(getResources().getString(R.string.sound_on));
+            }
         }
         else if (id == R.id.action_how_to_play)
         {
@@ -1185,7 +1203,12 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     }
 
     void playSound(int rawID){
-        if(isAppPaused){
+        if(global.isAppPaused()){
+            return;
+        }
+        SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
+        global.setMute(sharedPref.getBoolean("mute", false));
+        if(global.isMute()){
             return;
         }
         mediaPlayer = new MediaPlayer();
@@ -1220,12 +1243,12 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     @Override
     protected void onPause() {
         super.onPause();
-        isAppPaused = true;
+         global.setAppPaused(true);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        isAppPaused = false;
+        global.setAppPaused(false);
     }
 }

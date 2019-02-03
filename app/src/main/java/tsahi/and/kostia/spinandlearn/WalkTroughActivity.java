@@ -20,9 +20,16 @@ public class WalkTroughActivity extends AppIntro {
     Class from;
     Boolean firstRun;
     final int NUM_OF_SLIDES = 1;
+
+    GlobalVar global;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        global = ((GlobalVar) this.getApplication());
+
+        global.setAppPaused(false);
 
         Bundle extra = getIntent().getExtras();
 
@@ -116,5 +123,17 @@ public class WalkTroughActivity extends AppIntro {
         ret[0] = page;
 
         return ret;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        global.setAppPaused(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        global.setAppPaused(false);
     }
 }

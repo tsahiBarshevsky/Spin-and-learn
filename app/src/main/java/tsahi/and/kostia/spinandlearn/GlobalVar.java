@@ -6,22 +6,26 @@ import android.content.res.Resources;
 import android.media.MediaPlayer;
 
 public class GlobalVar extends Application {
-    private Resources gRes;
-    //private MediaPlayer backgroundMusic;
 
-    public Resources getgRes() {
-        return gRes;
+    boolean AppPaused;
+    boolean mute;
+
+    public boolean isAppPaused() {
+        return AppPaused;
     }
 
-    public void setgRes(Resources gRes) {
-        this.gRes = gRes;
+    public void setAppPaused(boolean appPaused) {
+        AppPaused = appPaused;
     }
 
-    public int rndNum(int start, int end){
-        return 0;
+    public boolean isMute() {
+        return mute;
     }
 
-    /*public MediaPlayer getBackgroundMusic()
+    public void setMute(boolean mute) {
+        this.mute = mute;
+    }
+/*public MediaPlayer getBackgroundMusic()
     {
         return this.backgroundMusic;
     }
