@@ -82,6 +82,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         global.setAppPaused(false);
         SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
         global.setMute(sharedPref.getBoolean("mute", false));
+
+
+
         Bundle extras = getIntent().getExtras();
         if (extras != null)
             bitmap = extras.getParcelable("user_pic");
@@ -173,6 +176,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             int pos = Integer.parseInt(string);
             pos--;
             blnButtonRotation = true;
+            if(pos != 2) {
+                playSound(R.raw.clock);
+                mediaPlayer.setLooping(true);
+            }
             switch (pos)
             {
                 case 0:
@@ -801,6 +808,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 leaveBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if(mediaPlayer != null && mediaPlayer.isPlaying()){
+                            mediaPlayer.stop();
+                            mediaPlayer.setLooping(false);
+                        }
                         bonusLayout.setVisibility(View.INVISIBLE);
                         spinBtn.setVisibility(View.VISIBLE);
                         spinBtn.startAnimation(animation);
@@ -812,6 +823,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 spinBonusBtn.startAnimation(animation);
                 leaveBtn.startAnimation(animation);
                 spinBtn.setEnabled(false);
+                playSound(R.raw.viva_las_vegas);
+                mediaPlayer.setLooping(true);
             }
         }, 2000);
     }
@@ -850,8 +863,12 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         rotateAnimation.setAnimationListener(PlayActivity.this);
                         roulette.setAnimation(rotateAnimation);
                         roulette.startAnimation(rotateAnimation);
-                        playSound(R.raw.tic_tic_tic);
+                        if(mediaPlayer != null && mediaPlayer.isPlaying()){
+                            mediaPlayer.stop();
+                            mediaPlayer.setLooping(false);
+                        }
                         global.pauseMusic();
+                        playSound(R.raw.tic_tic_tic);
                     }
                 }
             }, 100);
@@ -923,8 +940,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                dialog.dismiss();
+                stopSound();
                 global.startMusic(PlayActivity.this);
+                dialog.dismiss();
+
             }
         }, 2000);
     }
@@ -958,8 +977,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                dialog.dismiss();
+                stopSound();
                 global.startMusic(PlayActivity.this);
+                dialog.dismiss();
+
             }
         }, 4000);
     }
@@ -969,7 +990,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         return scoreToAdd + (int)floor(percent*scoreRange);
     }
 
-    void endGame(){
+    void endGame() {
         global.pauseMusic();
         SharedPreferences sharedPref = this.getSharedPreferences("gameData", this.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -980,41 +1001,61 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         editor.putInt("size", size);
         editor.commit();
         int highScore = sharedPref.getInt("HighScore", 0);
-        if(strikes >= 3) //end game by 3 strikes
-        {
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
-                    View dialogView = getLayoutInflater().inflate(R.layout.end_game_by_strikes_dialog, null);
-                    builder.setView(dialogView).setCancelable(false);
-                    TextView textView = dialogView.findViewById(R.id.score_strikes);
-                    textView.setText(getResources().getString(R.string.your_score) + " " + scoreCounter + ".");
-                    LinearLayout buttons = dialogView.findViewById(R.id.endGameButtons);
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            buttons.setVisibility(View.VISIBLE);
-                            global.startMusic(PlayActivity.this);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
+                View dialogView;
+                LinearLayout buttons;
+                TextView textView;
+                if (strikes > 3) {
+                    dialogView = getLayoutInflater().inflate(R.layout.end_game_by_strikes_dialog, null);
+                    buttons = dialogView.findViewById(R.id.endGameButtons);
+                    textView = dialogView.findViewById(R.id.score_strikes);
+                } else {
+                    dialogView = getLayoutInflater().inflate(R.layout.game_over_by_victory_dialog, null);
+                    textView = dialogView.findViewById(R.id.score_vic);
+                    if (level.equals("Easy") || level.equals("Medium")) {
+                        buttons = dialogView.findViewById(R.id.easy_and_med_panel);
+
+                    } else {
+                        buttons = dialogView.findViewById(R.id.hardPanel);
+                    }
+                }
+                builder.setView(dialogView).setCancelable(false);
+
+                textView.setText(getResources().getString(R.string.your_score) + " " + scoreCounter + ".");
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        buttons.setVisibility(View.VISIBLE);
+                        if (mediaPlayer.isPlaying()) {
+                            mediaPlayer.stop();
+                            mediaPlayer.setLooping(false);
                         }
-                    }, 2000);
-                    Button playAgain = dialogView.findViewById(R.id.playAgain);
-                    Button mainMenu = dialogView.findViewById(R.id.mainMenu);
-                    playAgain.startAnimation(animation);
-                    mainMenu.startAnimation(animation);
-                    mainMenu.setOnClickListener(new View.OnClickListener() {
+                        global.startMusic(PlayActivity.this);
+                    }
+                }, 2000);
+                Button playAgain = dialogView.findViewById(R.id.playAgainHard);
+                Button mainMenu = dialogView.findViewById(R.id.mainMenuHard);
+                Button nextLevel = null;
+                if (buttons.getId() == R.id.easy_and_med_panel) {
+                    nextLevel = dialogView.findViewById(R.id.nextLevel);
+                }
+                playAgain.startAnimation(animation);
+                mainMenu.startAnimation(animation);
+                if (nextLevel != null) {
+                    nextLevel.startAnimation(animation);
+                    nextLevel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-                            intent.putExtra("Name", getIntent().getStringExtra("Name"));
-                            startActivity(intent);
-                        }
-                    });
-                    playAgain.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+                            if (level.equals("Easy")) {
+                                level = "Medium";
+                            } else if (level.equals("Medium")) {
+                                level = "Hard";
+                            }
                             Intent intent = new Intent(PlayActivity.this, PlayActivity.class);
                             intent.putExtra("Level", level);
                             intent.putExtra("Name", getIntent().getStringExtra("Name"));
@@ -1024,124 +1065,38 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                             startActivity(intent);
                         }
                     });
-                    dialog = builder.show();
                 }
-            }, 2000);
-        }
-        else //game over after 10 rounds
-        {
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
-                    View dialogView = getLayoutInflater().inflate(R.layout.game_over_by_victory_dialog, null);
-                    builder.setView(dialogView).setCancelable(false);
-                    TextView textView = dialogView.findViewById(R.id.score_vic);
-                    textView.setText(getResources().getString(R.string.your_score) + " " + scoreCounter + ".");
-                    if (level.equals("Easy") || level.equals("Medium"))
-                    {
-                        LinearLayout buttons = dialogView.findViewById(R.id.easy_and_med_panel);
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                buttons.setVisibility(View.VISIBLE);
-                                global.startMusic(PlayActivity.this);
-                            }
-                        }, 2000);
-                        Button playAgain = dialogView.findViewById(R.id.playAgain);
-                        Button nextLevel = dialogView.findViewById(R.id.nextLevel);
-                        Button mainMenu = dialogView.findViewById(R.id.mainMenu);
-                        playAgain.startAnimation(animation);
-                        nextLevel.startAnimation(animation);
-                        mainMenu.startAnimation(animation);
-                        playAgain.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(PlayActivity.this, PlayActivity.class);
-                                intent.putExtra("Level", level);
-                                intent.putExtra("Name", getIntent().getStringExtra("Name"));
-                                Bundle extras = new Bundle();
-                                extras.putParcelable("user_pic", bitmap);
-                                intent.putExtras(extras);
-                                startActivity(intent);
-                            }
-                        });
-                        nextLevel.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (level.equals("Easy")){
-                                    level = "Medium";
-                                }
-                                else if (level.equals("Medium")){
-                                    level = "Hard";
-                                }
+                playAgain.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(PlayActivity.this, PlayActivity.class);
+                        intent.putExtra("Level", level);
+                        intent.putExtra("Name", getIntent().getStringExtra("Name"));
+                        Bundle extras = new Bundle();
+                        extras.putParcelable("user_pic", bitmap);
+                        intent.putExtras(extras);
+                        startActivity(intent);
+                    }
+                });
+                mainMenu.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+                        intent.putExtra("Name", getIntent().getStringExtra("Name"));
+                        startActivity(intent);
+                    }
+                });
 
-                                Intent intent = new Intent(PlayActivity.this, PlayActivity.class);
-                                intent.putExtra("Level", level);
-                                intent.putExtra("Name", getIntent().getStringExtra("Name"));
-                                Bundle extras = new Bundle();
-                                extras.putParcelable("user_pic", bitmap);
-                                intent.putExtras(extras);
-                                startActivity(intent);
-                            }
-                        });
-                        mainMenu.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-                                intent.putExtra("Name", getIntent().getStringExtra("Name"));
-                                startActivity(intent);
-                            }
-                        });
-                    }
-                    else
-                    {
-                        LinearLayout buttons = dialogView.findViewById(R.id.hardPanel);
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                buttons.setVisibility(View.VISIBLE);
-                                global.startMusic(PlayActivity.this);
-                            }
-                        }, 2000);
-                        Button playAgain = dialogView.findViewById(R.id.playAgainHard);
-                        Button mainMenu = dialogView.findViewById(R.id.mainMenuHard);
-                        playAgain.startAnimation(animation);
-                        mainMenu.startAnimation(animation);
-                        playAgain.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(PlayActivity.this, PlayActivity.class);
-                                intent.putExtra("Level", level);
-                                intent.putExtra("Name", getIntent().getStringExtra("Name"));
-                                Bundle extras = new Bundle();
-                                extras.putParcelable("user_pic", bitmap);
-                                intent.putExtras(extras);
-                                startActivity(intent);
-                            }
-                        });
-                        mainMenu.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-                                intent.putExtra("Name", getIntent().getStringExtra("Name"));
-                                startActivity(intent);
-                            }
-                        });
-                    }
-                    dialog = builder.show();
-                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.end_game_sound);
-                    mediaPlayer.start();
-                }
-            }, 2000);
-        }
+                dialog = builder.show();
+                mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.end_game_sound);
+                mediaPlayer.start();
+            }
+        }, 2000);
+
         if (scoreCounter >= highScore) //new high score
         {
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
+            Handler scoreHandler = new Handler();
+            scoreHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
@@ -1160,15 +1115,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 }
             }, 4000);
         }
-        /*Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
-                intent.putExtra("Name", getIntent().getStringExtra("Name"));
-                startActivity(intent);
-            }
-        }, 5000);*/
     }
 
     @Override
@@ -1255,9 +1201,20 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         if(global.isMute()){
             return;
         }
+        stopSound();
         mediaPlayer = new MediaPlayer();
         mediaPlayer = MediaPlayer.create(PlayActivity.this, rawID);
         mediaPlayer.start();
+    }
+
+    void stopSound(){
+        if(mediaPlayer != null && mediaPlayer.isPlaying()){
+            mediaPlayer.setLooping(false);
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     @Override
