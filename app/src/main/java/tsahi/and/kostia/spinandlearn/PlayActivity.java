@@ -45,7 +45,7 @@ import static java.lang.Math.floor;
 
 public class PlayActivity extends AppCompatActivity implements Animation.AnimationListener{
 
-    int NUM_OF_ROUNDS = 1;
+    int NUM_OF_ROUNDS = 10;
 
     int roundsCounter = 1, scoreCounter = 0, scoreToAdd, scoreRange;
     boolean blnButtonRotation = true, bonus, isFirstImage = true;
