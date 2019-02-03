@@ -19,6 +19,7 @@ public class WalkTroughActivity extends AppIntro {
 
     Class from;
     Boolean firstRun;
+    final int NUM_OF_SLIDES = 1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +30,7 @@ public class WalkTroughActivity extends AppIntro {
         firstRun = getIntent().getBooleanExtra("firstRun", false);
 
         SliderPage sliderPage[] = create_pages();
-        for (int i = 0; i<7;i++){
+        for (int i = 0; i<NUM_OF_SLIDES;i++){
             addSlide(AppIntroFragment.newInstance(sliderPage[i]));
         }
 
@@ -104,7 +105,7 @@ public class WalkTroughActivity extends AppIntro {
     }
 
     SliderPage[] create_pages(){
-        SliderPage[] ret = new SliderPage[1];
+        SliderPage[] ret = new SliderPage[NUM_OF_SLIDES];
         SliderPage page;
 
         page = new SliderPage();

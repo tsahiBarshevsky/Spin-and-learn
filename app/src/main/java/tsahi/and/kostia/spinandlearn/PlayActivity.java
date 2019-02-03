@@ -574,10 +574,16 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         final int question_size = question.length();
         for(int i=0;i<question_size;i++){
             TextView tmp = new TextView(dialogView.getContext());
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(1,1,1,1);
+            tmp.setLayoutParams(params);
             tmp.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
             tmp.setGravity(Gravity.CENTER);
             tmp.setBackground(getResources().getDrawable(R.drawable.words_design));
-            tmp.setPadding(5,0,5,0);
+
             tmp.setText(((Character)question.charAt(i)).toString());
             if(question.charAt(i) == '_'){
                 tmp.setBackground(getResources().getDrawable(R.drawable.word_design_answer));
