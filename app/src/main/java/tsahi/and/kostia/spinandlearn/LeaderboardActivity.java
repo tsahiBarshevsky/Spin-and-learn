@@ -47,22 +47,22 @@ public class LeaderboardActivity extends AppCompatActivity {
         Button sound = findViewById(R.id.soundLed);
         Button music = findViewById(R.id.musicLed);
         if(sharedPref.getBoolean("mute", false)){
-            sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundon), null, null, null);
-        }
-        else{
             sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundoff), null, null, null);
         }
+        else{
+            sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundon), null, null, null);
+        }
         if(sharedPref.getBoolean("muteMusic", false)){
-            music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicon), null, null, null);
+            music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicoff), null, null, null);
         }
         else{
-            music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicoff), null, null, null);
+            music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicon), null, null, null);
         }
         sound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(sharedPref.getBoolean("mute", false)){
-                    sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundoff), null, null, null);
+                    sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundon), null, null, null);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean("mute", false);
                     editor.commit();
@@ -70,7 +70,7 @@ public class LeaderboardActivity extends AppCompatActivity {
                     global.startMusic(LeaderboardActivity.this);
                 }
                 else{
-                    sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundon), null, null, null);
+                    sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundoff), null, null, null);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean("mute", true);
                     editor.commit();
@@ -83,7 +83,7 @@ public class LeaderboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(sharedPref.getBoolean("musicMute", false)){
-                    music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicoff), null, null, null);
+                    music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicon), null, null, null);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean("musicMute", false);
                     editor.commit();
@@ -91,7 +91,7 @@ public class LeaderboardActivity extends AppCompatActivity {
                     global.startMusic(LeaderboardActivity.this);
                 }
                 else{
-                    music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicon), null, null, null);
+                    music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicoff), null, null, null);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean("musicMute", true);
                     editor.commit();
