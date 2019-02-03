@@ -407,7 +407,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         question.setText(currentExercise.getQuestion());
 
         Button answer_btn = dialogView.findViewById(R.id.mathAnswerBtn);
-        TextView[] pad = {dialogView.findViewById(R.id.tv_m1),
+        TextView[] pad = {
+                dialogView.findViewById(R.id.tv_m1),
                 dialogView.findViewById(R.id.tv_m2),
                 dialogView.findViewById(R.id.tv_m3),
                 dialogView.findViewById(R.id.tv_m4),
@@ -442,14 +443,16 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         }
                     }
                     else if(padString.equals("0")){
-                        if(tmp.length() != 0) {
+                        if(tmp.length() != 0 && tmp.length() <= 5) {
                             tmp += padString;
                             mathAnswer.setText(tmp);
                         }
                     }
                     else {
-                        tmp += padString;
-                        mathAnswer.setText(tmp);
+                        if(tmp.length() <= 5) {
+                            tmp += padString;
+                            mathAnswer.setText(tmp);
+                        }
                     }
                 }
             });
@@ -1045,9 +1048,14 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 View dialogView;
                 LinearLayout buttons;
                 TextView textView;
+                Button playAgain = null;
+                Button mainMenu = null;
+                Button nextLevel = null;
                 if (strikes >= 3) {
                     dialogView = getLayoutInflater().inflate(R.layout.end_game_by_strikes_dialog, null);
                     buttons = dialogView.findViewById(R.id.endGameButtons);
+                    playAgain = dialogView.findViewById(R.id.playAgainHard);
+                    mainMenu = dialogView.findViewById(R.id.mainMenuHard);
                     textView = dialogView.findViewById(R.id.score_strikes);
                     if (Locale.getDefault().toString().equals("iw_IL")) {
                         Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
@@ -1058,9 +1066,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     textView = dialogView.findViewById(R.id.score_vic);
                     if (level.equals("Easy") || level.equals("Medium")) {
                         buttons = dialogView.findViewById(R.id.easy_and_med_panel);
-
+                        playAgain = dialogView.findViewById(R.id.playAgain);
+                        mainMenu = dialogView.findViewById(R.id.mainMenu);
+                        nextLevel = dialogView.findViewById(R.id.nextLevel);;
                     } else {
                         buttons = dialogView.findViewById(R.id.hardPanel);
+                        playAgain = dialogView.findViewById(R.id.playAgainHard);
+                        mainMenu = dialogView.findViewById(R.id.mainMenuHard);
                     }
                 }
                 builder.setView(dialogView).setCancelable(false);
@@ -1075,9 +1087,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         global.startMusic(PlayActivity.this);
                     }
                 }, 3000);
-                Button playAgain = dialogView.findViewById(R.id.playAgainHard);
-                Button mainMenu = dialogView.findViewById(R.id.mainMenuHard);
-                Button nextLevel = null;
+
                 if (buttons.getId() == R.id.easy_and_med_panel) {
                     nextLevel = dialogView.findViewById(R.id.nextLevel);
                 }
