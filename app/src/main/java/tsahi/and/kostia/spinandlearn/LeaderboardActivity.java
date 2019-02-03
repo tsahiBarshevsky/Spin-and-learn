@@ -40,7 +40,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_leaderboard);
 
         SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
-
+        global = ((GlobalVar) this.getApplication());
         global.changeMusic(R.raw.we_are_the_champs, this);
 
         Animation buttonAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
@@ -108,7 +108,6 @@ public class LeaderboardActivity extends AppCompatActivity {
             Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
             champions.setTypeface(typeface);
         }
-        global = ((GlobalVar) this.getApplication());
 
         global.setAppPaused(false);
 
