@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.TransitionDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,7 +27,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -996,7 +998,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         SharedPreferences sharedPref = this.getSharedPreferences("gameData", this.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         Integer size = sharedPref.getInt("size", 0);
-        UserInfo score = new UserInfo(bitmap, getIntent().getStringExtra("Name"), scoreCounter);
+        playSound(R.raw.end_game_sound);
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        Date now = Calendar.getInstance().getTime();
+
+        UserInfo score = new UserInfo(bitmap, getIntent().getStringExtra("Name"), scoreCounter, level, dateFormat.format(now), timeFormat.format(now));
         size++;
         editor.putString(size.toString(), score.toString());
         editor.putInt("size", size);
@@ -1044,7 +1052,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         stopSound();
                         global.startMusic(PlayActivity.this);
                     }
-                }, 3000);
+                }, 2000);
 
                 if (buttons.getId() == R.id.easy_and_med_panel) {
                     nextLevel = dialogView.findViewById(R.id.nextLevel);
@@ -1093,7 +1101,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 });
 
                 dialog = builder.show();
-                playSound(R.raw.end_game_sound);
+
             }
         }, 2000);
 
@@ -1107,8 +1115,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     View dialogView = getLayoutInflater().inflate(R.layout.high_score_dialog, null);
                     builder.setView(dialogView).setCancelable(false);
                     dialog = builder.show();
-                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.yahoo);
-                    mediaPlayer.start();
+                    playSound(R.raw.yahoo);
                     Handler handler1 = new Handler();
                     handler1.postDelayed(new Runnable() {
                         @Override
