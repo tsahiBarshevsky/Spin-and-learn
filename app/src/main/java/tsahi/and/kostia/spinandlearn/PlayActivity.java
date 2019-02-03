@@ -989,6 +989,32 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     builder.setView(dialogView).setCancelable(false);
                     TextView textView = dialogView.findViewById(R.id.score_strikes);
                     textView.setText(getResources().getString(R.string.your_score) + " " + scoreCounter + ".");
+                    LinearLayout buttons = dialogView.findViewById(R.id.endGameButtons);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            buttons.setVisibility(View.VISIBLE);
+                        }
+                    }, 2000);
+                    Button playAgain = dialogView.findViewById(R.id.playAgain);
+                    Button mainMenu = dialogView.findViewById(R.id.mainMenu);
+                    playAgain.startAnimation(animation);
+                    mainMenu.startAnimation(animation);
+                    mainMenu.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+                            intent.putExtra("Name", getIntent().getStringExtra("Name"));
+                            startActivity(intent);
+                        }
+                    });
+                    playAgain.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //to do
+                        }
+                    });
                     dialog = builder.show();
                 }
             }, 2000);
@@ -1004,6 +1030,72 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     builder.setView(dialogView).setCancelable(false);
                     TextView textView = dialogView.findViewById(R.id.score_vic);
                     textView.setText(getResources().getString(R.string.your_score) + " " + scoreCounter + ".");
+                    if (level.equals("Easy") || level.equals("Medium"))
+                    {
+                        LinearLayout buttons = dialogView.findViewById(R.id.easy_and_med_panel);
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                buttons.setVisibility(View.VISIBLE);
+                            }
+                        }, 2000);
+                        Button playAgain = dialogView.findViewById(R.id.playAgain);
+                        Button nextLevel = dialogView.findViewById(R.id.nextLevel);
+                        Button mainMenu = dialogView.findViewById(R.id.mainMenu);
+                        playAgain.startAnimation(animation);
+                        nextLevel.startAnimation(animation);
+                        mainMenu.startAnimation(animation);
+                        playAgain.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //to do
+                            }
+                        });
+                        nextLevel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //to do
+                            }
+                        });
+                        mainMenu.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+                                intent.putExtra("Name", getIntent().getStringExtra("Name"));
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        LinearLayout buttons = dialogView.findViewById(R.id.hardPanel);
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                buttons.setVisibility(View.VISIBLE);
+                            }
+                        }, 2000);
+                        Button playAgain = dialogView.findViewById(R.id.playAgainHard);
+                        Button mainMenu = dialogView.findViewById(R.id.mainMenuHard);
+                        playAgain.startAnimation(animation);
+                        mainMenu.startAnimation(animation);
+                        playAgain.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //to do
+                            }
+                        });
+                        mainMenu.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+                                intent.putExtra("Name", getIntent().getStringExtra("Name"));
+                                startActivity(intent);
+                            }
+                        });
+                    }
                     dialog = builder.show();
                     mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.end_game_sound);
                     mediaPlayer.start();
@@ -1016,17 +1108,23 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    dialog.dismiss();
                     AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
                     View dialogView = getLayoutInflater().inflate(R.layout.high_score_dialog, null);
                     builder.setView(dialogView).setCancelable(false);
-                    builder.show();
+                    dialog = builder.show();
                     mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.yahoo);
                     mediaPlayer.start();
+                    Handler handler1 = new Handler();
+                    handler1.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.dismiss();
+                        }
+                    }, 2000);
                 }
-            }, 7000);
+            }, 4000);
         }
-        Handler handler = new Handler();
+        /*Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -1034,7 +1132,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 intent.putExtra("Name", getIntent().getStringExtra("Name"));
                 startActivity(intent);
             }
-        }, 5000);
+        }, 5000);*/
     }
 
     @Override

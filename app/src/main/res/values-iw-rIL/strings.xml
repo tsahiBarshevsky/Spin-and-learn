@@ -237,4 +237,7 @@
     <string name="sentence39">איפה שיש רצון יש יכולת</string>
     <string name="sentence40">הנך לעולם לא מבוגר מידי בכדי ללמוד</string>
     <string name="your_score">"הניקוד שלך הוא: "</string>
+    <string name="play_again">שחק שוב</string>
+    <string name="main_menu">תפריט ראשי</string>
+    <string name="next_level">לרמה הבאה</string>
 </resources>

@@ -25,7 +25,7 @@
         android:layout_margin="10dp"/>
 
     <Button android:id="@+id/easyBtn"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="45dp"
         android:background="@drawable/button_design"
         android:text="@string/easy"
@@ -33,10 +33,13 @@
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:layout_below="@id/massage"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:drawableStart="@drawable/easy_logo"
+        android:drawablePadding="-18dp"
+        android:padding="10dp"/>
 
     <Button android:id="@+id/mediumBtn"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="45dp"
         android:background="@drawable/button_design"
         android:text="@string/medium"
@@ -44,10 +47,12 @@
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:layout_below="@id/easyBtn"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:drawableStart="@drawable/medium_logo"
+        android:padding="10dp"/>
 
     <Button android:id="@+id/hardBtn"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="45dp"
         android:background="@drawable/button_design"
         android:text="@string/hard"
@@ -55,7 +60,10 @@
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:layout_below="@id/mediumBtn"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:drawableStart="@drawable/hard_logo"
+        android:drawablePadding="-10dp"
+        android:padding="10dp"/>
 
     <Button android:id="@+id/leaderboardBtn"
         android:layout_width="100dp"

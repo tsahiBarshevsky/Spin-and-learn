@@ -1,23 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
+    <LinearLayout android:id="@+id/linear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/game_over"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"/>
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/game_over"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"/>
+
+    </LinearLayout>
 
     <TextView android:id="@+id/score_vic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="35sp"
         android:textColor="#FF0000"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:gravity="center"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_below="@+id/linear"
+        android:layout_centerHorizontal="true"/>
 
-</LinearLayout>
+    <LinearLayout android:id="@+id/easy_and_med_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:layout_below="@+id/score_vic"
+        android:layout_centerHorizontal="true">
+
+        <Button android:id="@+id/playAgain"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="@string/play_again"
+            android:textAllCaps="false"
+            android:background="@drawable/button_design"
+            android:layout_margin="5dp"/>
+
+        <Button android:id="@+id/nextLevel"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="@string/next_level"
+            android:textAllCaps="false"
+            android:background="@drawable/button_design"
+            android:layout_margin="5dp"/>
+
+        <Button android:id="@+id/mainMenu"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="@string/main_menu"
+            android:textAllCaps="false"
+            android:background="@drawable/button_design"
+            android:layout_margin="5dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/hardPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:layout_below="@+id/score_vic"
+        android:layout_centerHorizontal="true">
+
+        <Button android:id="@+id/playAgainHard"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="@string/play_again"
+            android:textAllCaps="false"
+            android:background="@drawable/button_design"
+            android:layout_margin="5dp"/>
+
+        <Button android:id="@+id/mainMenuHard"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="@string/main_menu"
+            android:textAllCaps="false"
+            android:background="@drawable/button_design"
+            android:layout_margin="5dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
