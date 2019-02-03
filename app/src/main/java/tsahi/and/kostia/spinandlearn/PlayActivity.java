@@ -1217,6 +1217,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 public void onClick(View arg0) {
                     dialog.dismiss();
                 }});
+            if (Locale.getDefault().toString().equals("iw_IL")) {
+                Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+                TextView textView = dialogView.findViewById(R.id.space);
+                textView.setTypeface(typeface);
+                okBtn.setTypeface(typeface);
+                cancelBtn.setTypeface(typeface);
+            }
         }
         else if(id == R.id.action_sound_toggle){
             SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
@@ -1274,6 +1281,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 public void onClick(View arg0) {
                     dialog.dismiss();
                 }});
+            if (Locale.getDefault().toString().equals("iw_IL")) {
+                Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+                TextView textView = dialogView.findViewById(R.id.space);
+                textView.setTypeface(typeface);
+                okBtn.setTypeface(typeface);
+                cancelBtn.setTypeface(typeface);
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -1342,6 +1356,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }});
         okBtn.startAnimation(animation);
         cancelBtn.startAnimation(animation);
+        if (Locale.getDefault().toString().equals("iw_IL")) {
+            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            TextView textView = dialogView.findViewById(R.id.space);
+            textView.setTypeface(typeface);
+            okBtn.setTypeface(typeface);
+            cancelBtn.setTypeface(typeface);
+        }
     }
 
     @Override
