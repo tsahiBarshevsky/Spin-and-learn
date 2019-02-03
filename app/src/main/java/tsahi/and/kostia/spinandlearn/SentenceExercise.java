@@ -15,7 +15,7 @@ public class SentenceExercise  implements Exercises {
         int rndWord = (int)(Math.random()*numOfWord);
         answer = word.get(rndWord);
         answer = answer.substring(0, 1).toUpperCase() + answer.substring(1);
-        answer = answer.replaceAll("[^A-Za-z]", "");
+        //answer = answer.replaceAll("[^A-Za-z]", "");
         int wordSize = word.get(rndWord).length();
         String blankWord = "";
         for(int i=0;i<wordSize;i++){
