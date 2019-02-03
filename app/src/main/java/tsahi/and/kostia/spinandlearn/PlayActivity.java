@@ -399,7 +399,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         question.setText(currentExercise.getQuestion());
 
         Button answer_btn = dialogView.findViewById(R.id.mathAnswerBtn);
-        TextView[] pad = {dialogView.findViewById(R.id.tv_m1),
+        TextView[] pad = {
+                dialogView.findViewById(R.id.tv_m1),
                 dialogView.findViewById(R.id.tv_m2),
                 dialogView.findViewById(R.id.tv_m3),
                 dialogView.findViewById(R.id.tv_m4),
@@ -434,14 +435,16 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         }
                     }
                     else if(padString.equals("0")){
-                        if(tmp.length() != 0) {
+                        if(tmp.length() != 0 && tmp.length() <= 5) {
                             tmp += padString;
                             mathAnswer.setText(tmp);
                         }
                     }
                     else {
-                        tmp += padString;
-                        mathAnswer.setText(tmp);
+                        if(tmp.length() <= 5) {
+                            tmp += padString;
+                            mathAnswer.setText(tmp);
+                        }
                     }
                 }
             });
