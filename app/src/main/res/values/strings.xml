@@ -242,4 +242,25 @@
     <string name="music_on">Music On</string>
     <string name="music_off">Music Off</string>
     <string name="enter_name">Please enter your name.</string>
+    <string name="slide00">Welcome!</string>
+    <string name="slide01">Take a selfie or choose a photo from gallery and enter your name</string>
+    <string name="slide02">On each difficulty you must be much faster\nEasy - 60 seconds per question\nMedium - 30 seconds per question\nHard - 10 seconds per question\nCheck out the leader board or return to this tutorial</string>
+    <string name="slide03">Spin the wheel and answer the questions as fast as you can\nThe faster you answer the more points you will get\nEasy - 10-20 points\nMedium - 20-50 points\nHard - 50-100 points</string>
+    <string name="slide04">Discover the missing letter of the defined word</string>
+    <string name="slide05">Complete the proverb</string>
+    <string name="slide06">Capitals of the world</string>
+    <string name="slide07">Simple math exercise</string>
+    <string name="slide08">Surprise!\nDouble your score\nGet extra life\nGet 100 points\nLoose 100 points\nLoose all points</string>
+    <string name="slide09">On completion of easy or medium difficulty you can try a harder challenge\nOn completion of hard difficulty try again to beat the high score</string>
+    <string name="slide10">Visit the leader board and find your self among the all time players</string>
+    <string name="title01">Entry screen</string>
+    <string name="title02">Main menu</string>
+    <string name="title03">Game board</string>
+    <string name="title04">Question type 1</string>
+    <string name="title05">Question type 2</string>
+    <string name="title06">Question type 3</string>
+    <string name="title07">Question type 4</string>
+    <string name="title08">Surprise board</string>
+    <string name="title09">End game screen</string>
+    <string name="title10">Leader board</string>
 </resources>
