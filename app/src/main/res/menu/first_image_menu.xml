@@ -2,13 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/capture"
-        android:title="@string/capture_image"/>
+        android:title="@string/capture_image"
+        android:fontFamily="@font/stephia"/>
 
     <item android:id="@+id/gallery"
-        android:title="@string/import_image"/>
+        android:title="@string/import_image"
+        android:fontFamily="@font/stephia"/>
 
     <item android:id="@+id/reset"
-        android:title="@string/reset_photo"/>
+        android:title="@string/reset_photo"
+        android:fontFamily="@font/stephia"/>
 
 
 </menu>
