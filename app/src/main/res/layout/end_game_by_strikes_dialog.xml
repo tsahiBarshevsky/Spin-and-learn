@@ -20,4 +20,31 @@
         android:gravity="center"
         android:layout_gravity="center"/>
 
+    <LinearLayout android:id="@+id/endGameButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:visibility="invisible">
+
+        <Button android:id="@+id/playAgain"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="@string/play_again"
+            android:textAllCaps="false"
+            android:background="@drawable/button_design"
+            android:layout_margin="5dp"/>
+
+        <Button android:id="@+id/mainMenu"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="@string/main_menu"
+            android:textAllCaps="false"
+            android:background="@drawable/button_design"
+            android:layout_margin="5dp"/>
+
+    </LinearLayout>
+
 </LinearLayout>

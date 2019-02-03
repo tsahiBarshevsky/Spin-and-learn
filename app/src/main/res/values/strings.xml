@@ -236,4 +236,7 @@
     <string name="sentence40">"You are never too old to learn  "</string>
     <string name="sentence1">He that tooteth his own horn, the same shall not be tooted</string>
     <string name="your_score">Your score is:</string>
+    <string name="play_again">Play again</string>
+    <string name="main_menu">Main menu</string>
+    <string name="next_level">Next level</string>
 </resources>
