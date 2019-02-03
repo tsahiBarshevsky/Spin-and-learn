@@ -41,7 +41,7 @@ import static java.lang.Math.floor;
 
 public class PlayActivity extends AppCompatActivity implements Animation.AnimationListener{
 
-    int NUM_OF_ROUNDS = 10;
+    int NUM_OF_ROUNDS = 1;
 
     int roundsCounter = 1, scoreCounter = 0, scoreToAdd, scoreRange;
     boolean blnButtonRotation = true, bonus, isFirstImage = true;
@@ -1054,8 +1054,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 if (strikes >= 3) {
                     dialogView = getLayoutInflater().inflate(R.layout.end_game_by_strikes_dialog, null);
                     buttons = dialogView.findViewById(R.id.endGameButtons);
-                    playAgain = dialogView.findViewById(R.id.playAgainHard);
-                    mainMenu = dialogView.findViewById(R.id.mainMenuHard);
+                    playAgain = dialogView.findViewById(R.id.playAgain);
+                    mainMenu = dialogView.findViewById(R.id.mainMenu);
                     textView = dialogView.findViewById(R.id.score_strikes);
                     if (Locale.getDefault().toString().equals("iw_IL")) {
                         Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
@@ -1064,6 +1064,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 } else {
                     dialogView = getLayoutInflater().inflate(R.layout.game_over_by_victory_dialog, null);
                     textView = dialogView.findViewById(R.id.score_vic);
+                    if (Locale.getDefault().toString().equals("iw_IL"))
+                    {
+                        Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
+                        textView.setTypeface(typeface);
+                    }
                     if (level.equals("Easy") || level.equals("Medium")) {
                         buttons = dialogView.findViewById(R.id.easy_and_med_panel);
                         playAgain = dialogView.findViewById(R.id.playAgain);

@@ -30,7 +30,8 @@
         android:layout_gravity="center"
         android:layout_below="@+id/linear"
         android:layout_centerHorizontal="true"
-    android:fontFamily="@font/stephia"/>
+        android:fontFamily="@font/stephia"
+        android:textStyle="bold"/>
 
     <LinearLayout android:id="@+id/easy_and_med_panel"
         android:layout_width="wrap_content"

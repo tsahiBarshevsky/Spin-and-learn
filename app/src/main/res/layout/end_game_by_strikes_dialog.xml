@@ -19,7 +19,8 @@
         android:layout_margin="10dp"
         android:gravity="center"
         android:layout_gravity="center"
-        android:fontFamily="@font/stephia"/>
+        android:fontFamily="@font/stephia"
+        android:textStyle="bold"/>
 
     <LinearLayout android:id="@+id/endGameButtons"
         android:layout_width="wrap_content"
