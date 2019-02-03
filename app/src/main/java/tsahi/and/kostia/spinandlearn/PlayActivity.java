@@ -322,9 +322,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             @Override
             public void run() {
                 dialog.dismiss();
+                global.startMusic(PlayActivity.this);
             }
         }, 3000);
-        global.startMusic(this);
+
     }
 
     private void startTimer(final View v) {
@@ -681,11 +682,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             if (tmp.length() != 0) {
                 if (tmp.equals(currentExercise.getAnswer())) {
                     rightAnswer();
-                    global.startMusic(PlayActivity.this);
                     scoreCounter += calcScore();
                 } else {
                     wrongAnswer();
-                    global.startMusic(PlayActivity.this);
                     strikes++;
                     switch (strikes)
                     {
@@ -925,6 +924,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             @Override
             public void run() {
                 dialog.dismiss();
+                global.startMusic(PlayActivity.this);
             }
         }, 2000);
     }
@@ -959,8 +959,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             @Override
             public void run() {
                 dialog.dismiss();
+                global.startMusic(PlayActivity.this);
             }
-        }, 2000);
+        }, 4000);
     }
 
     int calcScore(){
@@ -969,6 +970,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     }
 
     void endGame(){
+        global.pauseMusic();
         SharedPreferences sharedPref = this.getSharedPreferences("gameData", this.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         Integer size = sharedPref.getInt("size", 0);
@@ -995,6 +997,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         @Override
                         public void run() {
                             buttons.setVisibility(View.VISIBLE);
+                            global.startMusic(PlayActivity.this);
                         }
                     }, 2000);
                     Button playAgain = dialogView.findViewById(R.id.playAgain);
@@ -1012,7 +1015,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     playAgain.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            //to do
+                            Intent intent = new Intent(PlayActivity.this, PlayActivity.class);
+                            intent.putExtra("Level", level);
+                            intent.putExtra("Name", getIntent().getStringExtra("Name"));
+                            Bundle extras = new Bundle();
+                            extras.putParcelable("user_pic", bitmap);
+                            intent.putExtras(extras);
+                            startActivity(intent);
                         }
                     });
                     dialog = builder.show();
@@ -1038,6 +1047,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                             @Override
                             public void run() {
                                 buttons.setVisibility(View.VISIBLE);
+                                global.startMusic(PlayActivity.this);
                             }
                         }, 2000);
                         Button playAgain = dialogView.findViewById(R.id.playAgain);
@@ -1049,13 +1059,32 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         playAgain.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                //to do
+                                Intent intent = new Intent(PlayActivity.this, PlayActivity.class);
+                                intent.putExtra("Level", level);
+                                intent.putExtra("Name", getIntent().getStringExtra("Name"));
+                                Bundle extras = new Bundle();
+                                extras.putParcelable("user_pic", bitmap);
+                                intent.putExtras(extras);
+                                startActivity(intent);
                             }
                         });
                         nextLevel.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                //to do
+                                if (level.equals("Easy")){
+                                    level = "Medium";
+                                }
+                                else if (level.equals("Medium")){
+                                    level = "Hard";
+                                }
+
+                                Intent intent = new Intent(PlayActivity.this, PlayActivity.class);
+                                intent.putExtra("Level", level);
+                                intent.putExtra("Name", getIntent().getStringExtra("Name"));
+                                Bundle extras = new Bundle();
+                                extras.putParcelable("user_pic", bitmap);
+                                intent.putExtras(extras);
+                                startActivity(intent);
                             }
                         });
                         mainMenu.setOnClickListener(new View.OnClickListener() {
@@ -1075,6 +1104,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                             @Override
                             public void run() {
                                 buttons.setVisibility(View.VISIBLE);
+                                global.startMusic(PlayActivity.this);
                             }
                         }, 2000);
                         Button playAgain = dialogView.findViewById(R.id.playAgainHard);
@@ -1084,7 +1114,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         playAgain.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                //to do
+                                Intent intent = new Intent(PlayActivity.this, PlayActivity.class);
+                                intent.putExtra("Level", level);
+                                intent.putExtra("Name", getIntent().getStringExtra("Name"));
+                                Bundle extras = new Bundle();
+                                extras.putParcelable("user_pic", bitmap);
+                                intent.putExtras(extras);
+                                startActivity(intent);
                             }
                         });
                         mainMenu.setOnClickListener(new View.OnClickListener() {
