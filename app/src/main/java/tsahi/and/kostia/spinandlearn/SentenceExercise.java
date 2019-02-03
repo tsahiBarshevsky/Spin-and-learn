@@ -15,13 +15,21 @@ public class SentenceExercise  implements Exercises {
         int rndWord = (int)(Math.random()*numOfWord);
         answer = word.get(rndWord);
         answer = answer.substring(0, 1).toUpperCase() + answer.substring(1);
-        //answer = answer.replaceAll("[^A-Za-z]", "");
-        int wordSize = word.get(rndWord).length();
-        String blankWord = "";
-        for(int i=0;i<wordSize;i++){
-            blankWord += "_";
+
+        int answerSize = answer.length();
+        char lastChar = answer.charAt(answerSize-1);
+        if(lastChar == '.' || lastChar == ',' || lastChar == '!' || lastChar == '?'){
+            answerSize--;
+            answer = answer.substring(0, answerSize);
         }
-        word.set(rndWord, blankWord);
+
+        StringBuilder blankWord = new StringBuilder(word.get(rndWord));
+        for(int i=0;i<answerSize;i++){
+            blankWord.setCharAt(i, '_');
+        }
+
+        word.set(rndWord, blankWord.toString());
+
         this.question = word.get(0);
         for(int i = 1; i<numOfWord;i++){
             this.question += " ";

@@ -15,8 +15,8 @@ public class MathExercise implements Exercises
         String strSymb = "";
         symbol = floor(Math.random() * 5);
         while(flag) {
-            a = floor(Math.random() * 100 + 1);
-            b = floor(Math.random() * 100 + 1);
+            a = floor(Math.random() * 100 + 2);
+            b = floor(Math.random() * 100 + 2);
 
             if(symbol == 0.0) {
                 result = a + b;
