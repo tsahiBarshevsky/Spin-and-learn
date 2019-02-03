@@ -242,4 +242,6 @@
     <string name="next_level">לרמה הבאה</string>
     <string name="music_on">הפעל מוזיקה</string>
     <string name="music_off">השתק מוזיקה</string>
+    <string name="enter_name">בבקשה הכנס את שמך.</string>
+    <string name="long_name">השם ארוך מדי. בבקשה הכנס שם עם פחות מעשרה תווים.</string>
 </resources>

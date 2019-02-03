@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -150,13 +151,17 @@ public class FirstActivity extends AppCompatActivity {
                 userName = name.getText().toString();
                 editor.putString("Name", userName);
                 editor.commit();
-
-                Intent intent = new Intent(FirstActivity.this, MainActivity.class);
-                intent.putExtra("Name", userName);
-                Bundle extras = new Bundle();
-                extras.putParcelable("user_pic", bitmap);
-                intent.putExtras(extras);
-                startActivity(intent);
+                int nameSize = name.getText().toString().trim().length();
+                if (nameSize > 0) {
+                    Intent intent = new Intent(FirstActivity.this, MainActivity.class);
+                    intent.putExtra("Name", userName);
+                    Bundle extras = new Bundle();
+                    extras.putParcelable("user_pic", bitmap);
+                    intent.putExtras(extras);
+                    startActivity(intent);
+                }
+                else
+                    Toast.makeText(FirstActivity.this, getResources().getString(R.string.enter_name), Toast.LENGTH_SHORT).show();
             }
         });
         exitBtn.setOnClickListener(new View.OnClickListener() {
