@@ -113,10 +113,10 @@ public class MainActivity extends AppCompatActivity {
         Button sound = findViewById(R.id.sound);
         Button music = findViewById(R.id.music);
         if(sharedPref.getBoolean("mute", false)){
-            sound.setBackground(getResources().getDrawable(R.drawable.ic_soundoff));
+            sound.setBackgroundResource(R.drawable.ic_soundoff);
         }
         else{
-            sound.setBackground(getResources().getDrawable(R.drawable.ic_soundon));
+            sound.setBackgroundResource(R.drawable.ic_soundon);
         }
         if(sharedPref.getBoolean("muteMusic", false)){
             music.setBackground(getResources().getDrawable(R.drawable.ic_musicoff));

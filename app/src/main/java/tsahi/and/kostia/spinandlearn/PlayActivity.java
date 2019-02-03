@@ -635,6 +635,16 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             tmp.setGravity(Gravity.CENTER);
             tmp.setBackground(getResources().getDrawable(R.drawable.words_design));
 
+            Typeface typeface;
+            if (Locale.getDefault().toString().equals("iw_IL"))
+            {
+                typeface = ResourcesCompat.getFont(this, R.font.dana);
+            }
+            else {
+                typeface = ResourcesCompat.getFont(this, R.font.stephia);
+            }
+            tmp.setTypeface(typeface);
+
             tmp.setText(((Character)question.charAt(i)).toString());
             if(question.charAt(i) == '_'){
                 tmp.setBackground(getResources().getDrawable(R.drawable.word_design_answer));

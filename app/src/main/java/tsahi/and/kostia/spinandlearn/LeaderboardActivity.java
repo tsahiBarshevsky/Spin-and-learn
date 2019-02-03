@@ -42,8 +42,8 @@ public class LeaderboardActivity extends AppCompatActivity {
         SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
 
         Animation buttonAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
-        Button sound = findViewById(R.id.sound);
-        Button music = findViewById(R.id.music);
+        Button sound = findViewById(R.id.soundLed);
+        Button music = findViewById(R.id.musicLed);
         if(sharedPref.getBoolean("mute", false)){
             sound.setBackground(getResources().getDrawable(R.drawable.ic_soundoff));
         }
