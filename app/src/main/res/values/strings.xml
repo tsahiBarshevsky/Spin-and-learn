@@ -242,5 +242,4 @@
     <string name="music_on">Music On</string>
     <string name="music_off">Music Off</string>
     <string name="enter_name">Please enter your name.</string>
-    <string name="long_name">Name is too long. Please insert a name less than 10 characters.</string>
 </resources>

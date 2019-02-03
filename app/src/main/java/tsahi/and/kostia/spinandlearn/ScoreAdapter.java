@@ -1,6 +1,9 @@
 package tsahi.and.kostia.spinandlearn;
 
+import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,15 +11,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewHolder>
 {
     private List<UserInfo> users;
+    Context context;
 
-    public ScoreAdapter(List<UserInfo> users) {
+    public ScoreAdapter(List<UserInfo> users, Context context) {
+
         this.users = users;
+        this.context = context;
     }
 
     public class ScoreViewHolder extends RecyclerView.ViewHolder
@@ -32,6 +39,16 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewHol
             levelTV = itemView.findViewById(R.id.userLevelCardCell);
             dateTV = itemView.findViewById(R.id.userDateCardCell);
             timeTV = itemView.findViewById(R.id.userTimeCardCell);
+
+            if (Locale.getDefault().toString().equals("iw_IL"))
+            {
+               Typeface typeface = ResourcesCompat.getFont(context, R.font.dana);
+                nameTV.setTypeface(typeface);
+                scoreTV.setTypeface(typeface);
+                levelTV.setTypeface(typeface);
+                dateTV.setTypeface(typeface);
+                timeTV.setTypeface(typeface);
+            }
         }
     }
 
