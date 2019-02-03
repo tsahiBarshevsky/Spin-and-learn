@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/action_change_player"
+        android:title="@string/change_player"
+        app:showAsAction="never"
+        android:orderInCategory="1"/>
+    <item android:id="@+id/action_sound_toggle"
+        android:title="@string/sound_off"
+        app:showAsAction="never"
+        android:orderInCategory="2"/>
+    <item android:id="@+id/action_music_toggle"
+        android:title="@string/music_off"
+        app:showAsAction="never"
+        android:orderInCategory="3"/>
+    <item android:id="@+id/action_how_to_play"
+        android:title="@string/how_to_play"
+        app:showAsAction="never"
+        android:orderInCategory="4"/>
+
+</menu>

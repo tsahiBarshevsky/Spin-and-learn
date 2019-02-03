@@ -239,4 +239,6 @@
     <string name="play_again">Play again</string>
     <string name="main_menu">Main menu</string>
     <string name="next_level">Next level</string>
+    <string name="music_on">Music On</string>
+    <string name="music_off">Music Off</string>
 </resources>

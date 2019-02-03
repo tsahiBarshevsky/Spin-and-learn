@@ -240,4 +240,6 @@
     <string name="play_again">שחק שוב</string>
     <string name="main_menu">תפריט ראשי</string>
     <string name="next_level">לרמה הבאה</string>
+    <string name="music_on">הפעל מוזיקה</string>
+    <string name="music_off">השתק מוזיקה</string>
 </resources>

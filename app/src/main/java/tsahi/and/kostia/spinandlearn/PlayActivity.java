@@ -180,7 +180,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             blnButtonRotation = true;
             if(pos != 2) {
                 playSound(R.raw.clock);
-                mediaPlayer.setLooping(true);
+                if(mediaPlayer != null) {
+                    mediaPlayer.setLooping(true);
+                }
             }
             switch (pos)
             {
@@ -830,7 +832,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 leaveBtn.startAnimation(animation);
                 spinBtn.setEnabled(false);
                 playSound(R.raw.viva_las_vegas);
-                mediaPlayer.setLooping(true);
+                if(mediaPlayer != null) {
+                    mediaPlayer.setLooping(true);
+                }
             }
         }, 2000);
     }
@@ -1130,10 +1134,14 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
+        getMenuInflater().inflate(R.menu.in_game_menu,menu);
         if(global.isMute()){
             MenuItem sound = menu.findItem(R.id.action_sound_toggle);
             sound.setTitle(getResources().getString(R.string.sound_on));
+        }
+        if(global.isMusicMute()){
+            MenuItem music = menu.findItem(R.id.music);
+            music.setTitle(getResources().getString(R.string.music_on));
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -1175,6 +1183,24 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 editor.commit();
                 global.setMute(true);
                 item.setTitle(getResources().getString(R.string.sound_on));
+                global.pauseMusic();
+            }
+        }
+        else if(id == R.id.action_music_toggle) {
+            SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            if(global.isMusicMute()) {
+                editor.putBoolean("musicMute", false);
+                editor.commit();
+                global.setMusicMute(false);
+                item.setTitle(getResources().getString(R.string.music_off));
+                global.startMusic(this);
+            }
+            else{
+                editor.putBoolean("musicMute", true);
+                editor.commit();
+                global.setMusicMute(true);
+                item.setTitle(getResources().getString(R.string.music_on));
                 global.pauseMusic();
             }
         }

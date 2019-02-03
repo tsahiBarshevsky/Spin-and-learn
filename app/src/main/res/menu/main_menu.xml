@@ -6,14 +6,4 @@
         android:title="@string/change_player"
         app:showAsAction="never"
         android:orderInCategory="1"/>
-    <item android:id="@+id/action_sound_toggle"
-        android:title="@string/sound_off"
-        app:showAsAction="never"
-        android:orderInCategory="2"/>
-    <item android:id="@+id/action_how_to_play"
-        android:title="@string/how_to_play"
-        app:showAsAction="never"
-        android:orderInCategory="3"/>
-
-
 </menu>

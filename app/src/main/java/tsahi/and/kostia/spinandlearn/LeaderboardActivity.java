@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -31,9 +32,66 @@ public class LeaderboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
 
+        SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
+
         Animation buttonAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
-        Button sound = findViewById(R.id.soundLed);
-        Button music = findViewById(R.id.musicLed);
+        Button sound = findViewById(R.id.sound);
+        Button music = findViewById(R.id.music);
+        if(sharedPref.getBoolean("mute", false)){
+            sound.setBackground(getResources().getDrawable(R.drawable.ic_soundoff));
+        }
+        else{
+            sound.setBackground(getResources().getDrawable(R.drawable.ic_soundon));
+        }
+        if(sharedPref.getBoolean("muteMusic", false)){
+            music.setBackground(getResources().getDrawable(R.drawable.ic_musicoff));
+        }
+        else{
+            music.setBackground(getResources().getDrawable(R.drawable.ic_musicon));
+        }
+        sound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(sharedPref.getBoolean("mute", false));
+                if(sharedPref.getBoolean("mute", false)){
+                    sound.setBackground(getResources().getDrawable(R.drawable.ic_soundoff));
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putBoolean("mute", false);
+                    editor.commit();
+                    global.setMute(false);
+                    global.startMusic(LeaderboardActivity.this);
+                }
+                else{
+                    sound.setBackground(getResources().getDrawable(R.drawable.ic_soundon));
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putBoolean("mute", true);
+                    editor.commit();
+                    global.setMute(true);
+                    global.pauseMusic();
+                }
+            }
+        });
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(sharedPref.getBoolean("musicMute", false)){
+                    music.setBackground(getResources().getDrawable(R.drawable.ic_musicoff));
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putBoolean("musicMute", false);
+                    editor.commit();
+                    global.setMusicMute(false);
+                    global.startMusic(LeaderboardActivity.this);
+                }
+                else{
+                    music.setBackground(getResources().getDrawable(R.drawable.ic_musicon));
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putBoolean("musicMute", true);
+                    editor.commit();
+                    global.setMusicMute(true);
+                    global.pauseMusic();
+                }
+            }
+        });
         sound.startAnimation(buttonAnim);
         music.startAnimation(buttonAnim);
 
@@ -46,13 +104,13 @@ public class LeaderboardActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         userInfoList = new ArrayList<>();
 
-        SharedPreferences sharedPref = this.getSharedPreferences("gameData", this.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences sharedPrefGD = this.getSharedPreferences("gameData", this.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefGD.edit();
 
-        Integer size = sharedPref.getInt("size", 0);
+        Integer size = sharedPrefGD.getInt("size", 0);
 
         for(Integer i = 1; i<=size;i++){
-            String tmp = sharedPref.getString(i.toString(), "");
+            String tmp = sharedPrefGD.getString(i.toString(), "");
             if(!tmp.equals("")){
                 UserInfo user = new UserInfo(tmp);
                 if(user.getPhoto() == null){
@@ -84,7 +142,7 @@ public class LeaderboardActivity extends AppCompatActivity {
                 }
 
                 if(date1.after(date2) || date2.after(date1)){
-                    return (int)(date2.getTime() - date1.getTime());
+                    return (int)(date1.getTime() - date2.getTime());
                 }
 
                 DateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -92,13 +150,13 @@ public class LeaderboardActivity extends AppCompatActivity {
                 Date time1 = null;
                 Date time2 = null;
                 try {
-                    time1 = dateFormat.parse(o1.getTime());
-                    time2 = dateFormat.parse(o2.getTime());
+                    time1 = timeFormat.parse(o1.getTime());
+                    time2 = timeFormat.parse(o2.getTime());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
-                return (int)(time2.getTime() - time1.getTime());
+                return (int)(time1.getTime() - time2.getTime());
             }
         });
 
