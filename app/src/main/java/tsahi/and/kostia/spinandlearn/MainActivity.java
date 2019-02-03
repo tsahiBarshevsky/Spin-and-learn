@@ -188,18 +188,13 @@ public class MainActivity extends AppCompatActivity {
                 Animation buttonAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
                 for(int i=0;i<3;i++) {
                     difficulty[i].startAnimation(buttonAnim);
-                    difficulty[i].setEnabled(true);
                 }
                 leaderboardBtn.startAnimation(buttonAnim);
-                leaderboardBtn.setEnabled(true);
                 howToPlay.startAnimation(buttonAnim);
-                howToPlay.setEnabled(true);
                 sound.startAnimation(buttonAnim);
-                sound.setEnabled(true);
                 music.startAnimation(buttonAnim);
-                music.setEnabled(true);
             }
-        }, 1550);
+        }, 2000);
         if (Locale.getDefault().toString().equals("iw_IL"))
         {
             Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
