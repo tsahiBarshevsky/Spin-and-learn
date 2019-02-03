@@ -463,7 +463,14 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 }
             });
         }
-
+        if (Locale.getDefault().toString().equals("iw_IL")) {
+            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana); //here
+            question.setTypeface(typeface);
+            mathAnswer.setTypeface(typeface);
+            for (int i=0;i<12;i++)
+                pad[i].setTypeface(typeface);
+            answer_btn.setTypeface(typeface);
+        }
         startTimer(dialogView);
     }
 
