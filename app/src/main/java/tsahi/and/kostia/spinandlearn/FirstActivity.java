@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -182,6 +183,16 @@ public class FirstActivity extends AppCompatActivity {
                     public void onClick(View arg0) {
                         dialog.dismiss();
                     }});
+                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
+                okBtn.startAnimation(animation);
+                cancelBtn.startAnimation(animation);
+                if (Locale.getDefault().toString().equals("iw_IL")) {
+                    Typeface typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.dana);
+                    TextView textView = dialogView.findViewById(R.id.space);
+                    textView.setTypeface(typeface);
+                    okBtn.setTypeface(typeface);
+                    cancelBtn.setTypeface(typeface);
+                }
             }
         });
         //registerForContextMenu(userImage);
@@ -345,6 +356,14 @@ public class FirstActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 dialog.dismiss();
             }});
+        if (Locale.getDefault().toString().equals("iw_IL")) {
+            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            TextView textView = dialogView.findViewById(R.id.space);
+            textView.setTypeface(typeface);
+            okBtn.setTypeface(typeface);
+            cancelBtn.setTypeface(typeface);
+        }
+
     }
 
     @Override

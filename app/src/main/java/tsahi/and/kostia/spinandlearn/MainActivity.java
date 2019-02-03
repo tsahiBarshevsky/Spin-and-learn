@@ -222,7 +222,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 dialog.dismiss();
             }});
-
+        if (Locale.getDefault().toString().equals("iw_IL")) {
+            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            TextView textView = dialogView.findViewById(R.id.space);
+            textView.setTypeface(typeface);
+            okBtn.setTypeface(typeface);
+            cancelBtn.setTypeface(typeface);
+        }
     }
 
     @Override
