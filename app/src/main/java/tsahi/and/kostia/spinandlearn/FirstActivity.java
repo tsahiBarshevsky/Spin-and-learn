@@ -43,8 +43,14 @@ public class FirstActivity extends AppCompatActivity {
 
     int BMP_MAX_SIZE = 250;
 
+    GlobalVar global;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        global = ((GlobalVar) this.getApplication());
+
+        global.setAppPaused(false);
 
         sharedPref = this.getSharedPreferences("firstRun", this.MODE_PRIVATE);
         int firstRun = sharedPref.getInt("firstRun", 0);
@@ -332,5 +338,17 @@ public class FirstActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 dialog.dismiss();
             }});
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        global.setAppPaused(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        global.setAppPaused(false);
     }
 }

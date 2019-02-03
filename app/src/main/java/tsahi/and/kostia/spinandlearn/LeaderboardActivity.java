@@ -17,10 +17,16 @@ public class LeaderboardActivity extends AppCompatActivity {
     ArrayList<UserInfo> userInfoList;
     ScoreAdapter adapter;
 
+    GlobalVar global;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
+
+        global = ((GlobalVar) this.getApplication());
+
+        global.setAppPaused(false);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -65,5 +71,17 @@ public class LeaderboardActivity extends AppCompatActivity {
         Intent intent = new Intent(LeaderboardActivity.this, MainActivity.class);
         intent.putExtra("Name", getIntent().getStringExtra("Name"));
         startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        global.setAppPaused(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        global.setAppPaused(false);
     }
 }
