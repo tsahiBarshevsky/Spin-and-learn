@@ -15,7 +15,8 @@
             android:layout_margin="10dp"
             android:textSize="25sp"
             android:textColor="#000"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:fontFamily="@font/stephia"/>
 
         <TextView android:id="@+id/exerciseComplete"
             android:layout_width="match_parent"
@@ -24,7 +25,8 @@
             android:textSize="25sp"
             android:textColor="#000"
             android:gravity="center"
-            android:background="@drawable/question_design"/>
+            android:background="@drawable/question_design"
+            android:fontFamily="@font/stephia"/>
 
         <LinearLayout android:id="@+id/answerLayout"
             android:layout_width="320dp"
@@ -50,7 +52,8 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/word_design_selector"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <Button android:id="@+id/tv01"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
@@ -58,7 +61,8 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/word_design_selector"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <Button android:id="@+id/tv02"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
@@ -66,7 +70,8 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/word_design_selector"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <Button android:id="@+id/tv03"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
@@ -74,7 +79,8 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/word_design_selector"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <Button android:id="@+id/tv04"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
@@ -82,7 +88,8 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/word_design_selector"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <Button android:id="@+id/tv05"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
@@ -90,7 +97,8 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/word_design_selector"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <Button android:id="@+id/tv06"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
@@ -98,7 +106,8 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/word_design_selector"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
             </TableRow>
 
             <TableRow>
@@ -109,7 +118,8 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/word_design_selector"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <Button android:id="@+id/tv08"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
@@ -117,7 +127,8 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/word_design_selector"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <Button android:id="@+id/tv09"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
@@ -125,7 +136,8 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/word_design_selector"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <Button android:id="@+id/tv10"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
@@ -133,7 +145,8 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/word_design_selector"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <Button android:id="@+id/tv11"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
@@ -141,7 +154,8 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/word_design_selector"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <Button android:id="@+id/tv12"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
@@ -149,7 +163,8 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/word_design_selector"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <Button android:id="@+id/tv13"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
@@ -157,7 +172,8 @@
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
-                    android:background="@drawable/word_design_selector"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
             </TableRow>
 
         </TableLayout>
@@ -171,7 +187,8 @@
             android:textAllCaps="false"
             android:textSize="17sp"
             android:layout_margin="15dp"
-            android:background="@drawable/button_design"/>
+            android:background="@drawable/button_design"
+            android:fontFamily="@font/stephia"/>
 
     </LinearLayout>
 

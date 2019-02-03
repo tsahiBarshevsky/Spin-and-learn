@@ -29,7 +29,8 @@
         android:gravity="center"
         android:layout_gravity="center"
         android:layout_below="@+id/linear"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+    android:fontFamily="@font/stephia"/>
 
     <LinearLayout android:id="@+id/easy_and_med_panel"
         android:layout_width="wrap_content"
@@ -47,7 +48,9 @@
             android:text="@string/play_again"
             android:textAllCaps="false"
             android:background="@drawable/button_design"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:textSize="20sp"
+            android:fontFamily="@font/stephia"/>
 
         <Button android:id="@+id/nextLevel"
             android:layout_width="100dp"
@@ -56,7 +59,9 @@
             android:text="@string/next_level"
             android:textAllCaps="false"
             android:background="@drawable/button_design"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:textSize="20sp"
+            android:fontFamily="@font/stephia"/>
 
         <Button android:id="@+id/mainMenu"
             android:layout_width="100dp"
@@ -65,7 +70,9 @@
             android:text="@string/main_menu"
             android:textAllCaps="false"
             android:background="@drawable/button_design"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:textSize="20sp"
+            android:fontFamily="@font/stephia"/>
 
     </LinearLayout>
 
@@ -85,7 +92,9 @@
             android:text="@string/play_again"
             android:textAllCaps="false"
             android:background="@drawable/button_design"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:textSize="20sp"
+            android:fontFamily="@font/stephia"/>
 
         <Button android:id="@+id/mainMenuHard"
             android:layout_width="100dp"
@@ -94,7 +103,9 @@
             android:text="@string/main_menu"
             android:textAllCaps="false"
             android:background="@drawable/button_design"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:textSize="20sp"
+            android:fontFamily="@font/stephia"/>
 
     </LinearLayout>
 

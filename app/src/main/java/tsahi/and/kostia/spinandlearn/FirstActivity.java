@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -89,8 +91,13 @@ public class FirstActivity extends AppCompatActivity {
         logo.startAnimation(slideRight);
         logo.animate().rotationY(360).setDuration(2500);
         final ImageView man = findViewById(R.id.man);
-        if (Locale.getDefault().toString().equals("iw_IL")) //hebrew
+        if (Locale.getDefault().toString().equals("iw_IL")) {//hebrew
             man.startAnimation(slideRight);
+            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            name.setTypeface(typeface);
+            enterBtn.setTypeface(typeface);
+            exitBtn.setTypeface(typeface);
+        }
         else
             man.startAnimation(slideLeft);
         Handler speechHandler = new Handler();
