@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="310dp"
-        android:layout_height="450dp"
+        android:layout_height="460dp"
         android:orientation="vertical"
         android:layout_centerInParent="true">
 
@@ -15,7 +17,8 @@
             android:layout_margin="10dp"
             android:textSize="25sp"
             android:textColor="#000"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:fontFamily="@font/stephia"/>
 
         <TextView android:id="@+id/exerciseMath"
             android:layout_width="match_parent"
@@ -25,7 +28,7 @@
             android:textColor="#000"
             android:gravity="center"
             android:background="@drawable/question_design"
-            />
+            android:fontFamily="@font/stephia"/>
 
         <TextView android:id="@+id/answerMath"
             android:layout_width="match_parent"
@@ -34,7 +37,7 @@
             android:textSize="25sp"
             android:textColor="#000"
             android:gravity="center"
-            android:background="@drawable/question_design"/>
+            android:background="@drawable/text_view_math_design"/>
 
         <TableLayout
             android:layout_width="155dp"
@@ -53,7 +56,8 @@
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:text="7"
-                    android:background="@drawable/complete_the_latters_design"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <TextView android:id="@+id/tv_m8"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -62,7 +66,8 @@
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:text="8"
-                    android:background="@drawable/complete_the_latters_design"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <TextView android:id="@+id/tv_m9"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -71,7 +76,8 @@
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:text="9"
-                    android:background="@drawable/complete_the_latters_design"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
             </TableRow>
 
             <TableRow>
@@ -83,7 +89,8 @@
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:text="4"
-                    android:background="@drawable/complete_the_latters_design"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <TextView android:id="@+id/tv_m5"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -92,7 +99,8 @@
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:text="5"
-                    android:background="@drawable/complete_the_latters_design"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <TextView android:id="@+id/tv_m6"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -101,7 +109,8 @@
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:text="6"
-                    android:background="@drawable/complete_the_latters_design"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
             </TableRow>
 
             <TableRow>
@@ -113,7 +122,8 @@
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:text="1"
-                    android:background="@drawable/complete_the_latters_design"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <TextView android:id="@+id/tv_m2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -122,7 +132,8 @@
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:text="2"
-                    android:background="@drawable/complete_the_latters_design"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <TextView android:id="@+id/tv_m3"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -131,7 +142,8 @@
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:text="3"
-                    android:background="@drawable/complete_the_latters_design"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
             </TableRow>
 
             <TableRow>
@@ -143,7 +155,8 @@
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:text="@string/clr"
-                    android:background="@drawable/complete_the_latters_design"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <TextView android:id="@+id/tv_m0"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -152,7 +165,8 @@
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:text="0"
-                    android:background="@drawable/complete_the_latters_design"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
                 <TextView android:id="@+id/tv_mBack"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -161,7 +175,8 @@
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:text="@string/del"
-                    android:background="@drawable/complete_the_latters_design"/>
+                    android:background="@drawable/word_design_selector"
+                    android:fontFamily="@font/stephia"/>
             </TableRow>
 
         </TableLayout>
@@ -173,9 +188,10 @@
             android:layout_gravity="center"
             android:text="@string/answer"
             android:textAllCaps="false"
-            android:textSize="17sp"
+            android:textSize="20sp"
             android:layout_margin="15dp"
-            android:background="@drawable/button_design"/>
+            android:background="@drawable/button_design"
+            android:fontFamily="@font/stephia"/>
 
     </LinearLayout>
 

@@ -185,7 +185,7 @@
             android:layout_gravity="center"
             android:text="@string/answer"
             android:textAllCaps="false"
-            android:textSize="17sp"
+            android:textSize="20sp"
             android:layout_margin="15dp"
             android:background="@drawable/button_design"
             android:fontFamily="@font/stephia"/>
