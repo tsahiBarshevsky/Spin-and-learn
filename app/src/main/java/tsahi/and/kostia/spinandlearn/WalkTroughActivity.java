@@ -104,58 +104,17 @@ public class WalkTroughActivity extends AppIntro {
     }
 
     SliderPage[] create_pages(){
-        SliderPage[] ret = new SliderPage[7];
+        SliderPage[] ret = new SliderPage[1];
         SliderPage page;
 
         page = new SliderPage();
-        page.setTitle(getResources().getString(R.string.japan));
+        page.setTitle(getResources().getString(R.string.app_name));
         page.setDescription(getResources().getString(R.string.japan));
-        page.setImageDrawable(R.drawable.button_design);
+        page.setImageDrawable(R.drawable.web_hi_res_512);
         page.setBgColor(Color.parseColor("#2cb42c"));
         ret[0] = page;
 
-        page = new SliderPage();
-        page.setTitle(getResources().getString(R.string.japan));
-        page.setDescription(getResources().getString(R.string.japan));
-        page.setImageDrawable(R.drawable.button_design);
-        page.setBgColor(Color.parseColor("#2cb42c"));
-        ret[1] = page;
 
-        page = new SliderPage();
-        page.setTitle(getResources().getString(R.string.japan));
-        page.setDescription(getResources().getString(R.string.japan));
-        page.setImageDrawable(R.drawable.button_design);
-        page.setBgColor(Color.parseColor("#2cb42c"));
-        ret[2] = page;
-
-        page = new SliderPage();
-        page.setTitle(getResources().getString(R.string.japan));
-        page.setDescription(getResources().getString(R.string.japan));
-        page.setImageDrawable(R.drawable.button_design);
-        page.setBgColor(Color.parseColor("#2cb42c"));
-        ret[3] = page;
-
-        page = new SliderPage();
-        page.setTitle(getResources().getString(R.string.japan));
-        page.setDescription(getResources().getString(R.string.japan));
-        page.setImageDrawable(R.drawable.button_design);
-        page.setBgColor(Color.parseColor("#2cb42c"));
-        ret[4] = page;
-
-        page = new SliderPage();
-        page.setTitle(getResources().getString(R.string.japan));
-        page.setDescription(getResources().getString(R.string.japan));
-        page.setImageDrawable(R.drawable.button_design);
-        page.setBgColor(Color.parseColor("#2cb42c"));
-
-        ret[5] = page;
-
-        page = new SliderPage();
-        page.setTitle(getResources().getString(R.string.japan));
-        page.setDescription(getResources().getString(R.string.japan));
-        page.setImageDrawable(R.drawable.button_design);
-        page.setBgColor(Color.parseColor("#2cb42c"));
-        ret[6] = page;
 
         return ret;
     }
