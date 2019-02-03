@@ -71,4 +71,9 @@ public class GlobalVar extends Application {
             backgroundMusic.pause();
         }
     }
+
+    public void changeMusic(int musicID, Context context){
+        backgroundMusic = MediaPlayer.create(context, musicID);
+        startMusic(context);
+    }
 }

@@ -41,6 +41,8 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
 
+        global.changeMusic(R.raw.we_are_the_champs, this);
+
         Animation buttonAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
         Button sound = findViewById(R.id.soundLed);
         Button music = findViewById(R.id.musicLed);
@@ -176,7 +178,7 @@ public class LeaderboardActivity extends AppCompatActivity {
             editor.commit();
         }
 
-        adapter = new ScoreAdapter(userInfoList);
+        adapter = new ScoreAdapter(userInfoList, this);
         recyclerView.setAdapter(adapter);
         adapter.notifyItemInserted(userInfoList.size());
     }
@@ -184,6 +186,7 @@ public class LeaderboardActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        global.changeMusic(R.raw.background_music, this);
         Intent intent = new Intent(LeaderboardActivity.this, MainActivity.class);
         intent.putExtra("Name", getIntent().getStringExtra("Name"));
         startActivity(intent);

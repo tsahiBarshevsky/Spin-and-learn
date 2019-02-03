@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textColor="#000"
+            android:fontFamily="@font/stephia"
             android:layout_gravity="center" />
     </LinearLayout>
 
@@ -50,6 +51,8 @@
                 android:textSize="18sp"
                 android:textColor="#000"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/stephia"
+
                 android:layout_gravity="center"/>
 
         </LinearLayout>
@@ -68,6 +71,8 @@
                 android:layout_marginTop="5dp"
                 android:paddingEnd="5dp"
                 android:paddingStart="5dp"
+                android:fontFamily="@font/stephia"
+
                 android:layout_gravity="center"/>
 
             <TextView android:id="@+id/userScoreCardCell"
@@ -76,6 +81,8 @@
                 android:textSize="15sp"
                 android:textColor="#000"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/stephia"
+
                 android:layout_gravity="center"/>
 
         </LinearLayout>
@@ -95,6 +102,8 @@
                 android:textSize="15sp"
                 android:textColor="#000"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/stephia"
+
                 android:layout_gravity="center"/>
 
             <TextView android:id="@+id/userTimeCardCell"
@@ -103,6 +112,8 @@
                 android:textSize="15sp"
                 android:textColor="#000"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/stephia"
+
                 android:layout_gravity="center"/>
 
     </LinearLayout>
