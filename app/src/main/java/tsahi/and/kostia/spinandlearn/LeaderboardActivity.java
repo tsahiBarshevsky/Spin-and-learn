@@ -47,23 +47,23 @@ public class LeaderboardActivity extends AppCompatActivity {
         Button sound = findViewById(R.id.soundLed);
         Button music = findViewById(R.id.musicLed);
         if(sharedPref.getBoolean("mute", false)){
-            sound.setBackground(getResources().getDrawable(R.drawable.ic_soundoff));
+            sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundon), null, null, null);
         }
         else{
-            sound.setBackground(getResources().getDrawable(R.drawable.ic_soundon));
+            sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundoff), null, null, null);
         }
         if(sharedPref.getBoolean("muteMusic", false)){
-            music.setBackground(getResources().getDrawable(R.drawable.ic_musicoff));
+            music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicon), null, null, null);
         }
         else{
-            music.setBackground(getResources().getDrawable(R.drawable.ic_musicon));
+            music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicoff), null, null, null);
         }
         sound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println(sharedPref.getBoolean("mute", false));
                 if(sharedPref.getBoolean("mute", false)){
-                    sound.setBackground(getResources().getDrawable(R.drawable.ic_soundoff));
+                    sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundoff), null, null, null);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean("mute", false);
                     editor.commit();
@@ -71,7 +71,7 @@ public class LeaderboardActivity extends AppCompatActivity {
                     global.startMusic(LeaderboardActivity.this);
                 }
                 else{
-                    sound.setBackground(getResources().getDrawable(R.drawable.ic_soundon));
+                    sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundon), null, null, null);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean("mute", true);
                     editor.commit();
@@ -84,7 +84,7 @@ public class LeaderboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(sharedPref.getBoolean("musicMute", false)){
-                    music.setBackground(getResources().getDrawable(R.drawable.ic_musicoff));
+                    music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicoff), null, null, null);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean("musicMute", false);
                     editor.commit();
@@ -92,7 +92,7 @@ public class LeaderboardActivity extends AppCompatActivity {
                     global.startMusic(LeaderboardActivity.this);
                 }
                 else{
-                    music.setBackground(getResources().getDrawable(R.drawable.ic_musicon));
+                    music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicon), null, null, null);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean("musicMute", true);
                     editor.commit();
@@ -126,7 +126,7 @@ public class LeaderboardActivity extends AppCompatActivity {
             if(!tmp.equals("")){
                 UserInfo user = new UserInfo(tmp);
                 if(user.getPhoto() == null){
-                    user.setPhoto(BitmapFactory.decodeResource(getResources(), R.drawable.camera));
+                    user.setPhoto(BitmapFactory.decodeResource(getResources(), R.drawable.generic_face));
                 }
                 userInfoList.add(user);
             }
