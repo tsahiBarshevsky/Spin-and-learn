@@ -153,7 +153,7 @@ public class LeaderboardActivity extends AppCompatActivity {
                 }
 
                 if(date1.after(date2) || date2.after(date1)){
-                    return (int)(date1.getTime() - date2.getTime());
+                    return (int)(date2.getTime() - date1.getTime());
                 }
 
                 DateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -167,7 +167,7 @@ public class LeaderboardActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                return (int)(time1.getTime() - time2.getTime());
+                return (int)(time2.getTime() - time1.getTime());
             }
         });
 
