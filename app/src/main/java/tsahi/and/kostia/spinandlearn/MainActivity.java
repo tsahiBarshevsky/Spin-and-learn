@@ -14,7 +14,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -105,8 +108,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button sound = findViewById(R.id.sound);
+        Button music = findViewById(R.id.music);
         Animation slideRight = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_right);
         Animation slideLeft  = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left);
+        LinearLayout linearLayout = findViewById(R.id.soundsButtons);
+        if (Locale.getDefault().toString().equals("iw_IL"))
+            linearLayout.startAnimation(slideLeft);
+        else
+            linearLayout.startAnimation(slideRight);
         difficulty[0].startAnimation(slideRight);
         difficulty[1].startAnimation(slideLeft);
         difficulty[2].startAnimation(slideRight);
@@ -122,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 leaderboardBtn.startAnimation(buttonAnim);
                 howToPlay.startAnimation(buttonAnim);
+                sound.startAnimation(buttonAnim);
+                music.startAnimation(buttonAnim);
             }
         }, 2000);
     }

@@ -12,7 +12,6 @@
         android:layout_height="150dp"
         android:src="@drawable/logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
         android:contentDescription="@null"/>
 
     <TextView android:id="@+id/massage"
@@ -22,7 +21,7 @@
         android:textColor="#000"
         android:textSize="20sp"
         android:layout_below="@id/logo"
-        android:layout_margin="10dp"/>
+        android:layout_margin="2dp"/>
 
     <Button android:id="@+id/easyBtn"
         android:layout_width="110dp"
@@ -86,6 +85,32 @@
         android:layout_margin="5dp"
         android:layout_below="@id/leaderboardBtn"
         android:layout_centerHorizontal="true"/>
+
+    <LinearLayout android:id="@+id/soundsButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toEndOf="@+id/howToPlayBtn"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="470dp">
+
+        <Button android:id="@+id/sound"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/button_design"
+            android:layout_margin="5dp"
+            android:drawableStart="@drawable/ic_soundoff"
+            android:padding="3dp" />
+
+        <Button android:id="@+id/music"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/button_design"
+            android:layout_margin="5dp"
+            android:drawableStart="@drawable/ic_musicoff"
+            android:padding="3dp"/>
+
+    </LinearLayout>
 
     <!--<LinearLayout
         android:layout_width="match_parent"

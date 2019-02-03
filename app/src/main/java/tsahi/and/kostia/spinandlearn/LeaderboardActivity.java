@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +26,12 @@ public class LeaderboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
+
+        Animation buttonAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
+        Button sound = findViewById(R.id.soundLed);
+        Button music = findViewById(R.id.musicLed);
+        sound.startAnimation(buttonAnim);
+        music.startAnimation(buttonAnim);
 
         global = ((GlobalVar) this.getApplication());
 
