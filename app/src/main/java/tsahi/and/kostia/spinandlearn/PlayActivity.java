@@ -63,7 +63,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     TextView mathAnswer;
     ArrayList<TextView> answer_blank;
 
-    int blankIndex;
+    int blankIndex, blankSize;
 
     float scale;
     float distanceRoulette ;
@@ -423,35 +423,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         answer_btn.setOnClickListener(new answerBtnClickListener());
 
         for(int i=0;i<12;i++){
-            pad[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String padString = ((TextView) v).getText().toString();
-                    String tmp = mathAnswer.getText().toString();
-                    if(getResources().getString(R.string.clr).equals(padString)){
-                        mathAnswer.setText("");
-                    }
-                    else if(getResources().getString(R.string.del).equals(padString)){
-                        tmp = mathAnswer.getText().toString();
-                        if(tmp.length() != 0) {
-                            tmp = tmp.substring(0, tmp.length() - 1);
-                            mathAnswer.setText(tmp);
-                        }
-                    }
-                    else if(padString.equals("0")){
-                        if(tmp.length() != 0 && tmp.length() <= 5) {
-                            tmp += padString;
-                            mathAnswer.setText(tmp);
-                        }
-                    }
-                    else {
-                        if(tmp.length() <= 5) {
-                            tmp += padString;
-                            mathAnswer.setText(tmp);
-                        }
-                    }
-                }
-            });
+            pad[i].setOnClickListener(new mathBtnClickListener());
         }
         if (Locale.getDefault().toString().equals("iw_IL")) {
             Typeface typeface = ResourcesCompat.getFont(this, R.font.dana); //here
@@ -464,6 +436,36 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         startTimer(dialogView);
     }
 
+    class mathBtnClickListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            String padString = ((TextView) v).getText().toString();
+            String tmp = mathAnswer.getText().toString();
+            if(getResources().getString(R.string.clr).equals(padString)){
+                mathAnswer.setText("");
+            }
+            else if(getResources().getString(R.string.del).equals(padString)){
+                tmp = mathAnswer.getText().toString();
+                if(tmp.length() != 0) {
+                    tmp = tmp.substring(0, tmp.length() - 1);
+                    mathAnswer.setText(tmp);
+                }
+            }
+            else if(padString.equals("0")){
+                if(tmp.length() != 0 && tmp.length() <= 5) {
+                    tmp += padString;
+                    mathAnswer.setText(tmp);
+                }
+            }
+            else {
+                if(tmp.length() <= 5) {
+                    tmp += padString;
+                    mathAnswer.setText(tmp);
+                }
+            }
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void citiesQuestion()
@@ -651,19 +653,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         }
 
         blankIndex = 0;
-        final int blankSize = answer_blank.size();
+        blankSize = answer_blank.size();
 
         for(int i=0;i<14;i++){
-            letter[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(blankIndex < blankSize){
-                        String tmp = ((TextView) v).getText().toString();
-                        answer_blank.get(blankIndex++).setText(tmp);
-                        v.setVisibility(View.INVISIBLE);
-                    }
-                }
-            });
+            letter[i].setOnClickListener(new letterBtnClickListener());
         }
 
         for(int i=0;i<blankSize;i++){
@@ -704,6 +697,18 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 letter[i].setTypeface(typeface);
         }
         startTimer(dialogView);
+    }
+
+    class letterBtnClickListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            if(blankIndex < blankSize){
+                String tmp = ((TextView) v).getText().toString();
+                answer_blank.get(blankIndex++).setText(tmp);
+                v.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
     class answerBtnClickListener implements View.OnClickListener {
@@ -1038,7 +1043,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         else if (level.equals("Hard")){
             sndLvl = getResources().getString(R.string.hard);
         }
-
+        System.out.println(bitmap);
         UserInfo score = new UserInfo(bitmap, getIntent().getStringExtra("Name"), scoreCounter, sndLvl, dateFormat.format(now), timeFormat.format(now));
         size++;
         editor.putString(size.toString(), score.toString());
@@ -1186,7 +1191,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             sound.setTitle(getResources().getString(R.string.sound_on));
         }
         if(global.isMusicMute()){
-            MenuItem music = menu.findItem(R.id.music);
+            MenuItem music = menu.findItem(R.id.action_music_toggle);
             music.setTitle(getResources().getString(R.string.music_on));
         }
         return super.onCreateOptionsMenu(menu);
