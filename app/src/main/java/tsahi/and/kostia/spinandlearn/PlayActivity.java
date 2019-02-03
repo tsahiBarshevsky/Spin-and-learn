@@ -472,6 +472,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 tmp = (int)(Math.random()*4);
             }
             btn[i].setText(answers.get(tmp));
+            if (answers.get(tmp).length() > 10){
+                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            }
             answers.set(tmp, "");
         }
 
@@ -514,6 +517,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 tmp = (int)(Math.random()*4);
             }
             btn[i].setText(answers.get(tmp));
+            if (answers.get(tmp).length() > 10){
+                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            }
             answers.set(tmp, "");
         }
 
