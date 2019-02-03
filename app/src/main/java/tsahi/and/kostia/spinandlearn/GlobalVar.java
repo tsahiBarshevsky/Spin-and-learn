@@ -62,17 +62,20 @@ public class GlobalVar extends Application {
         if(isMusicMute()){
             return;
         }
-        backgroundMusic.start();
+        if (backgroundMusic != null) {
+            backgroundMusic.start();
+        }
     }
 
     public void pauseMusic()
     {
-        if (backgroundMusic.isPlaying()) {
+        if (backgroundMusic != null && backgroundMusic.isPlaying()) {
             backgroundMusic.pause();
         }
     }
 
     public void changeMusic(int musicID, Context context){
+        if (backgroundMusic != null) {
             backgroundMusic.setLooping(false);
             backgroundMusic.stop();
             backgroundMusic.reset();
@@ -81,6 +84,6 @@ public class GlobalVar extends Application {
             backgroundMusic = MediaPlayer.create(context, musicID);
             backgroundMusic.setLooping(true);
             startMusic(context);
-
+        }
     }
 }
