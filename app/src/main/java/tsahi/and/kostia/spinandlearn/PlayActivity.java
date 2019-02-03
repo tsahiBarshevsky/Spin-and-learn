@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -568,13 +569,12 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             letterBank.set(tmp, '0');
         }
 
-        System.out.println("1");
         answer_blank = new ArrayList<>();
         final LinearLayout answer_container = dialogView.findViewById(R.id.answerLayout);
         final int question_size = question.length();
         for(int i=0;i<question_size;i++){
             TextView tmp = new TextView(dialogView.getContext());
-            tmp.setTextSize(18);
+            tmp.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
             tmp.setGravity(Gravity.CENTER);
             tmp.setBackground(getResources().getDrawable(R.drawable.words_design));
             tmp.setPadding(5,0,5,0);
@@ -799,40 +799,43 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         }, 2000);
     }
 
-    class spinWheelClickListener implements View.OnClickListener{
+    class spinWheelClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            if (blnButtonRotation) {
-                int btnId = ((Button) v).getId();
-                long ran = new Random().nextInt(360) + 3600;
-                long degrees;
-                ImageView roulette;
-                if (btnId == R.id.spinBtn) {
-                    roundsCounter++;
-                    degrees = lngDegrees;
-                    roulette = imageRoulette;
-                    lngDegrees = (degrees + (ran)) % 360;
-                    spinBtn.setEnabled(false);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (blnButtonRotation) {
+                        int btnId = ((Button) v).getId();
+                        long ran = new Random().nextInt(360) + 3600;
+                        long degrees;
+                        ImageView roulette;
+                        if (btnId == R.id.spinBtn) {
+                            roundsCounter++;
+                            degrees = lngDegrees;
+                            roulette = imageRoulette;
+                            lngDegrees = (degrees + (ran)) % 360;
+                            spinBtn.setEnabled(false);
+                        } else if (btnId == R.id.spinBonusBtn) {
+                            degrees = lngDegrees2;
+                            roulette = bonusRoulette;
+                            bonusLayout.setVisibility(View.INVISIBLE);
+                            spinBtn.setVisibility(View.VISIBLE);
+                            lngDegrees2 = (degrees + (ran)) % 360;
+                        } else {
+                            return;
+                        }
+                        RotateAnimation rotateAnimation = new RotateAnimation((float) degrees, (float)
+                                (degrees + (ran)), 1, 0.5f, 1, 0.5f);
+                        rotateAnimation.setDuration(ran);
+                        rotateAnimation.setFillAfter(true);
+                        rotateAnimation.setInterpolator(new DecelerateInterpolator());
+                        rotateAnimation.setAnimationListener(PlayActivity.this);
+                        roulette.setAnimation(rotateAnimation);
+                        roulette.startAnimation(rotateAnimation);
+                    }
                 }
-                else if (btnId == R.id.spinBonusBtn) {
-                    degrees = lngDegrees2;
-                    roulette = bonusRoulette;
-                    bonusLayout.setVisibility(View.INVISIBLE);
-                    spinBtn.setVisibility(View.VISIBLE);
-                    lngDegrees2 = (degrees + (ran)) % 360;
-                }
-                else {
-                    return;
-                }
-                RotateAnimation rotateAnimation = new RotateAnimation((float) degrees, (float)
-                        (degrees + (ran)), 1, 0.5f, 1, 0.5f);
-                rotateAnimation.setDuration(ran);
-                rotateAnimation.setFillAfter(true);
-                rotateAnimation.setInterpolator(new DecelerateInterpolator());
-                rotateAnimation.setAnimationListener(PlayActivity.this);
-                roulette.setAnimation(rotateAnimation);
-                roulette.startAnimation(rotateAnimation);
-            }
+            }, 100);
         }
     }
 
@@ -951,7 +954,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         Integer size = sharedPref.getInt("size", 0);
         UserInfo score = new UserInfo(bitmap, getIntent().getStringExtra("Name"), scoreCounter);
         size++;
-        System.out.println(score.toString());
         editor.putString(size.toString(), score.toString());
         editor.putInt("size", size);
         editor.commit();
