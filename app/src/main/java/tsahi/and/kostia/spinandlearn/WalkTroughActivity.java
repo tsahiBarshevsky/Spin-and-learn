@@ -26,7 +26,7 @@ public class WalkTroughActivity extends AppIntro {
 
     Class from;
     Boolean firstRun;
-    final int NUM_OF_SLIDES = 1;
+    final int NUM_OF_SLIDES = 11;
 
     GlobalVar global;
 
@@ -133,10 +133,80 @@ public class WalkTroughActivity extends AppIntro {
 
         page = new SliderPage();
         page.setTitle(getResources().getString(R.string.app_name));
-        page.setDescription(getResources().getString(R.string.app_name));
-        page.setImageDrawable(R.drawable.web_hi_res_512);
+        page.setDescription(getResources().getString(R.string.slide00));
+        page.setImageDrawable(R.drawable.slide00);
         page.setBgColor(Color.parseColor("#2cb42c"));
         ret[0] = page;
+
+        page = new SliderPage();
+        page.setTitle(getResources().getString(R.string.title01));
+        page.setDescription(getResources().getString(R.string.slide01));
+        page.setImageDrawable(R.drawable.slide01);
+        page.setBgColor(Color.parseColor("#2cb42c"));
+        ret[1] = page;
+
+        page = new SliderPage();
+        page.setTitle(getResources().getString(R.string.title02));
+        page.setDescription(getResources().getString(R.string.slide02));
+        page.setImageDrawable(R.drawable.slide02);
+        page.setBgColor(Color.parseColor("#2cb42c"));
+        ret[2] = page;
+
+        page = new SliderPage();
+        page.setTitle(getResources().getString(R.string.title03));
+        page.setDescription(getResources().getString(R.string.slide03));
+        page.setImageDrawable(R.drawable.slide03);
+        page.setBgColor(Color.parseColor("#2cb42c"));
+        ret[3] = page;
+
+        page = new SliderPage();
+        page.setTitle(getResources().getString(R.string.title04));
+        page.setDescription(getResources().getString(R.string.slide04));
+        page.setImageDrawable(R.drawable.slide04);
+        page.setBgColor(Color.parseColor("#2cb42c"));
+        ret[4] = page;
+
+        page = new SliderPage();
+        page.setTitle(getResources().getString(R.string.title05));
+        page.setDescription(getResources().getString(R.string.slide05));
+        page.setImageDrawable(R.drawable.slide05);
+        page.setBgColor(Color.parseColor("#2cb42c"));
+        ret[5] = page;
+
+        page = new SliderPage();
+        page.setTitle(getResources().getString(R.string.title06));
+        page.setDescription(getResources().getString(R.string.slide06));
+        page.setImageDrawable(R.drawable.slide06);
+        page.setBgColor(Color.parseColor("#2cb42c"));
+        ret[6] = page;
+
+        page = new SliderPage();
+        page.setTitle(getResources().getString(R.string.title07));
+        page.setDescription(getResources().getString(R.string.slide07));
+        page.setImageDrawable(R.drawable.slide07);
+        page.setBgColor(Color.parseColor("#2cb42c"));
+        ret[7] = page;
+
+        page = new SliderPage();
+        page.setTitle(getResources().getString(R.string.title08));
+        page.setDescription(getResources().getString(R.string.slide08));
+        page.setImageDrawable(R.drawable.slide08);
+        page.setBgColor(Color.parseColor("#2cb42c"));
+        ret[8] = page;
+
+        page = new SliderPage();
+        page.setTitle(getResources().getString(R.string.title09));
+        page.setDescription(getResources().getString(R.string.slide09));
+        page.setImageDrawable(R.drawable.slide09);
+        page.setBgColor(Color.parseColor("#2cb42c"));
+        ret[9] = page;
+
+        page = new SliderPage();
+        page.setTitle(getResources().getString(R.string.title10));
+        page.setDescription(getResources().getString(R.string.slide10));
+        page.setImageDrawable(R.drawable.slide10);
+        page.setBgColor(Color.parseColor("#2cb42c"));
+        ret[10] = page;
 
         return ret;
     }

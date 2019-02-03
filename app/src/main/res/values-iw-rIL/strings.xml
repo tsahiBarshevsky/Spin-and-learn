@@ -243,4 +243,24 @@
     <string name="music_on">הפעל מוזיקה</string>
     <string name="music_off">השתק מוזיקה</string>
     <string name="enter_name">בבקשה הכנס את שמך.</string>
+    <string name="slide00">ברוכים הבאים!</string>
+    <string name="slide01">צלמ/י סלפי או בחר/י תמונה מהגלריה והכנס/י את שמך</string>
+    <string name="slide02">בכל רמת קושי נדרש להיות מהיר/ה יותר\nקל - 60 שניות לשאלה\nבינוני - 30 שניות לשאלה\nקשה - 10 שניות לשאלה</string>
+    <string name="slide03">סובב/י את הגלגל וענה/י על השאלות הכי מהר שאפשר\nככל שתענה/י יותר מהר קח תקבל/י יותר נקודות\nקל - 10-20 נקודות\nבינוני - 20-50 נקודות\nקשה - 50-100 נקודות</string>
+    <string name="slide04">גלה/י את האותיות החסרות של המילה המוגדרת</string>
+    <string name="slide05">השלם/י את הפתגם</string>
+    <string name="slide06">ערי בירה מרחבי העולם</string>
+    <string name="slide07">בעיות חשבון פשוטות</string>
+    <string name="slide08">הפתעה!\nניקוד מוכפל פי שניים\nפסילה נוספת\nהוספה של 100 נקודות\nהורדה של 100 נקודות\nאיבוד כל הנקודות</string>
+    <string name="slide09">בסיום רמת קושי קל ובנוני תוכל/י לנסות אתגר קשה יותר\nבסיום רמה קשה תוכל/י לנסות לשבור את שיא השיאים</string>
+    <string name="slide10">בקר/י בטבלת השיאים ומצא/י את עצמך בין שחקני כל הזמנים</string>
+    <string name="title01">מסך כניסה</string>
+    <string name="title02">לוח המשחק</string>
+    <string name="title04">שאלה מסוג 1</string>
+    <string name="title05">שאלה מסוג 2</string>
+    <string name="title06">שאלה מסוג 3</string>
+    <string name="title07">שאלה מסוג 4</string>
+    <string name="title08">לוח ההפתעה</string>
+    <string name="title09">מסך סיום משחק</string>
+    <string name="title10">טבלת שיאים</string>
 </resources>
