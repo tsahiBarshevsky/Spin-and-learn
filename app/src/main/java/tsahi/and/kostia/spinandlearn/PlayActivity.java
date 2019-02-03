@@ -853,7 +853,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 if(mediaPlayer != null) {
                     mediaPlayer.setLooping(true);
                 }
-                mediaPlayer.setLooping(true);
                 if (Locale.getDefault().toString().equals("iw_IL"))
                 {
                     Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
