@@ -5,12 +5,16 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Date;
 
 public class UserInfo
 {
-    private Bitmap photo;
-    private String name;
-    private Integer score;
+    Bitmap photo;
+    String name;
+    Integer score;
+    String level;
+    String date;
+    String time;
 
     public UserInfo() {
         photo = null;
@@ -23,12 +27,18 @@ public class UserInfo
         name = new String(data[0]);
         score = Integer.parseInt(data[1]);
         photo = StringToBitMap(data[2]);
+        level = new String(data[3]);
+        date = new String(data[4]);
+        time = new String(data[5]);
     }
 
-    public UserInfo(Bitmap photo, String name, Integer score) {
+    public UserInfo(Bitmap photo, String name, Integer score, String level, String date, String time) {
         this.photo = photo;
         this.name = name;
         this.score = score;
+        this.level = level;
+        this.date = date;
+        this.time = time;
     }
 
     public Bitmap getPhoto() {
@@ -51,8 +61,16 @@ public class UserInfo
         return score;
     }
 
-    public void setScore(Integer score) {
-        this.score = score;
+    public String getLevel() {
+        return level;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getTime() {
+        return time;
     }
 
     public String BitMapToString(Bitmap bitmap) {
@@ -80,10 +98,8 @@ public class UserInfo
         return null;
     }
 
-
-
     @Override
     public String toString() {
-        return (name + ";" + score + ";" + BitMapToString(photo));
+        return name + ";" + score.toString() + ";" + BitMapToString(photo) + ";" + level + ";" + date + ";" + time;
     }
 }

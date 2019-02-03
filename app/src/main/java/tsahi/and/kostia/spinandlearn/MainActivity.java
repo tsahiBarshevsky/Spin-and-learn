@@ -112,6 +112,63 @@ public class MainActivity extends AppCompatActivity {
         });
         Button sound = findViewById(R.id.sound);
         Button music = findViewById(R.id.music);
+        if(sharedPref.getBoolean("mute", false)){
+            sound.setBackground(getResources().getDrawable(R.drawable.ic_soundoff));
+        }
+        else{
+            sound.setBackground(getResources().getDrawable(R.drawable.ic_soundon));
+        }
+        if(sharedPref.getBoolean("muteMusic", false)){
+            music.setBackground(getResources().getDrawable(R.drawable.ic_musicoff));
+        }
+        else{
+            music.setBackground(getResources().getDrawable(R.drawable.ic_musicon));
+        }
+        sound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(sharedPref.getBoolean("mute", false));
+                if(sharedPref.getBoolean("mute", false)){
+                    sound.setBackground(getResources().getDrawable(R.drawable.ic_soundoff));
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putBoolean("mute", false);
+                    editor.commit();
+                    global.setMute(false);
+                    global.startMusic(MainActivity.this);
+                }
+                else{
+                    sound.setBackground(getResources().getDrawable(R.drawable.ic_soundon));
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putBoolean("mute", true);
+                    editor.commit();
+                    global.setMute(true);
+                    global.pauseMusic();
+                }
+            }
+        });
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(sharedPref.getBoolean("musicMute", false)){
+                    music.setBackground(getResources().getDrawable(R.drawable.ic_musicoff));
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putBoolean("musicMute", false);
+                    editor.commit();
+                    global.setMusicMute(false);
+                    global.startMusic(MainActivity.this);
+                }
+                else{
+                    music.setBackground(getResources().getDrawable(R.drawable.ic_musicon));
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putBoolean("musicMute", true);
+                    editor.commit();
+                    global.setMusicMute(true);
+                    global.pauseMusic();
+                }
+            }
+        });
+
+
         Animation slideRight = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_right);
         Animation slideLeft  = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left);
         LinearLayout linearLayout = findViewById(R.id.soundsButtons);
@@ -153,10 +210,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
-        if(global.isMute()){
-            MenuItem sound = menu.findItem(R.id.action_sound_toggle);
-            sound.setTitle(getResources().getString(R.string.sound_on));
-        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -165,31 +218,6 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if(id == R.id.action_change_player){
             Intent intent = new Intent(MainActivity.this, FirstActivity.class);
-            startActivity(intent);
-        }
-        else if(id == R.id.action_sound_toggle){
-            SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            if(global.isMute()) {
-                editor.putBoolean("mute", false);
-                editor.commit();
-                global.setMute(false);
-                item.setTitle(getResources().getString(R.string.sound_off));
-                global.startMusic(this);
-            }
-            else{
-                editor.putBoolean("mute", true);
-                editor.commit();
-                global.setMute(true);
-                item.setTitle(getResources().getString(R.string.sound_on));
-                global.pauseMusic();
-            }
-        }
-        else if (id == R.id.action_how_to_play)
-        {
-            Intent intent = new Intent(MainActivity.this, WalkTroughActivity.class);
-            intent.putExtra("from", MainActivity.class);
-            intent.putExtra("Name", getIntent().getStringExtra("Name"));
             startActivity(intent);
         }
 

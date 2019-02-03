@@ -22,13 +22,16 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewHol
     public class ScoreViewHolder extends RecyclerView.ViewHolder
     {
         CircleImageView imageView;
-        TextView nameTV, scoreTV;
+        TextView nameTV, scoreTV, levelTV, dateTV, timeTV;
 
         public ScoreViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageViewCardCell);
             nameTV = itemView.findViewById(R.id.userNameCardCell);
             scoreTV = itemView.findViewById(R.id.userScoreCardCell);
+            levelTV = itemView.findViewById(R.id.userLevelCardCell);
+            dateTV = itemView.findViewById(R.id.userDateCardCell);
+            timeTV = itemView.findViewById(R.id.userTimeCardCell);
         }
     }
 
@@ -46,6 +49,9 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewHol
         holder.nameTV.setText(userInfo.getName());
         holder.scoreTV.setText(String.valueOf(userInfo.getScore()));
         holder.imageView.setImageBitmap(userInfo.getPhoto());
+        holder.levelTV.setText(userInfo.getLevel());
+        holder.dateTV.setText(userInfo.getDate());
+        holder.timeTV.setText(userInfo.getTime());
     }
 
     @Override

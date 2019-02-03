@@ -31,7 +31,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Timer;
@@ -41,7 +45,7 @@ import static java.lang.Math.floor;
 
 public class PlayActivity extends AppCompatActivity implements Animation.AnimationListener{
 
-    int NUM_OF_ROUNDS = 1;
+    int NUM_OF_ROUNDS = 10;
 
     int roundsCounter = 1, scoreCounter = 0, scoreToAdd, scoreRange;
     boolean blnButtonRotation = true, bonus, isFirstImage = true;
@@ -186,7 +190,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             blnButtonRotation = true;
             if(pos != 2) {
                 playSound(R.raw.clock);
-                mediaPlayer.setLooping(true);
+                if(mediaPlayer != null) {
+                    mediaPlayer.setLooping(true);
+                }
             }
             switch (pos)
             {
@@ -860,6 +866,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 leaveBtn.startAnimation(animation);
                 spinBtn.setEnabled(false);
                 playSound(R.raw.viva_las_vegas);
+                if(mediaPlayer != null) {
+                    mediaPlayer.setLooping(true);
+                }
                 mediaPlayer.setLooping(true);
                 if (Locale.getDefault().toString().equals("iw_IL"))
                 {
@@ -1034,7 +1043,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         SharedPreferences sharedPref = this.getSharedPreferences("gameData", this.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         Integer size = sharedPref.getInt("size", 0);
-        UserInfo score = new UserInfo(bitmap, getIntent().getStringExtra("Name"), scoreCounter);
+        playSound(R.raw.end_game_sound);
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        Date now = Calendar.getInstance().getTime();
+
+        UserInfo score = new UserInfo(bitmap, getIntent().getStringExtra("Name"), scoreCounter, level, dateFormat.format(now), timeFormat.format(now));
         size++;
         editor.putString(size.toString(), score.toString());
         editor.putInt("size", size);
@@ -1091,7 +1106,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         stopSound();
                         global.startMusic(PlayActivity.this);
                     }
-                }, 3000);
+                }, 2000);
 
                 if (buttons.getId() == R.id.easy_and_med_panel) {
                     nextLevel = dialogView.findViewById(R.id.nextLevel);
@@ -1146,7 +1161,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         nextLevel.setTypeface(typeface);
                 }
                 dialog = builder.show();
-                playSound(R.raw.end_game_sound);
+
             }
         }, 2000);
 
@@ -1160,8 +1175,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     View dialogView = getLayoutInflater().inflate(R.layout.high_score_dialog, null);
                     builder.setView(dialogView).setCancelable(false);
                     dialog = builder.show();
-                    mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.yahoo);
-                    mediaPlayer.start();
+                    playSound(R.raw.yahoo);
                     Handler handler1 = new Handler();
                     handler1.postDelayed(new Runnable() {
                         @Override
@@ -1176,10 +1190,14 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
+        getMenuInflater().inflate(R.menu.in_game_menu,menu);
         if(global.isMute()){
             MenuItem sound = menu.findItem(R.id.action_sound_toggle);
             sound.setTitle(getResources().getString(R.string.sound_on));
+        }
+        if(global.isMusicMute()){
+            MenuItem music = menu.findItem(R.id.music);
+            music.setTitle(getResources().getString(R.string.music_on));
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -1221,6 +1239,24 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 editor.commit();
                 global.setMute(true);
                 item.setTitle(getResources().getString(R.string.sound_on));
+                global.pauseMusic();
+            }
+        }
+        else if(id == R.id.action_music_toggle) {
+            SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            if(global.isMusicMute()) {
+                editor.putBoolean("musicMute", false);
+                editor.commit();
+                global.setMusicMute(false);
+                item.setTitle(getResources().getString(R.string.music_off));
+                global.startMusic(this);
+            }
+            else{
+                editor.putBoolean("musicMute", true);
+                editor.commit();
+                global.setMusicMute(true);
+                item.setTitle(getResources().getString(R.string.music_on));
                 global.pauseMusic();
             }
         }

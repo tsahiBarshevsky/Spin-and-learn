@@ -10,6 +10,7 @@ public class GlobalVar extends Application {
 
     boolean AppPaused;
     boolean mute;
+    boolean musicMute;
     MediaPlayer backgroundMusic;
 
     public GlobalVar(){
@@ -32,6 +33,14 @@ public class GlobalVar extends Application {
         this.mute = mute;
     }
 
+    public boolean isMusicMute() {
+        return musicMute;
+    }
+
+    public void setMusicMute(boolean musicMute) {
+        this.musicMute = musicMute;
+    }
+
     public void initPlayer(Context context){
         backgroundMusic = new MediaPlayer();
         backgroundMusic = MediaPlayer.create(context, R.raw.background_music);
@@ -47,6 +56,10 @@ public class GlobalVar extends Application {
         SharedPreferences sharedPref = context.getSharedPreferences("sound", this.MODE_PRIVATE);
         setMute(sharedPref.getBoolean("mute", false));
         if(isMute()){
+            return;
+        }
+        setMusicMute(sharedPref.getBoolean("musicMute", false));
+        if(isMusicMute()){
             return;
         }
         backgroundMusic.start();
