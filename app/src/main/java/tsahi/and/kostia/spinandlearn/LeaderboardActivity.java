@@ -77,11 +77,13 @@ public class LeaderboardActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         global.setAppPaused(true);
+        global.pauseMusic();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         global.setAppPaused(false);
+        global.startMusic(this);
     }
 }

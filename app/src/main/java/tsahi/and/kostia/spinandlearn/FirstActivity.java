@@ -49,8 +49,8 @@ public class FirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         global = ((GlobalVar) this.getApplication());
-
         global.setAppPaused(false);
+        global.initPlayer(this);
 
         sharedPref = this.getSharedPreferences("firstRun", this.MODE_PRIVATE);
         int firstRun = sharedPref.getInt("firstRun", 0);
@@ -344,11 +344,13 @@ public class FirstActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         global.setAppPaused(true);
+        global.pauseMusic();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         global.setAppPaused(false);
+        global.startMusic(this);
     }
 }

@@ -149,12 +149,16 @@ public class MainActivity extends AppCompatActivity {
             if(global.isMute()) {
                 editor.putBoolean("mute", false);
                 editor.commit();
+                global.setMute(false);
                 item.setTitle(getResources().getString(R.string.sound_off));
+                global.startMusic(this);
             }
             else{
                 editor.putBoolean("mute", true);
                 editor.commit();
+                global.setMute(true);
                 item.setTitle(getResources().getString(R.string.sound_on));
+                global.pauseMusic();
             }
         }
         else if (id == R.id.action_how_to_play)
@@ -201,11 +205,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         global.setAppPaused(true);
+        global.pauseMusic();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         global.setAppPaused(false);
+        global.startMusic(this);
     }
 }
