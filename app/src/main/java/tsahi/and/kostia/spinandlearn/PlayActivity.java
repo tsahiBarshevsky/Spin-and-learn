@@ -484,7 +484,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }
             btn[i].setText(answers.get(tmp));
             if (answers.get(tmp).length() > 10){
-                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
             }
             answers.set(tmp, "");
         }
@@ -529,7 +529,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }
             btn[i].setText(answers.get(tmp));
             if (answers.get(tmp).length() > 10){
-                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
             }
             answers.set(tmp, "");
         }
@@ -746,8 +746,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                                     @Override
                                     public void run() {
                                         dialog.dismiss();
+                                        stopSound();
+                                        global.startMusic(PlayActivity.this);
                                     }
                                 }, 1500);
+                                stopSound();
                                 playSound(R.raw.out_of_time);
                                 if(roundsCounter <= NUM_OF_ROUNDS) {
                                     round.setText(getString(R.string.round) + " " + roundsCounter);
@@ -808,10 +811,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 leaveBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(mediaPlayer != null && mediaPlayer.isPlaying()){
-                            mediaPlayer.stop();
-                            mediaPlayer.setLooping(false);
-                        }
+                        stopSound();
+                        global.startMusic(PlayActivity.this);
                         bonusLayout.setVisibility(View.INVISIBLE);
                         spinBtn.setVisibility(View.VISIBLE);
                         spinBtn.startAnimation(animation);
@@ -863,10 +864,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         rotateAnimation.setAnimationListener(PlayActivity.this);
                         roulette.setAnimation(rotateAnimation);
                         roulette.startAnimation(rotateAnimation);
-                        if(mediaPlayer != null && mediaPlayer.isPlaying()){
-                            mediaPlayer.stop();
-                            mediaPlayer.setLooping(false);
-                        }
+                        stopSound();
                         global.pauseMusic();
                         playSound(R.raw.tic_tic_tic);
                     }
@@ -1031,13 +1029,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     @Override
                     public void run() {
                         buttons.setVisibility(View.VISIBLE);
-                        if (mediaPlayer.isPlaying()) {
-                            mediaPlayer.stop();
-                            mediaPlayer.setLooping(false);
-                        }
+                        stopSound();
                         global.startMusic(PlayActivity.this);
                     }
-                }, 2000);
+                }, 3000);
                 Button playAgain = dialogView.findViewById(R.id.playAgainHard);
                 Button mainMenu = dialogView.findViewById(R.id.mainMenuHard);
                 Button nextLevel = null;
@@ -1088,8 +1083,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 });
 
                 dialog = builder.show();
-                mediaPlayer = MediaPlayer.create(PlayActivity.this, R.raw.end_game_sound);
-                mediaPlayer.start();
+                playSound(R.raw.end_game_sound);
             }
         }, 2000);
 
