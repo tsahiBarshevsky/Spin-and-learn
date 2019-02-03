@@ -55,45 +55,39 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button easyBtn = findViewById(R.id.easyBtn);
-        easyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PlayActivity.class);
-                intent.putExtra("Level", "Easy");
-                intent.putExtra("Name", userName);
-                Bundle extras = new Bundle();
-                extras.putParcelable("user_pic", bitmap);
-                intent.putExtras(extras);
-                startActivity(intent);
-            }
-        });
-        Button mediumBtn = findViewById(R.id.mediumBtn);
-        mediumBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PlayActivity.class);
-                intent.putExtra("Level", "Medium");
-                intent.putExtra("Name", userName);
-                Bundle extras = new Bundle();
-                extras.putParcelable("user_pic", bitmap);
-                intent.putExtras(extras);
-                startActivity(intent);
-            }
-        });
-        Button hardBtn = findViewById(R.id.hardBtn);
-        hardBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PlayActivity.class);
-                intent.putExtra("Level", "Hard");
-                intent.putExtra("Name", userName);
-                Bundle extras = new Bundle();
-                extras.putParcelable("user_pic", bitmap);
-                intent.putExtras(extras);
-                startActivity(intent);
-            }
-        });
+
+        Button difficulty[] = {
+                findViewById(R.id.easyBtn),
+                findViewById(R.id.mediumBtn),
+                findViewById(R.id.hardBtn)
+        };
+
+        for(int i=0;i<3;i++){
+            difficulty[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String diff = "";
+                    if((v).getId() == R.id.easyBtn){
+                        diff = "Easy";
+                    }
+                    else if((v).getId() == R.id.mediumBtn){
+                        diff = "Medium";
+                    }
+                    else if((v).getId() == R.id.hardBtn){
+                        diff = "Hard";
+                    }
+
+                    Intent intent = new Intent(MainActivity.this, PlayActivity.class);
+                    intent.putExtra("Level", diff);
+                    intent.putExtra("Name", userName);
+                    Bundle extras = new Bundle();
+                    extras.putParcelable("user_pic", bitmap);
+                    intent.putExtras(extras);
+                    startActivity(intent);
+                }
+            });
+        }
+
         Button leaderboardBtn = findViewById(R.id.leaderboardBtn);
         leaderboardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,39 +99,23 @@ public class MainActivity extends AppCompatActivity {
         });
         Animation slideRight = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_right);
         Animation slideLeft  = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left);
-        easyBtn.startAnimation(slideRight);
-        mediumBtn.startAnimation(slideLeft);
-        hardBtn.startAnimation(slideRight);
+        for(int i=0;i<3;i++) {
+            difficulty[i].startAnimation(slideLeft);
+        }
         leaderboardBtn.startAnimation(slideLeft);
         howToPlay.startAnimation(slideRight);
-        /*Thread thread = new Thread()
-        {
-            public void run()
-            {
 
-            }
-        };
-        thread.start();*/
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 Animation buttonAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
-                easyBtn.startAnimation(buttonAnim);
-                mediumBtn.startAnimation(buttonAnim);
-                hardBtn.startAnimation(buttonAnim);
+                for(int i=0;i<3;i++) {
+                    difficulty[i].startAnimation(buttonAnim);
+                }
                 leaderboardBtn.startAnimation(buttonAnim);
                 howToPlay.startAnimation(buttonAnim);
             }
         }, 2000);
-        /*Button playBtn = findViewById(R.id.playBtn);
-        playBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LevelActivity.class);
-                intent.putExtra("Name", userName);
-                startActivity(intent);
-            }
-        });*/
     }
 
     @Override

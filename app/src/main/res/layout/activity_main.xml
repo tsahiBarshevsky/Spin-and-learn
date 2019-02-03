@@ -63,7 +63,7 @@
         android:gravity="center"
         android:text="@string/leaderbaord"
         android:textAllCaps="false"
-        android:background="@drawable/word_design_answer"
+        android:background="@drawable/secondary_button_design"
         android:layout_margin="5dp"
         android:layout_below="@id/hardBtn"
         android:layout_centerHorizontal="true"/>
@@ -74,7 +74,7 @@
         android:gravity="center"
         android:text="@string/how_to_play"
         android:textAllCaps="false"
-        android:background="@drawable/button_design"
+        android:background="@drawable/secondary_button_design"
         android:layout_margin="5dp"
         android:layout_below="@id/leaderboardBtn"
         android:layout_centerHorizontal="true"/>

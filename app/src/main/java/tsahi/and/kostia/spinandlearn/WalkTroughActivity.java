@@ -110,12 +110,10 @@ public class WalkTroughActivity extends AppIntro {
 
         page = new SliderPage();
         page.setTitle(getResources().getString(R.string.app_name));
-        page.setDescription(getResources().getString(R.string.japan));
+        page.setDescription(getResources().getString(R.string.app_name));
         page.setImageDrawable(R.drawable.web_hi_res_512);
         page.setBgColor(Color.parseColor("#2cb42c"));
         ret[0] = page;
-
-
 
         return ret;
     }
