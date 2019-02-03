@@ -33,6 +33,27 @@
             android:src="@drawable/heart"
             android:layout_margin="2dp"/>
 
+        <ImageView android:id="@+id/heart4"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/heart"
+            android:visibility="invisible"
+            android:layout_margin="2dp"/>
+
+        <ImageView android:id="@+id/heart5"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/heart"
+            android:visibility="invisible"
+            android:layout_margin="2dp"/>
+
+        <ImageView android:id="@+id/heart6"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/heart"
+            android:visibility="invisible"
+            android:layout_margin="2dp"/>
+
     </LinearLayout>
 
     <LinearLayout

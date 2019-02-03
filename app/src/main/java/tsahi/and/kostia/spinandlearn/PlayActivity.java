@@ -52,7 +52,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     int intNumber = 10;
     long lngDegrees = 0, lngDegrees2 = 0, timeLeftInMillis, temp;
     ExercisesContainer exercisesContainer;
-    ImageView imageRoulette, bonusRoulette, heart1, heart2, heart3;
+    ImageView imageRoulette, bonusRoulette;
     TextView round, score;
     CountDownTimer countDownTimer;
     String level, type;
@@ -78,6 +78,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     LinearLayout bonusLayout;
 
     GlobalVar global;
+
+    ImageView[] hearts = new ImageView[6];
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -133,14 +135,16 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 dialog.dismiss();
             }
         }, 3000);
-        heart1 = findViewById(R.id.heart1);
-        heart2 = findViewById(R.id.heart2);
-        heart3 = findViewById(R.id.heart3);
+
         animation = AnimationUtils.loadAnimation(getApplicationContext() ,R.anim.button_anim);
-        /*heart1.startAnimation(animation);
-        heart2.startAnimation(animation);
-        heart3.startAnimation(animation);*/
-        strikes = 0;
+        hearts[0] = findViewById(R.id.heart1);
+        hearts[1] = findViewById(R.id.heart2);
+        hearts[2] = findViewById(R.id.heart3);
+        hearts[3] = findViewById(R.id.heart4);
+        hearts[4] = findViewById(R.id.heart5);
+        hearts[5] = findViewById(R.id.heart6);
+
+        strikes = 3;
         imageRoulette = findViewById(R.id.ImageView01);
         bonusRoulette = findViewById(R.id.ImageView02);
         bonusRoulette.setVisibility(View.INVISIBLE);
@@ -157,9 +161,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         spinBtn.setOnClickListener(new spinWheelClickListener());
         Thread animations = new Thread(){
             public void run(){
-                heart1.startAnimation(animation);
-                heart2.startAnimation(animation);
-                heart3.startAnimation(animation);
+                for(int i=0;i<3;i++){
+                    hearts[i].setAnimation(animation);
+                }
                 spinBtn.startAnimation(animation);
             }
         };
@@ -256,22 +260,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     endBonus(1);
                     break;
                 case 2:
-                    strikes--;
-                    switch (strikes)
-                    {
-                        case 3:
-                            heart1.startAnimation(animation);
-                            heart1.setVisibility(View.VISIBLE);
-                            break;
-                        case 2:
-                            heart2.startAnimation(animation);
-                            heart2.setVisibility(View.VISIBLE);
-                            break;
-                        case 1:
-                            heart3.startAnimation(animation);
-                            heart3.setVisibility(View.VISIBLE);
-                            break;
-                    }
+                    strikes++;
+                    heartsInvalidate();
                     endBonus(2);
                     break;
                 case 3:
@@ -743,22 +733,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     scoreCounter += calcScore();
                 } else {
                     wrongAnswer();
-                    strikes++;
-                    switch (strikes)
-                    {
-                        case 3:
-                            heart1.clearAnimation();
-                            heart1.setVisibility(View.INVISIBLE);
-                            break;
-                        case 2:
-                            heart2.clearAnimation();
-                            heart2.setVisibility(View.INVISIBLE);
-                            break;
-                        case 1:
-                            heart3.clearAnimation();
-                            heart3.setVisibility(View.INVISIBLE);
-                            break;
-                    }
+                    strikes--;
+                    heartsInvalidate();
                 }
 
                 dialog.dismiss();
@@ -769,7 +745,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     round.setText(getString(R.string.round) + " " + roundsCounter);
                 }
                 score.setText(getString(R.string.score) + " " + scoreCounter);
-                if (roundsCounter > NUM_OF_ROUNDS || strikes >= 3) {
+                if (roundsCounter > NUM_OF_ROUNDS || strikes == 0) {
                     endGame();
                 }
             }
@@ -807,23 +783,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                                     round.setText(getString(R.string.round) + " " + roundsCounter);
                                 }
                                 score.setText(getString(R.string.score) + " " + scoreCounter);
-                                strikes++;
-                                switch (strikes)
-                                {
-                                    case 3:
-                                        heart1.clearAnimation();
-                                        heart1.setVisibility(View.INVISIBLE);
-                                        break;
-                                    case 2:
-                                        heart2.clearAnimation();
-                                        heart2.setVisibility(View.INVISIBLE);
-                                        break;
-                                    case 1:
-                                        heart3.clearAnimation();
-                                        heart3.setVisibility(View.INVISIBLE);
-                                        break;
-                                }
-                                if (roundsCounter > NUM_OF_ROUNDS || strikes >= 3) {
+                                strikes--;
+                                heartsInvalidate();
+                                if (roundsCounter > NUM_OF_ROUNDS || strikes == 0) {
                                     endGame();
                                 }
 
@@ -1059,7 +1021,18 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
         Date now = Calendar.getInstance().getTime();
 
-        UserInfo score = new UserInfo(bitmap, getIntent().getStringExtra("Name"), scoreCounter, level, dateFormat.format(now), timeFormat.format(now));
+        String sndLvl = "";
+        if (level.equals("Easy")){
+            sndLvl = getResources().getString(R.string.easy);
+        }
+        else if (level.equals("Medium")){
+            sndLvl = getResources().getString(R.string.medium);
+        }
+        else if (level.equals("Hard")){
+            sndLvl = getResources().getString(R.string.hard);
+        }
+
+        UserInfo score = new UserInfo(bitmap, getIntent().getStringExtra("Name"), scoreCounter, sndLvl, dateFormat.format(now), timeFormat.format(now));
         size++;
         editor.putString(size.toString(), score.toString());
         editor.putInt("size", size);
@@ -1076,7 +1049,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 Button playAgain = null;
                 Button mainMenu = null;
                 Button nextLevel = null;
-                if (strikes >= 3) {
+                if (strikes == 0) {
                     dialogView = getLayoutInflater().inflate(R.layout.end_game_by_strikes_dialog, null);
                     buttons = dialogView.findViewById(R.id.endGameButtons);
                     playAgain = dialogView.findViewById(R.id.playAgain);
@@ -1317,6 +1290,22 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             mediaPlayer.reset();
             mediaPlayer.release();
             mediaPlayer = null;
+        }
+    }
+
+    void heartsInvalidate(){
+        if(strikes > 6){
+            strikes = 6;
+        }
+
+        int i = 0;
+        for(;i<strikes;i++){
+            hearts[i].setVisibility(View.VISIBLE);
+            hearts[i].setAnimation(animation);
+        }
+        for(;i<6;i++){
+            hearts[i].setVisibility(View.INVISIBLE);
+            hearts[i].clearAnimation();
         }
     }
 

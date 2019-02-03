@@ -73,7 +73,6 @@ public class GlobalVar extends Application {
     }
 
     public void changeMusic(int musicID, Context context){
-            System.out.println("change");
             backgroundMusic.setLooping(false);
             backgroundMusic.stop();
             backgroundMusic.reset();

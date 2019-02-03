@@ -61,7 +61,6 @@ public class LeaderboardActivity extends AppCompatActivity {
         sound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(sharedPref.getBoolean("mute", false));
                 if(sharedPref.getBoolean("mute", false)){
                     sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundoff), null, null, null);
                     SharedPreferences.Editor editor = sharedPref.edit();
