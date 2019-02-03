@@ -4,12 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.TransitionDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -32,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,7 +45,7 @@ import static java.lang.Math.floor;
 
 public class PlayActivity extends AppCompatActivity implements Animation.AnimationListener{
 
-    int NUM_OF_ROUNDS = 10;
+    int NUM_OF_ROUNDS = 1;
 
     int roundsCounter = 1, scoreCounter = 0, scoreToAdd, scoreRange;
     boolean blnButtonRotation = true, bonus, isFirstImage = true;
@@ -84,8 +89,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         global.setAppPaused(false);
         SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
         global.setMute(sharedPref.getBoolean("mute", false));
-
-
 
         Bundle extras = getIntent().getExtras();
         if (extras != null)
@@ -161,6 +164,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }
         };
         animations.start();
+        if (Locale.getDefault().toString().equals("iw_IL"))
+        {
+            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            round.setTypeface(typeface);
+            score.setTypeface(typeface);
+            spinBtn.setTypeface(typeface);
+        }
         //spinBtn.startAnimation(animation);
     }
 
@@ -502,7 +512,15 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         for(int i=0;i<4;i++){
             btn[i].setOnClickListener(new answerBtnClickListener());
         }
-
+        if (Locale.getDefault().toString().equals("iw_IL"))
+        {
+            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            TextView timeCities = dialogView.findViewById(R.id.timeCities);
+            timeCities.setTypeface(typeface);
+            question.setTypeface(typeface);
+            for (int i=0;i<4;i++)
+                btn[i].setTypeface(typeface);
+        }
         startTimer(dialogView);
     }
 
@@ -547,7 +565,15 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         for(int i=0;i<4;i++){
             btn[i].setOnClickListener(new answerBtnClickListener());
         }
-
+        if (Locale.getDefault().toString().equals("iw_IL"))
+        {
+            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            TextView timeCities = dialogView.findViewById(R.id.timeCities);
+            timeCities.setTypeface(typeface);
+            question.setTypeface(typeface);
+            for (int i=0;i<4;i++)
+                btn[i].setTypeface(typeface);
+        }
         startTimer(dialogView);
     }
 
@@ -661,7 +687,15 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
         Button ans_btn = dialogView.findViewById(R.id.wordAnswerBtn);
         ans_btn.setOnClickListener(new answerBtnClickListener());
-
+        if (Locale.getDefault().toString().equals("iw_IL")) {
+            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            TextView timeComplete = dialogView.findViewById(R.id.timeComplete);
+            timeComplete.setTypeface(typeface);
+            definition.setTypeface(typeface);
+            ans_btn.setTypeface(typeface);
+            for (int i=0;i<14;i++)
+                letter[i].setTypeface(typeface);
+        }
         startTimer(dialogView);
     }
 
@@ -834,6 +868,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 playSound(R.raw.viva_las_vegas);
                 if(mediaPlayer != null) {
                     mediaPlayer.setLooping(true);
+                }
+                mediaPlayer.setLooping(true);
+                if (Locale.getDefault().toString().equals("iw_IL"))
+                {
+                    Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
+                    spinBonusBtn.setTypeface(typeface);
+                    leaveBtn.setTypeface(typeface);
                 }
             }
         }, 2000);
@@ -1025,15 +1066,24 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 Button playAgain = null;
                 Button mainMenu = null;
                 Button nextLevel = null;
-                if (strikes > 3) {
+                if (strikes >= 3) {
                     dialogView = getLayoutInflater().inflate(R.layout.end_game_by_strikes_dialog, null);
                     buttons = dialogView.findViewById(R.id.endGameButtons);
-                    playAgain = dialogView.findViewById(R.id.playAgainHard);
-                    mainMenu = dialogView.findViewById(R.id.mainMenuHard);
+                    playAgain = dialogView.findViewById(R.id.playAgain);
+                    mainMenu = dialogView.findViewById(R.id.mainMenu);
                     textView = dialogView.findViewById(R.id.score_strikes);
+                    if (Locale.getDefault().toString().equals("iw_IL")) {
+                        Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
+                        textView.setTypeface(typeface);
+                    }
                 } else {
                     dialogView = getLayoutInflater().inflate(R.layout.game_over_by_victory_dialog, null);
                     textView = dialogView.findViewById(R.id.score_vic);
+                    if (Locale.getDefault().toString().equals("iw_IL"))
+                    {
+                        Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
+                        textView.setTypeface(typeface);
+                    }
                     if (level.equals("Easy") || level.equals("Medium")) {
                         buttons = dialogView.findViewById(R.id.easy_and_med_panel);
                         playAgain = dialogView.findViewById(R.id.playAgain);
@@ -1103,7 +1153,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         startActivity(intent);
                     }
                 });
-
+                if (Locale.getDefault().toString().equals("iw_IL")) {
+                    Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
+                    playAgain.setTypeface(typeface);
+                    mainMenu.setTypeface(typeface);
+                    if (nextLevel != null)
+                        nextLevel.setTypeface(typeface);
+                }
                 dialog = builder.show();
 
             }

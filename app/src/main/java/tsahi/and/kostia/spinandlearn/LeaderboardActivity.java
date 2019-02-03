@@ -3,7 +3,11 @@ package tsahi.and.kostia.spinandlearn;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +15,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -18,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Locale;
 import java.util.Date;
 
 public class LeaderboardActivity extends AppCompatActivity {
@@ -27,6 +33,7 @@ public class LeaderboardActivity extends AppCompatActivity {
 
     GlobalVar global;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +101,11 @@ public class LeaderboardActivity extends AppCompatActivity {
         });
         sound.startAnimation(buttonAnim);
         music.startAnimation(buttonAnim);
-
+        if (Locale.getDefault().toString().equals("iw_IL")) {
+            TextView champions = findViewById(R.id.champions);
+            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            champions.setTypeface(typeface);
+        }
         global = ((GlobalVar) this.getApplication());
 
         global.setAppPaused(false);

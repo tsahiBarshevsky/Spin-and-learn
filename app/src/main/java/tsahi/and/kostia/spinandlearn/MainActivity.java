@@ -3,8 +3,10 @@ package tsahi.and.kostia.spinandlearn;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -193,6 +195,16 @@ public class MainActivity extends AppCompatActivity {
                 music.startAnimation(buttonAnim);
             }
         }, 2000);
+        if (Locale.getDefault().toString().equals("iw_IL"))
+        {
+            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            massage.setTypeface(typeface);
+            difficulty[0].setTypeface(typeface);
+            difficulty[1].setTypeface(typeface);
+            difficulty[2].setTypeface(typeface);
+            leaderboardBtn.setTypeface(typeface);
+            howToPlay.setTypeface(typeface);
+        }
     }
 
     @Override
