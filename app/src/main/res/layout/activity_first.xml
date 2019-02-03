@@ -73,7 +73,8 @@
                 android:textAllCaps="false"
                 android:layout_margin="15dp"
                 android:background="@drawable/button_design"
-                android:fontFamily="@font/stephia"/>
+                android:fontFamily="@font/stephia"
+                android:enabled="false"/>
 
             <Button android:id="@+id/exit"
                 android:layout_width="110dp"
@@ -85,7 +86,8 @@
                 android:textAllCaps="false"
                 android:layout_margin="15dp"
                 android:background="@drawable/button_design"
-                android:fontFamily="@font/stephia"/>
+                android:fontFamily="@font/stephia"
+                android:enabled="false"/>
 
         </LinearLayout>
 

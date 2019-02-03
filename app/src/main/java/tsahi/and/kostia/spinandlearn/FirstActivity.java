@@ -135,8 +135,10 @@ public class FirstActivity extends AppCompatActivity {
                                 Animation buttonAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
                                 enterBtn.startAnimation(buttonAnim);
                                 exitBtn.startAnimation(buttonAnim);
+                                enterBtn.setEnabled(true);
+                                exitBtn.setEnabled(true);
                             }
-                        }, 1700);
+                        }, 1450);
                     }
                 }, 3000);
             }
