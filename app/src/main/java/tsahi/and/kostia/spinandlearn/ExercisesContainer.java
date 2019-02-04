@@ -7,7 +7,6 @@ import java.util.Collections;
 
 public class ExercisesContainer
 {
-    ArrayList<MathExercise> mathExercises;
     ArrayList<CitiesExercise> citiesExercises;
     ArrayList<WordExercise> wordExercises;
     ArrayList<SentenceExercise> sentenceExercises;

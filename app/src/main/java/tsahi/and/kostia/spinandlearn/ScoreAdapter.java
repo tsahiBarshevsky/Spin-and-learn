@@ -40,15 +40,20 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewHol
             dateTV = itemView.findViewById(R.id.userDateCardCell);
             timeTV = itemView.findViewById(R.id.userTimeCardCell);
 
+            Typeface typeface = ResourcesCompat.getFont(context, R.font.stephia);;
             if (Locale.getDefault().toString().equals("iw_IL"))
             {
-               Typeface typeface = ResourcesCompat.getFont(context, R.font.dana);
+                typeface = ResourcesCompat.getFont(context, R.font.dana);
+            }
+            else if(Locale.getDefault().toString().equals("ru_RU")){
+                typeface = ResourcesCompat.getFont(context, R.font.wagnasty);
+            }
                 nameTV.setTypeface(typeface);
                 scoreTV.setTypeface(typeface);
                 levelTV.setTypeface(typeface);
                 dateTV.setTypeface(typeface);
                 timeTV.setTypeface(typeface);
-            }
+
         }
     }
 

@@ -213,16 +213,21 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 1550);
 
+        Typeface typeface = ResourcesCompat.getFont(MainActivity.this, R.font.stephia);;
         if (Locale.getDefault().toString().equals("iw_IL"))
         {
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            typeface = ResourcesCompat.getFont(MainActivity.this, R.font.dana);
+        }
+        else if(Locale.getDefault().toString().equals("ru_RU")){
+            typeface = ResourcesCompat.getFont(MainActivity.this, R.font.wagnasty);
+        }
             massage.setTypeface(typeface);
             difficulty[0].setTypeface(typeface);
             difficulty[1].setTypeface(typeface);
             difficulty[2].setTypeface(typeface);
             leaderboardBtn.setTypeface(typeface);
             howToPlay.setTypeface(typeface);
-        }
+
     }
 
     @Override
@@ -268,13 +273,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 dialog.dismiss();
             }});
-        if (Locale.getDefault().toString().equals("iw_IL")) {
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+        Typeface typeface = ResourcesCompat.getFont(MainActivity.this, R.font.stephia);;
+        if (Locale.getDefault().toString().equals("iw_IL"))
+        {
+            typeface = ResourcesCompat.getFont(MainActivity.this, R.font.dana);
+        }
+        else if(Locale.getDefault().toString().equals("ru_RU")){
+            typeface = ResourcesCompat.getFont(MainActivity.this, R.font.wagnasty);
+        }
             TextView textView = dialogView.findViewById(R.id.space);
             textView.setTypeface(typeface);
             okBtn.setTypeface(typeface);
             cancelBtn.setTypeface(typeface);
-        }
+
     }
 
     @Override

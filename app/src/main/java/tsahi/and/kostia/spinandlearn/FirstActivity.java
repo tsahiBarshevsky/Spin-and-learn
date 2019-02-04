@@ -93,15 +93,24 @@ public class FirstActivity extends AppCompatActivity {
         logo.startAnimation(slideRight);
         logo.animate().rotationY(360).setDuration(2500);
         final ImageView man = findViewById(R.id.man);
-        if (Locale.getDefault().toString().equals("iw_IL")) {//hebrew
-            man.startAnimation(slideRight);
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.stephia);;
+        if (Locale.getDefault().toString().equals("iw_IL"))
+        {
+            typeface = ResourcesCompat.getFont(this, R.font.dana);
+            man.setAnimation(slideLeft);
+        }
+        else if(Locale.getDefault().toString().equals("ru_RU")){
+            typeface = ResourcesCompat.getFont(this, R.font.wagnasty);
+            man.setAnimation(slideRight);
+        }
+        else {
+            man.setAnimation(slideRight);
+        }
             name.setTypeface(typeface);
             enterBtn.setTypeface(typeface);
             exitBtn.setTypeface(typeface);
-        }
-        else
-            man.startAnimation(slideLeft);
+
+
         Handler speechHandler = new Handler();
         speechHandler.postDelayed(new Runnable() {
             @Override
@@ -193,13 +202,19 @@ public class FirstActivity extends AppCompatActivity {
                 Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
                 okBtn.startAnimation(animation);
                 cancelBtn.startAnimation(animation);
-                if (Locale.getDefault().toString().equals("iw_IL")) {
-                    Typeface typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.dana);
+                Typeface typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.stephia);;
+                if (Locale.getDefault().toString().equals("iw_IL"))
+                {
+                    typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.dana);
+                }
+                else if(Locale.getDefault().toString().equals("ru_RU")){
+                    typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.wagnasty);
+                }
                     TextView textView = dialogView.findViewById(R.id.space);
                     textView.setTypeface(typeface);
                     okBtn.setTypeface(typeface);
                     cancelBtn.setTypeface(typeface);
-                }
+
             }
         });
         //registerForContextMenu(userImage);
@@ -364,13 +379,19 @@ public class FirstActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 dialog.dismiss();
             }});
-        if (Locale.getDefault().toString().equals("iw_IL")) {
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+        Typeface typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.stephia);;
+        if (Locale.getDefault().toString().equals("iw_IL"))
+        {
+            typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.dana);
+        }
+        else if(Locale.getDefault().toString().equals("ru_RU")){
+            typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.wagnasty);
+        }
             TextView textView = dialogView.findViewById(R.id.space);
             textView.setTypeface(typeface);
             okBtn.setTypeface(typeface);
             cancelBtn.setTypeface(typeface);
-        }
+
 
     }
 

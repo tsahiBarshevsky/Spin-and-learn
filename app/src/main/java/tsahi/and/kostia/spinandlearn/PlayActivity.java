@@ -20,7 +20,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
@@ -177,13 +176,17 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }
         };
         animations.start();
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.stephia);;
         if (Locale.getDefault().toString().equals("iw_IL"))
         {
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
-            round.setTypeface(typeface);
-            score.setTypeface(typeface);
-            spinBtn.setTypeface(typeface);
+            typeface = ResourcesCompat.getFont(this, R.font.dana);
         }
+        else if(Locale.getDefault().toString().equals("ru_RU")){
+            typeface = ResourcesCompat.getFont(this, R.font.wagnasty);
+        }
+        round.setTypeface(typeface);
+        score.setTypeface(typeface);
+        spinBtn.setTypeface(typeface);
         //spinBtn.startAnimation(animation);
     }
 
@@ -434,14 +437,20 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         for(int i=0;i<12;i++){
             pad[i].setOnClickListener(new mathBtnClickListener());
         }
-        if (Locale.getDefault().toString().equals("iw_IL")) {
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana); //here
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.stephia);;
+        if (Locale.getDefault().toString().equals("iw_IL"))
+        {
+            typeface = ResourcesCompat.getFont(this, R.font.dana);
+        }
+        else if(Locale.getDefault().toString().equals("ru_RU")){
+            typeface = ResourcesCompat.getFont(this, R.font.wagnasty);
+        }
             question.setTypeface(typeface);
             mathAnswer.setTypeface(typeface);
             for (int i=0;i<12;i++)
                 pad[i].setTypeface(typeface);
             answer_btn.setTypeface(typeface);
-        }
+
         startTimer(dialogView);
     }
 
@@ -520,15 +529,20 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         for(int i=0;i<4;i++){
             btn[i].setOnClickListener(new answerBtnClickListener());
         }
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.stephia);;
         if (Locale.getDefault().toString().equals("iw_IL"))
         {
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            typeface = ResourcesCompat.getFont(this, R.font.dana);
+        }
+        else if(Locale.getDefault().toString().equals("ru_RU")){
+            typeface = ResourcesCompat.getFont(this, R.font.wagnasty);
+        }
             TextView timeCities = dialogView.findViewById(R.id.timeCities);
             timeCities.setTypeface(typeface);
             question.setTypeface(typeface);
             for (int i=0;i<4;i++)
                 btn[i].setTypeface(typeface);
-        }
+
         startTimer(dialogView);
     }
 
@@ -573,15 +587,20 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         for(int i=0;i<4;i++){
             btn[i].setOnClickListener(new answerBtnClickListener());
         }
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.stephia);;
         if (Locale.getDefault().toString().equals("iw_IL"))
         {
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            typeface = ResourcesCompat.getFont(this, R.font.dana);
+        }
+        else if(Locale.getDefault().toString().equals("ru_RU")){
+            typeface = ResourcesCompat.getFont(this, R.font.wagnasty);
+        }
             TextView timeCities = dialogView.findViewById(R.id.timeCities);
             timeCities.setTypeface(typeface);
             question.setTypeface(typeface);
             for (int i=0;i<4;i++)
                 btn[i].setTypeface(typeface);
-        }
+
         startTimer(dialogView);
     }
 
@@ -643,13 +662,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             tmp.setGravity(Gravity.CENTER);
             tmp.setBackground(getResources().getDrawable(R.drawable.words_design));
 
-            Typeface typeface;
+            Typeface typeface = ResourcesCompat.getFont(this, R.font.stephia);;
             if (Locale.getDefault().toString().equals("iw_IL"))
             {
                 typeface = ResourcesCompat.getFont(this, R.font.dana);
             }
-            else {
-                typeface = ResourcesCompat.getFont(this, R.font.stephia);
+            else if(Locale.getDefault().toString().equals("ru_RU")){
+                typeface = ResourcesCompat.getFont(this, R.font.wagnasty);
             }
             tmp.setTypeface(typeface);
 
@@ -696,15 +715,21 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
         Button ans_btn = dialogView.findViewById(R.id.wordAnswerBtn);
         ans_btn.setOnClickListener(new answerBtnClickListener());
-        if (Locale.getDefault().toString().equals("iw_IL")) {
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.stephia);;
+        if (Locale.getDefault().toString().equals("iw_IL"))
+        {
+            typeface = ResourcesCompat.getFont(this, R.font.dana);
+        }
+        else if(Locale.getDefault().toString().equals("ru_RU")){
+            typeface = ResourcesCompat.getFont(this, R.font.wagnasty);
+        }
             TextView timeComplete = dialogView.findViewById(R.id.timeComplete);
             timeComplete.setTypeface(typeface);
             definition.setTypeface(typeface);
             ans_btn.setTypeface(typeface);
             for (int i=0;i<14;i++)
                 letter[i].setTypeface(typeface);
-        }
+
         startTimer(dialogView);
     }
 
@@ -862,12 +887,17 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 if(mediaPlayer != null) {
                     mediaPlayer.setLooping(true);
                 }
+                Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.stephia);;
                 if (Locale.getDefault().toString().equals("iw_IL"))
                 {
-                    Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
+                    typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
+                }
+                else if(Locale.getDefault().toString().equals("ru_RU")){
+                    typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.wagnasty);
+                }
                     spinBonusBtn.setTypeface(typeface);
                     leaveBtn.setTypeface(typeface);
-                }
+
             }
         }, 2000);
     }
@@ -1074,18 +1104,29 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     playAgain = dialogView.findViewById(R.id.playAgain);
                     mainMenu = dialogView.findViewById(R.id.mainMenu);
                     textView = dialogView.findViewById(R.id.score_strikes);
-                    if (Locale.getDefault().toString().equals("iw_IL")) {
-                        Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
-                        textView.setTypeface(typeface);
+                    Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.stephia);;
+                    if (Locale.getDefault().toString().equals("iw_IL"))
+                    {
+                        typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
                     }
+                    else if(Locale.getDefault().toString().equals("ru_RU")){
+                        typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.wagnasty);
+                    }
+                        textView.setTypeface(typeface);
+
                 } else {
                     dialogView = getLayoutInflater().inflate(R.layout.game_over_by_victory_dialog, null);
                     textView = dialogView.findViewById(R.id.score_vic);
+                    Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.stephia);;
                     if (Locale.getDefault().toString().equals("iw_IL"))
                     {
-                        Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
-                        textView.setTypeface(typeface);
+                        typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
                     }
+                    else if(Locale.getDefault().toString().equals("ru_RU")){
+                        typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.wagnasty);
+                    }
+                        textView.setTypeface(typeface);
+
                     if (level.equals("Easy") || level.equals("Medium")) {
                         buttons = dialogView.findViewById(R.id.easy_and_med_panel);
                         playAgain = dialogView.findViewById(R.id.playAgain);
@@ -1155,13 +1196,19 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         startActivity(intent);
                     }
                 });
-                if (Locale.getDefault().toString().equals("iw_IL")) {
-                    Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
+                Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.stephia);;
+                if (Locale.getDefault().toString().equals("iw_IL"))
+                {
+                    typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
+                }
+                else if(Locale.getDefault().toString().equals("ru_RU")){
+                    typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.wagnasty);
+                }
                     playAgain.setTypeface(typeface);
                     mainMenu.setTypeface(typeface);
                     if (nextLevel != null)
                         nextLevel.setTypeface(typeface);
-                }
+
                 dialog = builder.show();
 
             }
@@ -1233,13 +1280,19 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 public void onClick(View arg0) {
                     dialog.dismiss();
                 }});
-            if (Locale.getDefault().toString().equals("iw_IL")) {
-                Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.stephia);;
+            if (Locale.getDefault().toString().equals("iw_IL"))
+            {
+                typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
+            }
+            else if(Locale.getDefault().toString().equals("ru_RU")){
+                typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.wagnasty);
+            }
                 TextView textView = dialogView.findViewById(R.id.space);
                 textView.setTypeface(typeface);
                 okBtn.setTypeface(typeface);
                 cancelBtn.setTypeface(typeface);
-            }
+
         }
         else if(id == R.id.action_sound_toggle){
             SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
@@ -1297,13 +1350,19 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 public void onClick(View arg0) {
                     dialog.dismiss();
                 }});
-            if (Locale.getDefault().toString().equals("iw_IL")) {
-                Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+            Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.stephia);;
+            if (Locale.getDefault().toString().equals("iw_IL"))
+            {
+                typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
+            }
+            else if(Locale.getDefault().toString().equals("ru_RU")){
+                typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.wagnasty);
+            }
                 TextView textView = dialogView.findViewById(R.id.space);
                 textView.setTypeface(typeface);
                 okBtn.setTypeface(typeface);
                 cancelBtn.setTypeface(typeface);
-            }
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -1372,13 +1431,19 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }});
         okBtn.startAnimation(animation);
         cancelBtn.startAnimation(animation);
-        if (Locale.getDefault().toString().equals("iw_IL")) {
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+        Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.stephia);;
+        if (Locale.getDefault().toString().equals("iw_IL"))
+        {
+            typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.dana);
+        }
+        else if(Locale.getDefault().toString().equals("ru_RU")){
+            typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.wagnasty);
+        }
             TextView textView = dialogView.findViewById(R.id.space);
             textView.setTypeface(typeface);
             okBtn.setTypeface(typeface);
             cancelBtn.setTypeface(typeface);
-        }
+
     }
 
     @Override

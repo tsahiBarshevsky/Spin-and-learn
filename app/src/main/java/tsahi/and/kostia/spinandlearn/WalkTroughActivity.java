@@ -123,13 +123,19 @@ public class WalkTroughActivity extends AppIntro {
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.button_anim);
         okBtn.startAnimation(animation);
         cancelBtn.startAnimation(animation);
-        if (Locale.getDefault().toString().equals("iw_IL")) {
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.stephia);;
+        if (Locale.getDefault().toString().equals("iw_IL"))
+        {
+            typeface = ResourcesCompat.getFont(this, R.font.dana);
+        }
+        else if(Locale.getDefault().toString().equals("ru_RU")){
+            typeface = ResourcesCompat.getFont(this, R.font.wagnasty);
+        }
             TextView textView = dialogView.findViewById(R.id.space);
             textView.setTypeface(typeface);
             cancelBtn.setTypeface(typeface);
             okBtn.setTypeface(typeface);
-        }
+
     }
 
     @Override

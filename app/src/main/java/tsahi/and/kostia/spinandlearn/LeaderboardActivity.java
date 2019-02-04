@@ -102,11 +102,17 @@ public class LeaderboardActivity extends AppCompatActivity {
         });
         sound.startAnimation(buttonAnim);
         music.startAnimation(buttonAnim);
-        if (Locale.getDefault().toString().equals("iw_IL")) {
-            TextView champions = findViewById(R.id.champions);
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.dana);
-            champions.setTypeface(typeface);
+        Typeface typeface = ResourcesCompat.getFont(LeaderboardActivity.this, R.font.stephia);;
+        if (Locale.getDefault().toString().equals("iw_IL"))
+        {
+            typeface = ResourcesCompat.getFont(LeaderboardActivity.this, R.font.dana);
         }
+        else if(Locale.getDefault().toString().equals("ru_RU")){
+            typeface = ResourcesCompat.getFont(LeaderboardActivity.this, R.font.wagnasty);
+        }
+            TextView champions = findViewById(R.id.champions);
+            champions.setTypeface(typeface);
+
 
         global.setAppPaused(false);
 

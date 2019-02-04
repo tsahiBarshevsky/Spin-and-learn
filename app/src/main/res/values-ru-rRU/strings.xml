@@ -8,7 +8,7 @@
     <string name="exit">Выход</string>
     <string name="your_answer_here">Ваш ответ...</string>
     <string name="answer">Ответ</string>
-    <string name="round">Rаунд:</string>
+    <string name="round">Раунд:</string>
     <string name="score">Счет:</string>
     <string name="choose_level">пожалуйста, выберите уровень:</string>
     <string name="hey">Привет</string>
@@ -89,7 +89,7 @@
     <string name="done">Готово</string>
     <string name="ok">Ок</string>
     <string name="cancel">Отменить</string>
-    <string name="skip_tutorial">Пропустить это объяснить?</string>
+    <string name="skip_tutorial">Пропустить это объяснение?</string>
     <string name="quit">Вы уверены, что хотите выйти?</string>
     <string name="stop_game">Вы уверены, что хотите закончить текущую игру?\nВаш счет не будет сохранена!</string>
     <string name="change_player">Сменить Игрока</string>
