@@ -318,6 +318,7 @@ public class FirstActivity extends AppCompatActivity {
     private void takeImage()
     {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra("android.intent.extras.CAMERA_FACING", 1);
         startActivityForResult(intent, CAMERA_REQUEST);
     }
 
