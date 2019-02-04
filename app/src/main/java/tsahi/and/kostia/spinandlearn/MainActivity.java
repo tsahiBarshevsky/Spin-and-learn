@@ -3,6 +3,7 @@ package tsahi.and.kostia.spinandlearn;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +19,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.github.jinatonic.confetti.CommonConfetti;
 
 import java.util.Locale;
 
@@ -36,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
         global.setAppPaused(false);
         SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
         global.setMute(sharedPref.getBoolean("mute", false));
+
+
+//        CommonConfetti.rainingConfetti(this, new int[] { Color.BLACK })
+//                .infinite();
 
         Animation fade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         final ImageView logo = findViewById(R.id.logo);
