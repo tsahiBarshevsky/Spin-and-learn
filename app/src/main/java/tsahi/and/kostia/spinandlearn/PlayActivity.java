@@ -20,6 +20,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
@@ -27,7 +28,10 @@ import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.github.jinatonic.confetti.CommonConfetti;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -80,6 +84,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     ImageView[] hearts = new ImageView[6];
 
+    View dialogView;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +103,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         exercisesContainer = new ExercisesContainer(this);
         level = getIntent().getStringExtra("Level");
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
-        View dialogView = getLayoutInflater().inflate(R.layout.level_dialog, null);
+        dialogView = getLayoutInflater().inflate(R.layout.level_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         ImageView imageView = dialogView.findViewById(R.id.level_source);
         Animation scaleUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.level_scale_up);
@@ -305,7 +311,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     public void endBonus(int result)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
-        View dialogView = getLayoutInflater().inflate(R.layout.bonus_result, null);
+        dialogView = getLayoutInflater().inflate(R.layout.bonus_result, null);
         builder.setView(dialogView).setCancelable(false);
         ImageView imageView = dialogView.findViewById(R.id.bonus_result);
         switch (result)
@@ -388,7 +394,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void mathQuestion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
-        View dialogView = getLayoutInflater().inflate(R.layout.math_dialog, null);
+        dialogView = getLayoutInflater().inflate(R.layout.math_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         dialog = builder.show();
 
@@ -470,7 +476,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     public void citiesQuestion()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
-        View dialogView = getLayoutInflater().inflate(R.layout.cities_dialog, null);
+        dialogView = getLayoutInflater().inflate(R.layout.cities_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         dialog = builder.show();
 
@@ -526,7 +532,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     public void sentenceQuestion()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
-        View dialogView = getLayoutInflater().inflate(R.layout.cities_dialog, null);
+        dialogView = getLayoutInflater().inflate(R.layout.cities_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         dialog = builder.show();
 
@@ -579,7 +585,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     public void wordsQuestion()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
-        View dialogView = getLayoutInflater().inflate(R.layout.complete_the_latters_dialog, null);
+        dialogView = getLayoutInflater().inflate(R.layout.complete_the_latters_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         dialog = builder.show();
 
@@ -776,7 +782,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                             @Override
                             public void run() {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
-                                View dialogView = getLayoutInflater().inflate(R.layout.time_is_up_dialog, null);
+                                dialogView = getLayoutInflater().inflate(R.layout.time_is_up_dialog, null);
                                 builder.setView(dialogView).setCancelable(false);
                                 dialog = builder.show();
                                 Handler handler = new Handler();
@@ -812,7 +818,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     {
         bonus = true;
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
-        View dialogView = getLayoutInflater().inflate(R.layout.bonus_dialog, null);
+        dialogView = getLayoutInflater().inflate(R.layout.bonus_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         dialog = builder.show();
         playSound(R.raw.ta_da);
@@ -946,7 +952,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         Random rand = new Random();
         int num = rand.nextInt(4) + 1;
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
-        View dialogView = getLayoutInflater().inflate(R.layout.right_answer_dialog, null);
+        dialogView = getLayoutInflater().inflate(R.layout.right_answer_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         ImageView imageView = dialogView.findViewById(R.id.right_answer_pic);
         switch (num)
@@ -983,7 +989,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         Random rand = new Random();
         int num = rand.nextInt(4) + 1;
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
-        View dialogView = getLayoutInflater().inflate(R.layout.wrong_answer_dialog, null);
+        dialogView = getLayoutInflater().inflate(R.layout.wrong_answer_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         ImageView imageView = dialogView.findViewById(R.id.wrong_answer_pic);
         switch (num)
@@ -1053,7 +1059,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             @Override
             public void run() {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
-                View dialogView;
                 LinearLayout buttons;
                 TextView textView;
                 Button playAgain = null;
@@ -1165,7 +1170,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 @Override
                 public void run() {
                     AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
-                    View dialogView = getLayoutInflater().inflate(R.layout.high_score_dialog, null);
+                    dialogView = getLayoutInflater().inflate(R.layout.high_score_dialog, null);
                     builder.setView(dialogView).setCancelable(false);
                     dialog = builder.show();
                     playSound(R.raw.yahoo);
@@ -1179,6 +1184,14 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 }
             }, 4000);
         }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                RelativeLayout container = findViewById(R.id.confetti);
+                CommonConfetti.rainingConfetti(container, new int[] { Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.GREEN, Color.BLUE, Color.RED })
+                        .infinite();
+            }
+        }, 2000);
     }
 
     @Override
@@ -1200,7 +1213,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         int id = item.getItemId();
         if(id == R.id.action_change_player){
             AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
-            View dialogView = getLayoutInflater().inflate(R.layout.stop_game_layout, null);
+            dialogView = getLayoutInflater().inflate(R.layout.stop_game_layout, null);
             builder.setView(dialogView).setCancelable(false);
             final AlertDialog dialog = builder.show();
             Button okBtn = dialogView.findViewById(R.id.ok);
@@ -1263,7 +1276,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         else if (id == R.id.action_how_to_play)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
-            View dialogView = getLayoutInflater().inflate(R.layout.stop_game_layout, null);
+            dialogView = getLayoutInflater().inflate(R.layout.stop_game_layout, null);
             builder.setView(dialogView).setCancelable(false);
             final AlertDialog dialog = builder.show();
             Button okBtn = dialogView.findViewById(R.id.ok);
@@ -1336,7 +1349,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
-        View dialogView = getLayoutInflater().inflate(R.layout.stop_game_layout, null);
+        dialogView = getLayoutInflater().inflate(R.layout.stop_game_layout, null);
         builder.setView(dialogView).setCancelable(false);
         final AlertDialog dialog = builder.show();
         Button okBtn = dialogView.findViewById(R.id.ok);

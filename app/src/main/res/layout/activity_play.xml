@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".PlayActivity"
     android:keepScreenOn="true"
-    android:background="@drawable/game_wallpaper">
+    android:background="@drawable/game_wallpaper"
+    android:id="@+id/confetti">
 
 
     <LinearLayout android:id="@+id/hearts"
