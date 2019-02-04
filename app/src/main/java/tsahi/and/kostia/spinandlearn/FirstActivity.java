@@ -97,14 +97,14 @@ public class FirstActivity extends AppCompatActivity {
         if (Locale.getDefault().toString().equals("iw_IL"))
         {
             typeface = ResourcesCompat.getFont(this, R.font.dana);
-            man.setAnimation(slideLeft);
+            man.setAnimation(slideRight);
         }
         else if(Locale.getDefault().toString().equals("ru_RU")){
             typeface = ResourcesCompat.getFont(this, R.font.wagnasty);
-            man.setAnimation(slideRight);
+            man.setAnimation(slideLeft);
         }
         else {
-            man.setAnimation(slideRight);
+            man.setAnimation(slideLeft);
         }
             name.setTypeface(typeface);
             enterBtn.setTypeface(typeface);
