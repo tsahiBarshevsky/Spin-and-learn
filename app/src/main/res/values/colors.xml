@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+    <resources>
     <!--<color name="colorPrimary">#3F51B5</color>-->
-    <color name="colorPrimary">#727cb7</color>
-    <!--<color name="colorPrimaryDark">#303F9F</color>-->
-    <color name="colorPrimaryDark">#636fbc</color>
-    <color name="colorAccent">#000000</color>
-    <color name="hintColor">#a0a0a0</color>
-</resources>
+        <color name="colorPrimary">#727cb7</color>
+        <!--<color name="colorPrimaryDark">#303F9F</color>-->
+        <color name="colorPrimaryDark">#636fbc</color>
+        <color name="colorAccent">#000000</color>
+        <color name="hintColor">#a0a0a0</color>
+        <color name="tutorial_background">#C9FFC9</color>
+    </resources>
