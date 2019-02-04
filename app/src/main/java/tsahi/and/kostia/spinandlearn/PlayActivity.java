@@ -89,9 +89,12 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        global = ((GlobalVar) this.getApplication());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-        global = ((GlobalVar) this.getApplication());
+
 
         global.setAppPaused(false);
         SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
@@ -100,7 +103,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         Bundle extras = getIntent().getExtras();
         if (extras != null)
             bitmap = extras.getParcelable("user_pic");
-        exercisesContainer = new ExercisesContainer(this);
+
         level = getIntent().getStringExtra("Level");
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.BonusDialog);
         dialogView = getLayoutInflater().inflate(R.layout.level_dialog, null);
@@ -137,6 +140,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                //exercisesContainer = new ExercisesContainer(PlayActivity.this);
                 dialog.dismiss();
             }
         }, 3000);
