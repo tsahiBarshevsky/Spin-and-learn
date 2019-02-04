@@ -237,9 +237,9 @@
     <string name="sentence40">Ты никогда не слишком стар, чтобы учиться</string>
     <string name="sentence1">Лучше ли любить и потерять, чем никогда не любить вообще</string>
     <string name="your_score">Ваш счет:</string>
-    <string name="play_again">Играть снова</string>
+    <string name="play_again">Снова</string>
     <string name="main_menu">Меню</string>
-    <string name="next_level">Следующий уровень</string>
+    <string name="next_level">Далее</string>
     <string name="music_on">Музыка Работает</string>
     <string name="music_off">Музыка Не Работает</string>
     <string name="enter_name">Пожалуйста, введите Ваше имя.</string>

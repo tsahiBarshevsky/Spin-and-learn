@@ -94,6 +94,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        exercisesContainer = new ExercisesContainer(PlayActivity.this);
 
         global.setAppPaused(false);
         SharedPreferences sharedPref = this.getSharedPreferences("sound", this.MODE_PRIVATE);
@@ -139,7 +140,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                //exercisesContainer = new ExercisesContainer(PlayActivity.this);
                 dialog.dismiss();
             }
         }, 3000);
