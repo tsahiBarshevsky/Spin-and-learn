@@ -6,5 +6,4 @@ public @interface ToDo {
     //todo russian drawables
     //todo spin button animation after bonus
     //todo start game glitch
-    //todo extra life hearts
 }

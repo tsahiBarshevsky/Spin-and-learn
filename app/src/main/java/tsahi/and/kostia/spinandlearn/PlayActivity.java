@@ -1397,7 +1397,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         if(strikes > 6){
             strikes = 6;
         }
-
+        System.out.println(strikes);
         int i = 0;
         for(;i<strikes;i++){
             hearts[i].setVisibility(View.VISIBLE);
