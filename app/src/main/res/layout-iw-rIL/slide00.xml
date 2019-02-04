@@ -20,7 +20,7 @@
             android:textSize="40sp"/>
         <ImageView
             android:layout_width="300dp"
-            android:layout_height="350dp"
+            android:layout_height="300dp"
             android:src="@drawable/slide00"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"/>
