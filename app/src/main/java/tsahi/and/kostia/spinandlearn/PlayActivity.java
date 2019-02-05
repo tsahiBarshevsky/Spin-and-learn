@@ -1404,6 +1404,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         }
     }
 
+
     void heartsInvalidate(){
         if(strikes > 6){
             strikes = 6;
@@ -1459,6 +1460,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     @Override
     protected void onPause() {
         super.onPause();
+        if(mediaPlayer != null && mediaPlayer.isPlaying()){
+            mediaPlayer.pause();
+        }
          global.setAppPaused(true);
          global.pauseMusic();
     }
@@ -1467,6 +1471,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     protected void onResume() {
         super.onResume();
         global.setAppPaused(false);
-        global.startMusic(this);
+        if(mediaPlayer != null){
+            mediaPlayer.start();
+        }
+        else {
+            global.startMusic(this);
+        }
     }
 }
