@@ -165,7 +165,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         imageRoulette.setCameraDistance(distanceRoulette);
         bonusRoulette.setCameraDistance(distanceBonus);
         round = findViewById(R.id.round);
-        round.setText(getString(R.string.round) + " " + "1");
+        round.setText(getString(R.string.round) + " 1 " + getResources().getString(R.string.out_of) + "10");
+
         score = findViewById(R.id.score);
         score.setText(getString(R.string.score) + " " + "0");
         spinBtn = findViewById(R.id.spinBtn);
@@ -800,7 +801,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 timer.cancel();
                 timeLeftInMillis = temp;
                 if(roundsCounter <= NUM_OF_ROUNDS) {
-                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                    round.setText(getString(R.string.round) + " " + roundsCounter + " " + getResources().getString(R.string.out_of) + "10");
                 }
                 score.setText(getString(R.string.score) + " " + scoreCounter);
                 if (roundsCounter > NUM_OF_ROUNDS || strikes == 0) {
@@ -838,7 +839,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                                 stopSound();
                                 playSound(R.raw.out_of_time);
                                 if(roundsCounter <= NUM_OF_ROUNDS) {
-                                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                                    round.setText(getString(R.string.round) + " " + roundsCounter + " " + getResources().getString(R.string.out_of) + "10");
                                 }
                                 score.setText(getString(R.string.score) + " " + scoreCounter);
                                 strikes--;
@@ -870,7 +871,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 dialog.dismiss();
                 boardFlip();
                 if(roundsCounter <= NUM_OF_ROUNDS) {
-                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                    round.setText(getString(R.string.round) + " " + roundsCounter + " " + getResources().getString(R.string.out_of) + "10");
                 }
                 bonusLayout = findViewById(R.id.bonusLayout);
                 bonusLayout.setVisibility(View.VISIBLE);

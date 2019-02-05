@@ -264,4 +264,5 @@
     <string name="title08">Сюрприз доска</string>
     <string name="title09">Экран конец игры</string>
     <string name="title10">Лидеры</string>
+    <string name="out_of">из</string>
 </resources>
