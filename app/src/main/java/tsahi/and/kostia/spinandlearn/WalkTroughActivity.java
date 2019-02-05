@@ -68,6 +68,7 @@ public class WalkTroughActivity extends AppIntro {
         setDoneText(getResources().getString(R.string.done));
         setColorDoneText(Color.BLACK);
 
+
         setNextArrowColor(Color.BLACK);
         setIndicatorColor(Color.BLACK,Color.DKGRAY);
     }
