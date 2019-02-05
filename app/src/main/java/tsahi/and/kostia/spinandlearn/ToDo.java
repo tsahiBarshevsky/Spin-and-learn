@@ -1,7 +1,6 @@
 package tsahi.and.kostia.spinandlearn;
 
 public @interface ToDo {
-    //todo user photo not saving at first - done
-    //todo multiple choice button size - done
-    //todo support multi res - done
+    //todo - add how many round left
+    //todo - spin the wheel by pressing it
 }
