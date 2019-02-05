@@ -329,18 +329,23 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         {
             case 0:
                 imageView.setImageResource(R.drawable.plus_100);
+                playSound(R.raw.yahoo);
                 break;
             case 1:
                 imageView.setImageResource(R.drawable.zero_score);
+                playSound(R.raw.wrong_answer);
                 break;
             case 2:
                 imageView.setImageResource(R.drawable.extra_life);
+                playSound(R.raw.yahoo);
                 break;
             case 3:
                 imageView.setImageResource(R.drawable.minus_100);
+                playSound(R.raw.wrong_answer);
                 break;
             case 4:
                 imageView.setImageResource(R.drawable.double_score);
+                playSound(R.raw.yahoo);
                 break;
         }
         final AlertDialog dialog = builder.show();
