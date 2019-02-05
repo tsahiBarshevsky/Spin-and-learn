@@ -3,7 +3,6 @@ package tsahi.and.kostia.spinandlearn;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,20 +17,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.github.jinatonic.confetti.CommonConfetti;
-import com.github.jinatonic.confetti.ConfettiManager;
-import com.github.jinatonic.confetti.ConfettiSource;
-import com.github.jinatonic.confetti.ConfettoGenerator;
-import com.github.jinatonic.confetti.Utils;
-import com.github.jinatonic.confetti.confetto.BitmapConfetto;
-import com.github.jinatonic.confetti.confetto.Confetto;
-
-import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 

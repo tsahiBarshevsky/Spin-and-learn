@@ -158,12 +158,14 @@ public class FirstActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 if(bitmap != null){
                     editor.putString("Photo", new UserInfo().BitMapToString(bitmap));
+                    editor.commit();
                 }
                 userName = name.getText().toString();
-                editor.putString("Name", userName);
-                editor.commit();
+
                 int nameSize = name.getText().toString().trim().length();
                 if (nameSize > 0) {
+                    editor.putString("Name", userName);
+                    editor.commit();
                     Intent intent = new Intent(FirstActivity.this, MainActivity.class);
                     intent.putExtra("Name", userName);
                     Bundle extras = new Bundle();

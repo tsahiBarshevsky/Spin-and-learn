@@ -43,49 +43,65 @@
             android:gravity="center"
             android:layout_gravity="center">
 
-            <TableRow>
-                <Button android:id="@+id/tv_c00"
-                    android:layout_width="150dp"
+            <TableRow
+                android:layout_width="152dp"
+                android:layout_height="52dp">
+                <TextView android:id="@+id/tv_c00"
+                    android:layout_width="0dp"
                     android:layout_height="50dp"
+                    android:layout_weight="0.5"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:textAllCaps="false"
                     android:background="@drawable/button_design"
+                    android:inputType="textMultiLine"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/stephia"/>
-                <Button android:id="@+id/tv_c01"
-                    android:layout_width="150dp"
+                <TextView android:id="@+id/tv_c01"
+                    android:layout_width="0dp"
                     android:layout_height="50dp"
+                    android:layout_weight="0.5"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:textAllCaps="false"
                     android:background="@drawable/button_design"
+                    android:inputType="textMultiLine"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/stephia"/>
             </TableRow>
 
-            <TableRow>
-                <Button android:id="@+id/tv_c10"
-                    android:layout_width="150dp"
+            <TableRow
+                android:layout_width="152dp"
+                android:layout_height="52dp">
+                <TextView android:id="@+id/tv_c10"
+                    android:layout_width="0dp"
                     android:layout_height="50dp"
+                    android:layout_weight="0.5"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:textAllCaps="false"
                     android:background="@drawable/button_design"
+                    android:inputType="textMultiLine"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/stephia"/>
-                <Button android:id="@+id/tv_c11"
-                    android:layout_width="150dp"
+                <TextView android:id="@+id/tv_c11"
+                    android:layout_width="0dp"
                     android:layout_height="50dp"
+                    android:layout_weight="0.5"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
                     android:textAllCaps="false"
                     android:background="@drawable/button_design"
+                    android:inputType="textMultiLine"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/stephia"/>
             </TableRow>
 

@@ -20,6 +20,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
@@ -210,48 +211,50 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     mediaPlayer.setLooping(true);
                 }
             }
-            switch (pos)
-            {
-                case 0:
-                    type = "math";
-                    mathQuestion();
-                    break;
-                case 1:
-                    type = "words";
-                    wordsQuestion();
-                    break;
-                case 2:
-                    showBonus();
-                    break;
-                case 3:
-                    type = "words";
-                    wordsQuestion();
-                    break;
-                case 4:
-                    type = "sentence";
-                    sentenceQuestion();
-                    break;
-                case 5:
-                    type = "cities";
-                    citiesQuestion();
-                    break;
-                case 6:
-                    type = "math";
-                    mathQuestion();
-                    break;
-                case 7:
-                    type = "words";
-                    wordsQuestion();
-                    break;
-                case 8:
-                    type = "sentence";
-                    sentenceQuestion();
-                    break;
-                case 9:
-                    type = "cities";
-                    citiesQuestion();
-                    break;
-            }
+            type = "cities";
+            citiesQuestion();
+//            switch (pos)
+//            {
+//                case 0:
+//                    type = "math";
+//                    mathQuestion();
+//                    break;
+//                case 1:
+//                    type = "words";
+//                    wordsQuestion();
+//                    break;
+//                case 2:
+//                    showBonus();
+//                    break;
+//                case 3:
+//                    type = "words";
+//                    wordsQuestion();
+//                    break;
+//                case 4:
+//                    type = "sentence";
+//                    sentenceQuestion();
+//                    break;
+//                case 5:
+//                    type = "cities";
+//                    citiesQuestion();
+//                    break;
+//                case 6:
+//                    type = "math";
+//                    mathQuestion();
+//                    break;
+//                case 7:
+//                    type = "words";
+//                    wordsQuestion();
+//                    break;
+//                case 8:
+//                    type = "sentence";
+//                    sentenceQuestion();
+//                    break;
+//                case 9:
+//                    type = "cities";
+//                    citiesQuestion();
+//                    break;
+//            }
         }
         else //bonus wheel spin
         {
@@ -501,7 +504,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
         flag.setImageResource(currentExercise.getFlagID());
 
-        final Button[] btn = {dialogView.findViewById(R.id.tv_c00),
+        final TextView[] btn = {dialogView.findViewById(R.id.tv_c00),
                 dialogView.findViewById(R.id.tv_c01),
                 dialogView.findViewById(R.id.tv_c10),
                 dialogView.findViewById(R.id.tv_c11)};
@@ -516,10 +519,13 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             while(answers.get(tmp).length() == 0){
                 tmp = (int)(Math.random()*4);
             }
-            btn[i].setText(answers.get(tmp));
+
             if (answers.get(tmp).length() > 10){
                 btn[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                //btn[i].setHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics()));
+                //btn[i].setWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics()));
             }
+            btn[i].setText(answers.get(tmp));
             answers.set(tmp, "");
         }
 
@@ -559,7 +565,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
         TextView question = dialogView.findViewById(R.id.exerciseCities);
 
-        final Button[] btn = {dialogView.findViewById(R.id.tv_c00),
+        final TextView[] btn = {dialogView.findViewById(R.id.tv_c00),
                 dialogView.findViewById(R.id.tv_c01),
                 dialogView.findViewById(R.id.tv_c10),
                 dialogView.findViewById(R.id.tv_c11)};

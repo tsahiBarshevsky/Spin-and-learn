@@ -2,6 +2,7 @@ package tsahi.and.kostia.spinandlearn;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -131,7 +132,14 @@ public class LeaderboardActivity extends AppCompatActivity {
             if(!tmp.equals("")){
                 UserInfo user = new UserInfo(tmp);
                 if(user.getPhoto() == null){
-                    user.setPhoto(BitmapFactory.decodeResource(getResources(), R.drawable.generic_face));
+                    SharedPreferences lastUser = this.getSharedPreferences("lastUser", this.MODE_PRIVATE);
+                    Bitmap bitmap = new UserInfo().StringToBitMap(lastUser.getString("Photo", "-1"));
+                    if(bitmap == null) {
+                        user.setPhoto(BitmapFactory.decodeResource(getResources(), R.drawable.generic_face));
+                    }
+                    else{
+                        user.setPhoto(bitmap);
+                    }
                 }
                 userInfoList.add(user);
             }
