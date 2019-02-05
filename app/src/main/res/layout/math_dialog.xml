@@ -6,10 +6,11 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="310dp"
+        android:layout_width="match_parent"
         android:layout_height="460dp"
         android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp">
 
         <TextView android:id="@+id/timeMath"
             android:layout_width="match_parent"
@@ -41,14 +42,15 @@
             android:fontFamily="@font/stephia"/>
 
         <TableLayout
-            android:layout_width="156dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:layout_gravity="center"
             android:layout_margin="1dp">
 
-            <TableRow>
+            <TableRow
+                android:gravity="center">
                 <TextView android:id="@+id/tv_m7"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -81,7 +83,8 @@
                     android:fontFamily="@font/stephia"/>
             </TableRow>
 
-            <TableRow>
+            <TableRow
+                android:gravity="center">
                 <TextView android:id="@+id/tv_m4"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -114,7 +117,8 @@
                     android:fontFamily="@font/stephia"/>
             </TableRow>
 
-            <TableRow>
+            <TableRow
+                android:gravity="center">
                 <TextView android:id="@+id/tv_m1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -147,7 +151,8 @@
                     android:fontFamily="@font/stephia"/>
             </TableRow>
 
-            <TableRow>
+            <TableRow
+                android:gravity="center">
                 <TextView android:id="@+id/tv_mClear"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
