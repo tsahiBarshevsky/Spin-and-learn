@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:textSize="25sp"
+            android:textSize="25dp"
             android:textColor="#000"
             android:gravity="center"
             android:fontFamily="@font/stephia"/>
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:textSize="25sp"
+            android:textSize="25dp"
             android:textColor="#000"
             android:gravity="center"
             android:background="@drawable/question_design"
@@ -51,7 +51,7 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="0.5"
-                    android:textSize="25sp"
+                    android:textSize="25dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -64,7 +64,7 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="0.5"
-                    android:textSize="25sp"
+                    android:textSize="25dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -82,7 +82,7 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="0.5"
-                    android:textSize="25sp"
+                    android:textSize="25dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -95,7 +95,7 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="0.5"
-                    android:textSize="25sp"
+                    android:textSize="25dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -111,49 +111,3 @@
     </LinearLayout>
 
 </RelativeLayout>
-
-    <!--<RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-                <RadioButton android:id="@+id/rb1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:buttonTint="#000"
-                    android:layout_margin="5dp"/>
-
-                <RadioButton android:id="@+id/rb2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:buttonTint="#000"
-                    android:layout_margin="5dp"/>
-
-                <RadioButton android:id="@+id/rb3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:buttonTint="#000"
-                    android:layout_margin="5dp"/>
-
-                <RadioButton android:id="@+id/rb4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:buttonTint="#000"
-                    android:layout_margin="5dp"/>
-
-            </RadioGroup>
-
-            <Button android:id="@+id/citiesAnswerBtn"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:text="@string/answer"
-                android:textAllCaps="false"
-                android:textSize="17sp"
-                android:layout_margin="15dp"
-                android:background="@drawable/button_design"/>-->

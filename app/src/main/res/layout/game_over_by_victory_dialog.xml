@@ -26,7 +26,7 @@
     <TextView android:id="@+id/score_vic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="35sp"
+        android:textSize="35dp"
         android:textColor="#FF0000"
         android:layout_margin="20dp"
         android:gravity="center"
@@ -53,7 +53,7 @@
             android:textAllCaps="false"
             android:background="@drawable/button_design"
             android:layout_margin="5dp"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/stephia"/>
 
         <Button android:id="@+id/nextLevel"
@@ -64,7 +64,7 @@
             android:textAllCaps="false"
             android:background="@drawable/button_design"
             android:layout_margin="5dp"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/stephia"/>
 
         <Button android:id="@+id/mainMenu"
@@ -75,7 +75,7 @@
             android:textAllCaps="false"
             android:background="@drawable/button_design"
             android:layout_margin="5dp"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/stephia"/>
 
     </LinearLayout>
@@ -97,7 +97,7 @@
             android:textAllCaps="false"
             android:background="@drawable/button_design"
             android:layout_margin="5dp"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/stephia"/>
 
         <Button android:id="@+id/mainMenuHard"
@@ -108,7 +108,7 @@
             android:textAllCaps="false"
             android:background="@drawable/button_design"
             android:layout_margin="5dp"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/stephia"/>
 
     </LinearLayout>

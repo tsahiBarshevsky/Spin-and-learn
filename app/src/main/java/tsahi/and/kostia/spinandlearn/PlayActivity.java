@@ -527,7 +527,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }
 
             if (answers.get(tmp).length() > 10){
-                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
                 //btn[i].setHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics()));
                 //btn[i].setWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics()));
             }
@@ -588,7 +588,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }
             btn[i].setText(answers.get(tmp));
             if (answers.get(tmp).length() > 10){
-                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
             }
             answers.set(tmp, "");
         }
@@ -670,7 +670,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             );
             params.setMargins(1,1,1,1);
             tmp.setLayoutParams(params);
-            tmp.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+            tmp.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
             tmp.setGravity(Gravity.CENTER);
             tmp.setBackground(getResources().getDrawable(R.drawable.words_design));
 
