@@ -1076,7 +1076,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 dialog.dismiss();
 
             }
-        }, 2000);
+        }, 3000);
     }
 
     int calcScore(){
@@ -1173,7 +1173,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         stopSound();
                         global.startMusic(PlayActivity.this);
                     }
-                }, 2000);
+                }, 2500);
 
                 if (buttons.getId() == R.id.easy_and_med_panel) {
                     nextLevel = dialogView.findViewById(R.id.nextLevel);
@@ -1437,6 +1437,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     @Override
     public void onBackPressed() {
+        if(!blnButtonRotation){
+            return;
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
         dialogView = getLayoutInflater().inflate(R.layout.stop_game_layout, null);
         builder.setView(dialogView).setCancelable(false);
