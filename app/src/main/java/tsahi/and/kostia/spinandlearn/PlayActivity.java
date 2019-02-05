@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
@@ -20,7 +21,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
@@ -211,50 +211,49 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     mediaPlayer.setLooping(true);
                 }
             }
-            type = "cities";
-            citiesQuestion();
-//            switch (pos)
-//            {
-//                case 0:
-//                    type = "math";
-//                    mathQuestion();
-//                    break;
-//                case 1:
-//                    type = "words";
-//                    wordsQuestion();
-//                    break;
-//                case 2:
-//                    showBonus();
-//                    break;
-//                case 3:
-//                    type = "words";
-//                    wordsQuestion();
-//                    break;
-//                case 4:
-//                    type = "sentence";
-//                    sentenceQuestion();
-//                    break;
-//                case 5:
-//                    type = "cities";
-//                    citiesQuestion();
-//                    break;
-//                case 6:
-//                    type = "math";
-//                    mathQuestion();
-//                    break;
-//                case 7:
-//                    type = "words";
-//                    wordsQuestion();
-//                    break;
-//                case 8:
-//                    type = "sentence";
-//                    sentenceQuestion();
-//                    break;
-//                case 9:
-//                    type = "cities";
-//                    citiesQuestion();
-//                    break;
-//            }
+
+            switch (pos)
+            {
+                case 0:
+                    type = "math";
+                    mathQuestion();
+                    break;
+                case 1:
+                    type = "words";
+                    wordsQuestion();
+                    break;
+                case 2:
+                    showBonus();
+                    break;
+                case 3:
+                    type = "words";
+                    wordsQuestion();
+                    break;
+                case 4:
+                    type = "sentence";
+                    sentenceQuestion();
+                    break;
+                case 5:
+                    type = "cities";
+                    citiesQuestion();
+                    break;
+                case 6:
+                    type = "math";
+                    mathQuestion();
+                    break;
+                case 7:
+                    type = "words";
+                    wordsQuestion();
+                    break;
+                case 8:
+                    type = "sentence";
+                    sentenceQuestion();
+                    break;
+                case 9:
+                    type = "cities";
+                    citiesQuestion();
+                    break;
+            }
         }
         else //bonus wheel spin
         {
@@ -1403,7 +1402,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         if(strikes > 6){
             strikes = 6;
         }
-        System.out.println(strikes);
         int i = 0;
         for(;i<strikes;i++){
             hearts[i].setVisibility(View.VISIBLE);

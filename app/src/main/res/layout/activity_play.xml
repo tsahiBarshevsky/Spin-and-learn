@@ -85,10 +85,12 @@
     </LinearLayout>
 
 
-    <ImageView android:id="@+id/base"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/base"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/base"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <include android:id="@+id/notelist" layout="@layout/base_view" />
+    </LinearLayout>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/container"
@@ -103,15 +105,19 @@
         android:layout_height="wrap_content"
         android:src="@drawable/rolutte_10"/>-->
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/radius"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/radius"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <include android:id="@+id/notelist" layout="@layout/radius_view" />
+    </LinearLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/tringle"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/triangle"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <include android:id="@+id/notelist" layout="@layout/triangle_view" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/spinBtn"
