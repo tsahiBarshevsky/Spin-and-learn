@@ -86,6 +86,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     View dialogView;
 
+    Animation scaleUp;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +112,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         dialogView = getLayoutInflater().inflate(R.layout.level_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         ImageView imageView = dialogView.findViewById(R.id.level_source);
-        Animation scaleUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.level_scale_up);
+        scaleUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.level_scale_up);
         switch (level)
         {
             case "Easy":
@@ -658,8 +660,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         for(int i=0;i<question_size;i++){
             TextView tmp = new TextView(dialogView.getContext());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
+                    0,
+                    LinearLayout.LayoutParams.MATCH_PARENT, 1
             );
             params.setMargins(1,1,1,1);
             tmp.setLayoutParams(params);
@@ -1009,6 +1011,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 imageView.setImageResource(R.drawable.great);
                 break;
         }
+
         final AlertDialog dialog = builder.show();
         playSound(R.raw.right_answer);
         Handler handler = new Handler();
@@ -1046,6 +1049,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 imageView.setImageResource(R.drawable.improve);
                 break;
         }
+
         final AlertDialog dialog = builder.show();
         playSound(R.raw.wrong_answer);
         Handler handler = new Handler();
@@ -1086,7 +1090,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         else if (level.equals("Hard")){
             sndLvl = getResources().getString(R.string.hard);
         }
-        System.out.println(bitmap);
         UserInfo score = new UserInfo(bitmap, getIntent().getStringExtra("Name"), scoreCounter, sndLvl, dateFormat.format(now), timeFormat.format(now));
         size++;
         editor.putString(size.toString(), score.toString());
@@ -1109,6 +1112,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     playAgain = dialogView.findViewById(R.id.playAgain);
                     mainMenu = dialogView.findViewById(R.id.mainMenu);
                     textView = dialogView.findViewById(R.id.score_strikes);
+
                     Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.stephia);;
                     if (Locale.getDefault().toString().equals("iw_IL"))
                     {
@@ -1240,14 +1244,16 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 }
             }, 4000);
         }
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                RelativeLayout container = findViewById(R.id.confetti);
-                CommonConfetti.rainingConfetti(container, new int[] { Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.GREEN, Color.BLUE, Color.RED })
-                        .infinite();
-            }
-        }, 2000);
+        if(strikes > 0){
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    RelativeLayout container = findViewById(R.id.confetti);
+                    CommonConfetti.rainingConfetti(container, new int[] { Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.GREEN, Color.BLUE, Color.RED })
+                            .infinite();
+                }
+            }, 2000);
+        }
     }
 
     @Override

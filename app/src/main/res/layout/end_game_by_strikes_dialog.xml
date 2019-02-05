@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/game_over_strikes"
         android:layout_gravity="center"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:id="@+id/strike_out_img"/>
 
     <TextView android:id="@+id/score_strikes"
         android:layout_width="wrap_content"

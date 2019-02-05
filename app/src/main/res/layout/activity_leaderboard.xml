@@ -23,37 +23,47 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="250dp"
-        android:layout_height="485dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_below="@+id/champions"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="75dp"/>
 
-    <LinearLayout android:id="@+id/soundsButtonsLed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="470dp"
-        android:layout_toEndOf="@+id/recyclerView">
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-        <Button android:id="@+id/soundLed"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/button_design"
-            android:layout_margin="5dp"
-            android:drawableStart="@drawable/ic_soundoff"
-            android:padding="3dp" />
+        <LinearLayout android:id="@+id/soundsButtonsLed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="30dp"
+            android:layout_gravity="bottom|right"
+            android:layout_toEndOf="@+id/recyclerView">
 
-        <Button android:id="@+id/musicLed"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/button_design"
-            android:layout_margin="5dp"
-            android:drawableStart="@drawable/ic_musicoff"
-            android:padding="3dp"/>
+            <Button android:id="@+id/soundLed"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/button_design"
+                android:layout_margin="5dp"
+                android:drawableStart="@drawable/ic_soundoff"
+                android:padding="3dp" />
 
-    </LinearLayout>
+            <Button android:id="@+id/musicLed"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/button_design"
+                android:layout_margin="5dp"
+                android:drawableStart="@drawable/ic_musicoff"
+                android:padding="3dp"/>
+
+        </LinearLayout>>
+    </FrameLayout>
+
+
 
 </RelativeLayout>
 
