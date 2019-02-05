@@ -705,6 +705,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 @Override
                 public void onClick(View v) {
                     String tmp = ((TextView) v).getText().toString();
+                    System.out.println(blankIndex);
                     if(!tmp.equals("_")){
                         ((TextView) v).setText("_");
                         for(int j=0;j<14;j++){
@@ -751,9 +752,17 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         @Override
         public void onClick(View v) {
             if(blankIndex < blankSize){
+                for(int k = 0;k<blankSize;k++){
+                    if(answer_blank.get(k).getText().equals("_")){
+                        blankIndex = k;
+                        k=blankSize;
+                    }
+                }
                 String tmp = ((TextView) v).getText().toString();
-                answer_blank.get(blankIndex++).setText(tmp);
-                v.setVisibility(View.INVISIBLE);
+                if(answer_blank.get(blankIndex).getText().equals("_")) {
+                    answer_blank.get(blankIndex).setText(tmp);
+                    v.setVisibility(View.INVISIBLE);
+                }
             }
         }
     }
@@ -1067,7 +1076,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 dialog.dismiss();
 
             }
-        }, 4000);
+        }, 2000);
     }
 
     int calcScore(){
