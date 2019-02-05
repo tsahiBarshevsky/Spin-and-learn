@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:textColor="#000"
-            android:gravity="center"
+            android:gravity="start"
             android:fontFamily="@font/stephia"/>
 
         <TextView
@@ -77,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:gravity="center"
+            android:gravity="start"
             android:textColor="#000"
             android:textSize="20dp"
             android:fontFamily="@font/stephia"/>
