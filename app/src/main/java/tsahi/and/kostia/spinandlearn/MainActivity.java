@@ -113,23 +113,23 @@ public class MainActivity extends AppCompatActivity {
         Button sound = findViewById(R.id.sound);
         Button music = findViewById(R.id.music);
         if(sharedPref.getBoolean("mute", false)){
-            sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundoff), null, null, null);
+            sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicoff), null, null, null);
         }
         else{
-            sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundon), null, null, null);
+            sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicon), null, null, null);
         }
-        if(sharedPref.getBoolean("muteMusic", false)){
-            music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicoff), null, null, null);
+        if(sharedPref.getBoolean("musicMute", false)){
+            music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundoff), null, null, null);
         }
         else{
-            music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicon), null, null, null);
+            music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundon), null, null, null);
         }
         sound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println(sharedPref.getBoolean("mute", false));
                 if(sharedPref.getBoolean("mute", false)){
-                    sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundon), null, null, null);
+                    sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicon), null, null, null);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean("mute", false);
                     editor.commit();
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     global.startMusic(MainActivity.this);
                 }
                 else{
-                    sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundoff), null, null, null);
+                    sound.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicoff), null, null, null);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean("mute", true);
                     editor.commit();
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(sharedPref.getBoolean("musicMute", false)){
-                    music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicon), null, null, null);
+                    music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundon), null, null, null);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean("musicMute", false);
                     editor.commit();
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                     global.startMusic(MainActivity.this);
                 }
                 else{
-                    music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_musicoff), null, null, null);
+                    music.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_soundoff), null, null, null);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean("musicMute", true);
                     editor.commit();
@@ -247,10 +247,9 @@ public class MainActivity extends AppCompatActivity {
         okBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-//                Intent intent = new Intent(Intent.ACTION_MAIN);
-//                intent.addCategory(Intent.CATEGORY_HOME);
-//                startActivity(intent);
-//                android.os.Process.killProcess(android.os.Process.myPid());
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
                 finishAffinity();
 
             }});
