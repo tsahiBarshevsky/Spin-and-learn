@@ -196,7 +196,6 @@ public class FirstActivity extends AppCompatActivity {
 //                        startActivity(intent);
 //                        android.os.Process.killProcess(android.os.Process.myPid());
                         finishAffinity();
-                        System.exit(0);
                     }});
                 Button cancelBtn = dialogView.findViewById(R.id.cancle);
                 cancelBtn.setOnClickListener(new Button.OnClickListener() {
@@ -375,7 +374,6 @@ public class FirstActivity extends AppCompatActivity {
 //                startActivity(intent);
 //                android.os.Process.killProcess(android.os.Process.myPid());
                 finishAffinity();
-                System.exit(0);
             }});
         Button cancelBtn = dialogView.findViewById(R.id.cancle);
         cancelBtn.startAnimation(animation);
@@ -412,5 +410,11 @@ public class FirstActivity extends AppCompatActivity {
         super.onResume();
         global.setAppPaused(false);
         global.startMusic(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.exit(0);
     }
 }
