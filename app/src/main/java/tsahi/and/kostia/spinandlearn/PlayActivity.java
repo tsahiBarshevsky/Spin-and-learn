@@ -905,9 +905,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 spinBonusBtn.startAnimation(animation);
                 leaveBtn.startAnimation(animation);
                 spinBtn.setEnabled(false);
-                playSound(R.raw.viva_las_vegas);
-                if(mediaPlayer != null) {
-                    mediaPlayer.setLooping(true);
+                if(!global.isMusicMute()) {
+                    playSound(R.raw.viva_las_vegas);
+                    if (mediaPlayer != null) {
+                        mediaPlayer.setLooping(true);
+                    }
                 }
                 Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.stephia);;
                 if (Locale.getDefault().toString().equals("iw_IL"))
