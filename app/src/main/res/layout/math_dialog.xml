@@ -6,16 +6,17 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="310dp"
+        android:layout_width="match_parent"
         android:layout_height="460dp"
         android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp">
 
         <TextView android:id="@+id/timeMath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:textSize="25sp"
+            android:textSize="25dp"
             android:textColor="#000"
             android:gravity="center"
             android:fontFamily="@font/stephia"/>
@@ -24,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:textSize="25sp"
+            android:textSize="25dp"
             android:textColor="#000"
             android:gravity="center"
             android:background="@drawable/question_design"
@@ -34,25 +35,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:textSize="25sp"
+            android:textSize="25dp"
             android:textColor="#000"
             android:gravity="center"
             android:background="@drawable/text_view_math_design"
             android:fontFamily="@font/stephia"/>
 
         <TableLayout
-            android:layout_width="156dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:layout_gravity="center"
             android:layout_margin="1dp">
 
-            <TableRow>
+            <TableRow
+                android:gravity="center">
                 <TextView android:id="@+id/tv_m7"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="25sp"
+                    android:textSize="25dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -62,7 +64,7 @@
                 <TextView android:id="@+id/tv_m8"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="25sp"
+                    android:textSize="25dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -72,7 +74,7 @@
                 <TextView android:id="@+id/tv_m9"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="25sp"
+                    android:textSize="25dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -81,11 +83,12 @@
                     android:fontFamily="@font/stephia"/>
             </TableRow>
 
-            <TableRow>
+            <TableRow
+                android:gravity="center">
                 <TextView android:id="@+id/tv_m4"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="25sp"
+                    android:textSize="25dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -95,7 +98,7 @@
                 <TextView android:id="@+id/tv_m5"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="25sp"
+                    android:textSize="25dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -105,7 +108,7 @@
                 <TextView android:id="@+id/tv_m6"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="25sp"
+                    android:textSize="25dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -114,11 +117,12 @@
                     android:fontFamily="@font/stephia"/>
             </TableRow>
 
-            <TableRow>
+            <TableRow
+                android:gravity="center">
                 <TextView android:id="@+id/tv_m1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="25sp"
+                    android:textSize="25dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -128,7 +132,7 @@
                 <TextView android:id="@+id/tv_m2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="25sp"
+                    android:textSize="25dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -138,7 +142,7 @@
                 <TextView android:id="@+id/tv_m3"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="25sp"
+                    android:textSize="25dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -147,11 +151,12 @@
                     android:fontFamily="@font/stephia"/>
             </TableRow>
 
-            <TableRow>
+            <TableRow
+                android:gravity="center">
                 <TextView android:id="@+id/tv_mClear"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -161,7 +166,7 @@
                 <TextView android:id="@+id/tv_m0"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -171,7 +176,7 @@
                 <TextView android:id="@+id/tv_mBack"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     android:textColor="#000"
                     android:gravity="center"
                     android:layout_margin="1dp"
@@ -189,7 +194,7 @@
             android:layout_gravity="center"
             android:text="@string/answer"
             android:textAllCaps="false"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:layout_margin="15dp"
             android:background="@drawable/button_design"
             android:fontFamily="@font/stephia"/>
@@ -198,49 +203,3 @@
 
 </RelativeLayout>
 
-
-    <!--<RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-                <RadioButton android:id="@+id/rb1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:buttonTint="#000"
-                    android:layout_margin="5dp"/>
-
-                <RadioButton android:id="@+id/rb2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:buttonTint="#000"
-                    android:layout_margin="5dp"/>
-
-                <RadioButton android:id="@+id/rb3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:buttonTint="#000"
-                    android:layout_margin="5dp"/>
-
-                <RadioButton android:id="@+id/rb4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:buttonTint="#000"
-                    android:layout_margin="5dp"/>
-
-            </RadioGroup>
-
-            <Button android:id="@+id/mathAnswerBtn"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:text="@string/answer"
-                android:textAllCaps="false"
-                android:textSize="17sp"
-                android:layout_margin="15dp"
-                android:background="@drawable/button_design"/>-->

@@ -86,6 +86,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     View dialogView;
 
+    Animation scaleUp;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +112,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         dialogView = getLayoutInflater().inflate(R.layout.level_dialog, null);
         builder.setView(dialogView).setCancelable(false);
         ImageView imageView = dialogView.findViewById(R.id.level_source);
-        Animation scaleUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.level_scale_up);
+        scaleUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.level_scale_up);
         switch (level)
         {
             case "Easy":
@@ -163,7 +165,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         imageRoulette.setCameraDistance(distanceRoulette);
         bonusRoulette.setCameraDistance(distanceBonus);
         round = findViewById(R.id.round);
-        round.setText(getString(R.string.round) + " " + "1");
+        round.setText(getString(R.string.round) + " 1 " + getResources().getString(R.string.out_of) + " 10");
+
         score = findViewById(R.id.score);
         score.setText(getString(R.string.score) + " " + "0");
         spinBtn = findViewById(R.id.spinBtn);
@@ -327,18 +330,23 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         {
             case 0:
                 imageView.setImageResource(R.drawable.plus_100);
+                playSound(R.raw.yahoo);
                 break;
             case 1:
                 imageView.setImageResource(R.drawable.zero_score);
+                playSound(R.raw.wrong_answer);
                 break;
             case 2:
                 imageView.setImageResource(R.drawable.extra_life);
+                playSound(R.raw.yahoo);
                 break;
             case 3:
                 imageView.setImageResource(R.drawable.minus_100);
+                playSound(R.raw.wrong_answer);
                 break;
             case 4:
                 imageView.setImageResource(R.drawable.double_score);
+                playSound(R.raw.yahoo);
                 break;
         }
         final AlertDialog dialog = builder.show();
@@ -520,7 +528,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }
 
             if (answers.get(tmp).length() > 10){
-                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
                 //btn[i].setHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics()));
                 //btn[i].setWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics()));
             }
@@ -581,7 +589,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }
             btn[i].setText(answers.get(tmp));
             if (answers.get(tmp).length() > 10){
-                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
             }
             answers.set(tmp, "");
         }
@@ -658,12 +666,12 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         for(int i=0;i<question_size;i++){
             TextView tmp = new TextView(dialogView.getContext());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
+                    0,
+                    LinearLayout.LayoutParams.MATCH_PARENT, 1
             );
             params.setMargins(1,1,1,1);
             tmp.setLayoutParams(params);
-            tmp.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+            tmp.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
             tmp.setGravity(Gravity.CENTER);
             tmp.setBackground(getResources().getDrawable(R.drawable.words_design));
 
@@ -697,6 +705,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 @Override
                 public void onClick(View v) {
                     String tmp = ((TextView) v).getText().toString();
+                    System.out.println(blankIndex);
                     if(!tmp.equals("_")){
                         ((TextView) v).setText("_");
                         for(int j=0;j<14;j++){
@@ -743,9 +752,17 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         @Override
         public void onClick(View v) {
             if(blankIndex < blankSize){
+                for(int k = 0;k<blankSize;k++){
+                    if(answer_blank.get(k).getText().equals("_")){
+                        blankIndex = k;
+                        k=blankSize;
+                    }
+                }
                 String tmp = ((TextView) v).getText().toString();
-                answer_blank.get(blankIndex++).setText(tmp);
-                v.setVisibility(View.INVISIBLE);
+                if(answer_blank.get(blankIndex).getText().equals("_")) {
+                    answer_blank.get(blankIndex).setText(tmp);
+                    v.setVisibility(View.INVISIBLE);
+                }
             }
         }
     }
@@ -793,7 +810,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 timer.cancel();
                 timeLeftInMillis = temp;
                 if(roundsCounter <= NUM_OF_ROUNDS) {
-                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                    round.setText(getString(R.string.round) + " " + roundsCounter + " " + getResources().getString(R.string.out_of) + " 10");
                 }
                 score.setText(getString(R.string.score) + " " + scoreCounter);
                 if (roundsCounter > NUM_OF_ROUNDS || strikes == 0) {
@@ -831,7 +848,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                                 stopSound();
                                 playSound(R.raw.out_of_time);
                                 if(roundsCounter <= NUM_OF_ROUNDS) {
-                                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                                    round.setText(getString(R.string.round) + " " + roundsCounter + " " + getResources().getString(R.string.out_of) + " 10");
                                 }
                                 score.setText(getString(R.string.score) + " " + scoreCounter);
                                 strikes--;
@@ -863,7 +880,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 dialog.dismiss();
                 boardFlip();
                 if(roundsCounter <= NUM_OF_ROUNDS) {
-                    round.setText(getString(R.string.round) + " " + roundsCounter);
+                    round.setText(getString(R.string.round) + " " + roundsCounter + " " + getResources().getString(R.string.out_of) + " 10");
                 }
                 bonusLayout = findViewById(R.id.bonusLayout);
                 bonusLayout.setVisibility(View.VISIBLE);
@@ -888,9 +905,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 spinBonusBtn.startAnimation(animation);
                 leaveBtn.startAnimation(animation);
                 spinBtn.setEnabled(false);
-                playSound(R.raw.viva_las_vegas);
-                if(mediaPlayer != null) {
-                    mediaPlayer.setLooping(true);
+                if(!global.isMusicMute()) {
+                    playSound(R.raw.viva_las_vegas);
+                    if (mediaPlayer != null) {
+                        mediaPlayer.setLooping(true);
+                    }
                 }
                 Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.stephia);;
                 if (Locale.getDefault().toString().equals("iw_IL"))
@@ -1009,6 +1028,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 imageView.setImageResource(R.drawable.great);
                 break;
         }
+
         final AlertDialog dialog = builder.show();
         playSound(R.raw.right_answer);
         Handler handler = new Handler();
@@ -1046,6 +1066,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 imageView.setImageResource(R.drawable.improve);
                 break;
         }
+
         final AlertDialog dialog = builder.show();
         playSound(R.raw.wrong_answer);
         Handler handler = new Handler();
@@ -1057,7 +1078,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 dialog.dismiss();
 
             }
-        }, 4000);
+        }, 3000);
     }
 
     int calcScore(){
@@ -1086,7 +1107,6 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         else if (level.equals("Hard")){
             sndLvl = getResources().getString(R.string.hard);
         }
-        System.out.println(bitmap);
         UserInfo score = new UserInfo(bitmap, getIntent().getStringExtra("Name"), scoreCounter, sndLvl, dateFormat.format(now), timeFormat.format(now));
         size++;
         editor.putString(size.toString(), score.toString());
@@ -1109,6 +1129,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                     playAgain = dialogView.findViewById(R.id.playAgain);
                     mainMenu = dialogView.findViewById(R.id.mainMenu);
                     textView = dialogView.findViewById(R.id.score_strikes);
+
                     Typeface typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.stephia);;
                     if (Locale.getDefault().toString().equals("iw_IL"))
                     {
@@ -1154,7 +1175,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                         stopSound();
                         global.startMusic(PlayActivity.this);
                     }
-                }, 2000);
+                }, 2500);
 
                 if (buttons.getId() == R.id.easy_and_med_panel) {
                     nextLevel = dialogView.findViewById(R.id.nextLevel);
@@ -1240,14 +1261,16 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 }
             }, 4000);
         }
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                RelativeLayout container = findViewById(R.id.confetti);
-                CommonConfetti.rainingConfetti(container, new int[] { Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.GREEN, Color.BLUE, Color.RED })
-                        .infinite();
-            }
-        }, 2000);
+        if(strikes > 0){
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    RelativeLayout container = findViewById(R.id.confetti);
+                    CommonConfetti.rainingConfetti(container, new int[] { Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.GREEN, Color.BLUE, Color.RED })
+                            .infinite();
+                }
+            }, 2000);
+        }
     }
 
     @Override
@@ -1398,6 +1421,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         }
     }
 
+
     void heartsInvalidate(){
         if(strikes > 6){
             strikes = 6;
@@ -1415,6 +1439,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
 
     @Override
     public void onBackPressed() {
+        if(!blnButtonRotation){
+            return;
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this, R.style.CustomAlertDialog);
         dialogView = getLayoutInflater().inflate(R.layout.stop_game_layout, null);
         builder.setView(dialogView).setCancelable(false);
@@ -1453,6 +1480,9 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     @Override
     protected void onPause() {
         super.onPause();
+        if(mediaPlayer != null && mediaPlayer.isPlaying()){
+            mediaPlayer.pause();
+        }
          global.setAppPaused(true);
          global.pauseMusic();
     }
@@ -1461,6 +1491,11 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
     protected void onResume() {
         super.onResume();
         global.setAppPaused(false);
-        global.startMusic(this);
+        if(mediaPlayer != null){
+            mediaPlayer.start();
+        }
+        else {
+            global.startMusic(this);
+        }
     }
 }

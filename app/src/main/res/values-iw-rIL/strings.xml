@@ -255,7 +255,8 @@
     <string name="slide09">בסיום רמת קושי קל ובנוני תוכלו לנסות אתגר קשה יותר\nבסיום רמה קשה תוכלו לנסות לשבור את שיא השיאים</string>
     <string name="slide10">בקרו בטבלת השיאים ומצאו את עצמכם בין שחקני כל הזמנים</string>
     <string name="title01">מסך כניסה</string>
-    <string name="title02">לוח המשחק</string>
+    <string name="title02">תפריט ראשי</string>
+    <string name="title03">לוח המשחק</string>
     <string name="title04">שאלה מסוג 1</string>
     <string name="title05">שאלה מסוג 2</string>
     <string name="title06">שאלה מסוג 3</string>
@@ -263,4 +264,5 @@
     <string name="title08">לוח ההפתעה</string>
     <string name="title09">מסך סיום משחק</string>
     <string name="title10">טבלת שיאים</string>
+    <string name="out_of">מתוך</string>
 </resources>

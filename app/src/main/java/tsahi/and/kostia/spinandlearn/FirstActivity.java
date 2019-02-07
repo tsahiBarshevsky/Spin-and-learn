@@ -78,6 +78,9 @@ public class FirstActivity extends AppCompatActivity {
         enterBtn = findViewById(R.id.enter);
         name = findViewById(R.id.name);
         name.setText(userName);
+        if(userName.length() != 0){
+            name.setSelection(name.getText().length());
+        }
         exitBtn = findViewById(R.id.exit);
         userImage = findViewById(R.id.userImage);
         if(bitmap != null){
@@ -191,9 +194,7 @@ public class FirstActivity extends AppCompatActivity {
                         Intent intent = new Intent(Intent.ACTION_MAIN);
                         intent.addCategory(Intent.CATEGORY_HOME);
                         startActivity(intent);
-                        android.os.Process.killProcess(android.os.Process.myPid());
                         finishAffinity();
-                        System.exit(0);
                     }});
                 Button cancelBtn = dialogView.findViewById(R.id.cancle);
                 cancelBtn.setOnClickListener(new Button.OnClickListener() {
@@ -370,9 +371,7 @@ public class FirstActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 startActivity(intent);
-                android.os.Process.killProcess(android.os.Process.myPid());
                 finishAffinity();
-                System.exit(0);
             }});
         Button cancelBtn = dialogView.findViewById(R.id.cancle);
         cancelBtn.startAnimation(animation);
@@ -409,5 +408,11 @@ public class FirstActivity extends AppCompatActivity {
         super.onResume();
         global.setAppPaused(false);
         global.startMusic(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.exit(0);
     }
 }

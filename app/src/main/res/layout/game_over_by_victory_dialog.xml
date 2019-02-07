@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/confetti_dialog">
@@ -17,14 +18,15 @@
             android:layout_height="wrap_content"
             android:src="@drawable/game_over"
             android:layout_gravity="center"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            />
 
     </LinearLayout>
 
     <TextView android:id="@+id/score_vic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="35sp"
+        android:textSize="35dp"
         android:textColor="#FF0000"
         android:layout_margin="20dp"
         android:gravity="center"
@@ -51,7 +53,7 @@
             android:textAllCaps="false"
             android:background="@drawable/button_design"
             android:layout_margin="5dp"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/stephia"/>
 
         <Button android:id="@+id/nextLevel"
@@ -62,7 +64,7 @@
             android:textAllCaps="false"
             android:background="@drawable/button_design"
             android:layout_margin="5dp"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/stephia"/>
 
         <Button android:id="@+id/mainMenu"
@@ -73,7 +75,7 @@
             android:textAllCaps="false"
             android:background="@drawable/button_design"
             android:layout_margin="5dp"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/stephia"/>
 
     </LinearLayout>
@@ -95,7 +97,7 @@
             android:textAllCaps="false"
             android:background="@drawable/button_design"
             android:layout_margin="5dp"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/stephia"/>
 
         <Button android:id="@+id/mainMenuHard"
@@ -106,7 +108,7 @@
             android:textAllCaps="false"
             android:background="@drawable/button_design"
             android:layout_margin="5dp"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/stephia"/>
 
     </LinearLayout>

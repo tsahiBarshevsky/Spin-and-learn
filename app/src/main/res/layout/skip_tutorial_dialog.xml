@@ -9,19 +9,20 @@
         android:layout_height="wrap_content"
         android:text="@string/skip_tutorial"
         android:gravity="center"
-        android:textSize="25sp"
+        android:textSize="25dp"
         android:textColor="#000"
         android:layout_margin="20dp"
         android:fontFamily="@font/stephia"/>
 
     <LinearLayout android:id="@+id/bonusLayout"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/space"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         android:layout_marginTop="45dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginHorizontal="20dp">
 
         <Button android:id="@+id/ok"
             android:layout_width="110dp"
@@ -32,7 +33,7 @@
             android:background="@drawable/button_design"
             android:gravity="center"
             android:layout_gravity="center"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/stephia"/>
 
         <Button android:id="@+id/cancle"
@@ -44,7 +45,7 @@
             android:background="@drawable/button_design"
             android:gravity="center"
             android:layout_gravity="center"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:fontFamily="@font/stephia"/>
 
     </LinearLayout>
