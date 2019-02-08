@@ -91,7 +91,7 @@
     <string name="cancel">Отменить</string>
     <string name="skip_tutorial">Пропустить это объяснение?</string>
     <string name="quit">Вы уверены, что хотите выйти?</string>
-    <string name="stop_game">Вы уверены, что хотите закончить текущую игру?\nВаш счет не будет сохранена!</string>
+    <string name="stop_game">Вы уверены, что хотите закончить текущую игру?\nВаш счет не будет сохранен!</string>
     <string name="change_player">Сменить Игрока</string>
     <string name="sound_on">Звук Работает</string>
     <string name="sound_off">Звук Не Работает</string>
