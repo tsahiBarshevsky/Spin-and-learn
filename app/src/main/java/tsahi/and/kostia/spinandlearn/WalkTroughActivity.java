@@ -127,7 +127,7 @@ public class WalkTroughActivity extends AppIntro {
         Typeface typeface = ResourcesCompat.getFont(this, R.font.stephia);;
         if (Locale.getDefault().toString().equals("iw_IL"))
         {
-            typeface = ResourcesCompat.getFont(this, R.font.dana);
+            typeface = ResourcesCompat.getFont(this, R.font.abraham);
         }
         else if(Locale.getDefault().toString().equals("ru_RU")){
             typeface = ResourcesCompat.getFont(this, R.font.wagnasty);

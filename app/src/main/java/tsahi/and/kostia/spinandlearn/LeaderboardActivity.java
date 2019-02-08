@@ -107,7 +107,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         Typeface typeface = ResourcesCompat.getFont(LeaderboardActivity.this, R.font.stephia);;
         if (Locale.getDefault().toString().equals("iw_IL"))
         {
-            typeface = ResourcesCompat.getFont(LeaderboardActivity.this, R.font.dana);
+            typeface = ResourcesCompat.getFont(LeaderboardActivity.this, R.font.abraham);
         }
         else if(Locale.getDefault().toString().equals("ru_RU")){
             typeface = ResourcesCompat.getFont(LeaderboardActivity.this, R.font.wagnasty);

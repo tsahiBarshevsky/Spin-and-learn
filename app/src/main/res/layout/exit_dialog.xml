@@ -21,8 +21,7 @@
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         android:layout_marginTop="45dp"
-        android:gravity="center"
-        android:layout_margin="20dp">
+        android:gravity="center">
 
         <Button android:id="@+id/ok"
             android:layout_width="110dp"

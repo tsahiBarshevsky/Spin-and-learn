@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:text="@string/title04"
             android:id="@+id/title00"
-            android:fontFamily="@font/dana"
+            android:fontFamily="@font/abraham"
             android:gravity="center"
             android:layout_gravity="top"
             android:textSize="40dp"/>
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="@string/slide04"
             android:id="@+id/slide00"
-            android:fontFamily="@font/dana"
+            android:fontFamily="@font/abraham"
             android:gravity="center"
             android:layout_gravity="bottom"
             android:textSize="25dp"
