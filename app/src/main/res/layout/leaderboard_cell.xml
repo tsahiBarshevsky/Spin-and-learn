@@ -8,8 +8,8 @@
     app:contentPadding="10dp"
     app:elevation="15dp"
     app:cardCornerRadius="10dp"
-    android:orientation="horizontal">
-
+    android:orientation="horizontal"
+    app:cardBackgroundColor="#BC95CAF5">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
         <TextView android:id="@+id/userNameCardCell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="#000"
             android:fontFamily="@font/stephia"
             android:layout_gravity="center" />
@@ -48,11 +48,10 @@
             <TextView android:id="@+id/userLevelCardCell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:textColor="#000"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/stephia"
-
                 android:layout_gravity="center"/>
 
         </LinearLayout>
@@ -65,24 +64,22 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:text="@string/score"
                 android:textColor="#000"
                 android:layout_marginTop="5dp"
                 android:paddingEnd="5dp"
                 android:paddingStart="5dp"
                 android:fontFamily="@font/stephia"
-
                 android:layout_gravity="center"/>
 
             <TextView android:id="@+id/userScoreCardCell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textColor="#000"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/stephia"
-
                 android:layout_gravity="center"/>
 
         </LinearLayout>
@@ -99,21 +96,19 @@
             <TextView android:id="@+id/userDateCardCell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textColor="#000"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/stephia"
-
                 android:layout_gravity="center"/>
 
             <TextView android:id="@+id/userTimeCardCell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textColor="#000"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/stephia"
-
                 android:layout_gravity="center"/>
 
     </LinearLayout>
