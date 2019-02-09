@@ -15,4 +15,9 @@
         android:fontWeight="400"
         android:font="@font/wagnasty"/>
 
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/abraham"/>
+
 </font-family>

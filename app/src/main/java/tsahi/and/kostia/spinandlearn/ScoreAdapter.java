@@ -29,7 +29,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewHol
     public class ScoreViewHolder extends RecyclerView.ViewHolder
     {
         CircleImageView imageView;
-        TextView nameTV, scoreTV, levelTV, dateTV, timeTV;
+        TextView nameTV, scoreTV, levelTV, dateTV, timeTV, titleTV;
 
         public ScoreViewHolder(View itemView) {
             super(itemView);
@@ -39,11 +39,12 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewHol
             levelTV = itemView.findViewById(R.id.userLevelCardCell);
             dateTV = itemView.findViewById(R.id.userDateCardCell);
             timeTV = itemView.findViewById(R.id.userTimeCardCell);
+            titleTV = itemView.findViewById(R.id.userScoreTitle);
 
             Typeface typeface = ResourcesCompat.getFont(context, R.font.stephia);;
             if (Locale.getDefault().toString().equals("iw_IL"))
             {
-                typeface = ResourcesCompat.getFont(context, R.font.dana);
+                typeface = ResourcesCompat.getFont(context, R.font.abraham);
             }
             else if(Locale.getDefault().toString().equals("ru_RU")){
                 typeface = ResourcesCompat.getFont(context, R.font.wagnasty);
@@ -53,7 +54,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewHol
                 levelTV.setTypeface(typeface);
                 dateTV.setTypeface(typeface);
                 timeTV.setTypeface(typeface);
-
+                titleTV.setTypeface(typeface);
         }
     }
 

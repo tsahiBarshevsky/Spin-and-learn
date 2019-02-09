@@ -99,7 +99,7 @@ public class FirstActivity extends AppCompatActivity {
         Typeface typeface = ResourcesCompat.getFont(this, R.font.stephia);;
         if (Locale.getDefault().toString().equals("iw_IL"))
         {
-            typeface = ResourcesCompat.getFont(this, R.font.dana);
+            typeface = ResourcesCompat.getFont(this, R.font.abraham);
             man.setAnimation(slideRight);
         }
         else if(Locale.getDefault().toString().equals("ru_RU")){
@@ -208,7 +208,7 @@ public class FirstActivity extends AppCompatActivity {
                 Typeface typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.stephia);;
                 if (Locale.getDefault().toString().equals("iw_IL"))
                 {
-                    typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.dana);
+                    typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.abraham);
                 }
                 else if(Locale.getDefault().toString().equals("ru_RU")){
                     typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.wagnasty);
@@ -383,7 +383,7 @@ public class FirstActivity extends AppCompatActivity {
         Typeface typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.stephia);;
         if (Locale.getDefault().toString().equals("iw_IL"))
         {
-            typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.dana);
+            typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.abraham);
         }
         else if(Locale.getDefault().toString().equals("ru_RU")){
             typeface = ResourcesCompat.getFont(FirstActivity.this, R.font.wagnasty);
