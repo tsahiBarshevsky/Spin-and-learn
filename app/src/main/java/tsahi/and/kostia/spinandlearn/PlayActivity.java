@@ -413,6 +413,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
         questionTimer();
         answer_btn.setOnClickListener(new answerBtnClickListener());
         for(int i=0;i<12;i++){
+            pad[i].setHapticFeedbackEnabled(true);
+            pad[i].performHapticFeedback(CONTEXT_CLICK);
             pad[i].setOnClickListener(new mathBtnClickListener());
         }
         Typeface typeface = ResourcesCompat.getFont(this, R.font.stephia);;
