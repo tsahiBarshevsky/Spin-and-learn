@@ -498,7 +498,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             }
 
             if (answers.get(tmp).length() > 10){
-                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
+                btn[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
                 //btn[i].setHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics()));
                 //btn[i].setWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics()));
             }
@@ -627,7 +627,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             );
             params.setMargins(1,1,1,1);
             tmp.setLayoutParams(params);
-            tmp.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
+            tmp.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
             tmp.setGravity(Gravity.CENTER);
             tmp.setBackground(getResources().getDrawable(R.drawable.words_design));
 
@@ -1171,6 +1171,10 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 if (Locale.getDefault().toString().equals("iw_IL"))
                 {
                     typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.abraham);
+                    playAgain.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
+                    mainMenu.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
+                    if (nextLevel != null)
+                        nextLevel.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
                 }
                 else if(Locale.getDefault().toString().equals("ru_RU")){
                     typeface = ResourcesCompat.getFont(PlayActivity.this, R.font.wagnasty);
