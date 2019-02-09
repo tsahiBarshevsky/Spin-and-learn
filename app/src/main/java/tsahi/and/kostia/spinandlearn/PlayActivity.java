@@ -40,6 +40,8 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static android.view.HapticFeedbackConstants.CONTEXT_CLICK;
 import static java.lang.Math.floor;
 
 public class PlayActivity extends AppCompatActivity implements Animation.AnimationListener{
@@ -608,6 +610,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
                 tmp = (int)(Math.random()*14);
             }
             letter[i].setText(letterBank.get(tmp).toString());
+            letter[i].setHapticFeedbackEnabled(true);
+            letter[i].performHapticFeedback(CONTEXT_CLICK);
             letterBank.set(tmp, '0');
         }
         answer_blank = new ArrayList<>();
@@ -625,6 +629,7 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             tmp.setGravity(Gravity.CENTER);
             tmp.setBackground(getResources().getDrawable(R.drawable.words_design));
 
+
             Typeface typeface = ResourcesCompat.getFont(this, R.font.stephia);;
             if (Locale.getDefault().toString().equals("iw_IL"))
             {
@@ -638,6 +643,8 @@ public class PlayActivity extends AppCompatActivity implements Animation.Animati
             tmp.setText(((Character)question.charAt(i)).toString());
             if(question.charAt(i) == '_'){
                 tmp.setBackground(getResources().getDrawable(R.drawable.word_design_answer));
+                tmp.setHapticFeedbackEnabled(true);
+                tmp.performHapticFeedback(CONTEXT_CLICK);
                 answer_blank.add(tmp);
             }
             answer_container.addView(tmp);
